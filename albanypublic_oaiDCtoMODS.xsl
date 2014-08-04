@@ -10,7 +10,8 @@
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:coverage" mode="p16694coll26"/>
       
-      <xsl:if test="normalize-space(dc:creator) != 'unknown'">
+      <!-- Albany used 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
