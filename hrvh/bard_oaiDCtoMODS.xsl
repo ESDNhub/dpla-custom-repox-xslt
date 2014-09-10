@@ -24,7 +24,7 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <xsl:apply-templates select="dc:format" mode="bard"/>
+      <xsl:apply-templates select="dc:format" mode="hrvh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
@@ -53,17 +53,4 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
-
-
-  <xsl:template match="dc:format" mode="bard">
-    <xsl:variable name="tokens" select="tokenize(., ';')"/>
-    <!-- check to see if more than one item in 'array' -->
-    <xsl:if test="normalize-space($tokens[2]) != ''">
-      <physicalDescription>
-        <form><xsl:value-of select="normalize-space($tokens[1])"></xsl:value-of></form>
-        <extent><xsl:value-of select="normalize-space($tokens[2])"/></extent>
-      </physicalDescription>
-    </xsl:if>
-  </xsl:template>
-  
 </xsl:stylesheet>

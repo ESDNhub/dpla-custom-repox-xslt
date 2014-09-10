@@ -24,9 +24,7 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="fdr"/>
-      </physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
@@ -55,17 +53,4 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
-
-
-  <xsl:template match="dc:format" mode="fdr">
-    <xsl:for-each select=".">
-      <xsl:for-each select="tokenize(., ';')">
-      <xsl:variable name="sourcevalue" select="."/>
-      <xsl:if test="normalize-space($sourcevalue) != ''">
-        <form><xsl:value-of select="normalize-space($sourcevalue)"/></form>
-      </xsl:if>
-    </xsl:for-each>
-    </xsl:for-each>
-  </xsl:template>
-  
 </xsl:stylesheet>
