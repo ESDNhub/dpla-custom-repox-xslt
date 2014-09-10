@@ -24,9 +24,7 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:source" mode="wilderstein"/>
-      </physicalDescription>
+      <!-- <xsl:apply-templates select="dc:source" mode="wilderstein"/> -->
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
@@ -55,8 +53,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
-
-
   <xsl:template match="dc:source" mode="wilderstein">
     <xsl:for-each select=".">
       <xsl:variable name="sourcevalue" select="."/>
