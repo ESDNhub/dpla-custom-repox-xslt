@@ -45,4 +45,29 @@
         </xsl:for-each>
     </xsl:template>
     
+    <!-- HRVH are inconsistent wrt to number of delimited items in format string.
+    Sometimes there are 1, sometimes 2, sometimes 3. Get token count and output
+    based on that. -->
+    <xsl:template match="dc:format" mode="hrvh">
+        <xsl:variable name="tokens" select="tokenize(., ';')"/>
+        <xsl:variable name="tct" select="count($tokens)"/>
+        <xsl:if test="$tct > 1">
+            <physicalDescription>
+                <xsl:choose>
+                    <xsl:when test="$tct = 3">
+                        <!-- put the delimiter back when constructing the value.
+            concat nicely takes variable number of args, so no need to
+            create hideous nested calls. -->
+                        <form><xsl:value-of select="concat(normalize-space($tokens[1]), '; ', normalize-space($tokens[2]))"></xsl:value-of></form>
+                        <extent><xsl:value-of select="normalize-space($tokens[3])"/></extent>
+                    </xsl:when>
+                    <xsl:when test="$tct = 2">
+                        <form><xsl:value-of select="normalize-space($tokens[1])"></xsl:value-of></form>
+                        <extent><xsl:value-of select="normalize-space($tokens[2])"/></extent>
+                    </xsl:when>
+                    <xsl:otherwise/>
+                </xsl:choose>    
+            </physicalDescription>
+        </xsl:if>
+    </xsl:template>
 </xsl:stylesheet>

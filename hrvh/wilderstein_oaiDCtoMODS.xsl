@@ -8,7 +8,7 @@
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
       
-      <!-- Wilderstein used 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      <!-- HRVH uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
@@ -54,7 +54,7 @@
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
-  <!-- Wilderstein-specific templates start here -->  
+  <!-- collection-specific templates start here -->  
 
 
   <xsl:template match="dc:source" mode="wilderstein">

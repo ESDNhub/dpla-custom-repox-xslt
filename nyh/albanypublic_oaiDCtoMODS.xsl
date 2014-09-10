@@ -160,6 +160,6 @@
       <!-- end CONTENTdm thumbnail url processing -->           
     </xsl:if>
   </xsl:template>
-  <!-- end of collection-specific templates -->
+  <!-- collection-specific templates -->
   
 </xsl:stylesheet>

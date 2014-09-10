@@ -1,2 +1,9 @@
+*.bak
 oaiDCtoMODS_cdm6.5.xsl
 oaiDCtoMODS_cdmbase.xsl
+./hrvh/esdn_templates.xsl
+./hrvh/oaiDCtoMODS_cdm6.5.xsl
+./hrvh/oaiDCtoMODS_cdmbase.xsl
+./nyh/esdn_templates.xsl
+./nyh/oaiDCtoMODS_cdm6.5.xsl
+./nyh/oaiDCtoMODS_cdmbase.xsl
