@@ -27,7 +27,9 @@
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="als"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter" select="';'"/>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
       
@@ -68,12 +70,6 @@
       </xsl:if>
     </xsl:for-each>      
   </xsl:template>
-  
-  <xsl:template match="dc:source" mode="als">
-    <xsl:variable name="quote_delim" select="tokenize(., ';')"/> 
-    <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
-    <form><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></form>
-  </xsl:template>
-  
+
 </xsl:stylesheet>
 

@@ -31,7 +31,6 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="app4thlaw"/>
-          <xsl:apply-templates select="dc:format"/>
         </physicalDescription>
       </xsl:if>
       
@@ -77,7 +76,7 @@
     <xsl:variable name="quote_delim" select="tokenize(., '&quot;')"/> 
     <extent><xsl:value-of select="$quote_delim[1]"/>&quot;<xsl:value-of select="$quote_delim[2]"/>&quot;</extent>
     <xsl:variable name="capitalized" select="concat(upper-case(substring($quote_delim[3], 2, 1)), substring($quote_delim[3], 3))"/>
-    <format><xsl:value-of select="normalize-space($capitalized)"/></format>
+    <form><xsl:value-of select="normalize-space($capitalized)"/></form>
   </xsl:template>
   
 </xsl:stylesheet>

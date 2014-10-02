@@ -32,7 +32,9 @@
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="bpl"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter" select="';'"/>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
       

@@ -23,9 +23,11 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      
-      <xsl:apply-templates select="dc:format"/>
-      
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <form><xsl:value-of select="normalize-space(dc:source)"/></form>
+        </physicalDescription>
+      </xsl:if>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>

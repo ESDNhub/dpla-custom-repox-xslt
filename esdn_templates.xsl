@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
 
+    <xsl:template match="dc:source" mode="esdn">
+        <xsl:param name="delimiter"/>
+        <xsl:variable name="delim_list" select="tokenize(., $delimiter)"/> 
+        <xsl:variable name="quote_len" select="count($delim_list)"/>
+        <xsl:choose>
+            <xsl:when test="$quote_len = 3">
+                <extent><xsl:value-of select="normalize-space($delim_list[3])"/></extent>
+                <form><xsl:value-of select="$delim_list[1]"/><xsl:value-of select="$delimiter"/><xsl:value-of select="$delim_list[2]"/></form>
+            </xsl:when>
+            <xsl:when test="$quote_len = 2">
+                <extent><xsl:value-of select="normalize-space($delim_list[2])"/></extent>
+                <form><xsl:value-of select="$delim_list[1]"/></form>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- too many values, just dump contents -->
+                <form><xsl:value-of select="."/></form>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="dc:type" mode="esdn">
         <!-- we override this template to provide a more complete typeOfResource element
       more closely conforming to the standard -->

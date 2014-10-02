@@ -33,9 +33,6 @@
         </physicalDescription>
       </xsl:if>
       
-      
-      <xsl:apply-templates select="dc:format"/>
-      
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>

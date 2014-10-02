@@ -27,7 +27,6 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="aiha"/>
-          <xsl:apply-templates select="dc:format"/>
         </physicalDescription>
       </xsl:if>
       
@@ -70,9 +69,7 @@
   </xsl:template>
   
   <xsl:template match="dc:source" mode="aiha">
-    <xsl:variable name="quote_delim" select="tokenize(., ';')"/> 
-    <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
-    <format><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></format>
+    <form><xsl:value-of select="."/></form>
   </xsl:template>
   
 </xsl:stylesheet>

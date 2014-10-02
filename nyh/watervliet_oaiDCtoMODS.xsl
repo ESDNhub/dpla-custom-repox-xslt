@@ -25,7 +25,6 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="xgy"/>
-          <xsl:apply-templates select="dc:format"/>
         </physicalDescription>
       </xsl:if>
       
@@ -70,10 +69,9 @@
   <xsl:template match="dc:source" mode="xgy">
     <xsl:variable name="commaed" select="replace(., ';', ',')"/>
     <xsl:variable name="quote_delim" select="tokenize($commaed, ',')"/> 
-    <xsl:variable name="capitalized" select="concat(upper-case(substring($quote_delim[3], 2, 1)), substring($quote_delim[3], 3))"/>
     <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
-    <format><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></format>
+    <form><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></form>
   </xsl:template>
-  
+
 </xsl:stylesheet>
 
