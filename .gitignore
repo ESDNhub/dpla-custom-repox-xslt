@@ -9,3 +9,5 @@ oaiDCtoMODS_cdmbase.xsl
 ./nyh/oaiDCtoMODS_cdmbase.xsl
 
 nyh/esdn_templates.xsl
+
+hrvh/esdn_templates.xsl

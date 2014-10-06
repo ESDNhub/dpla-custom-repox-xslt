@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
 
+    <xsl:template match="dc:date" mode="time-span">
+        <xsl:variable name="date_parts" select="tokenize(., '-')"/>
+        <xsl:variable name="parts_length" select="count($date_parts)"/>
+        <xsl:choose>
+            <xsl:when test="$parts_length = 3">
+                <xsl:choose>
+                    <xsl:when test="contains(., '?')">
+                        <dateCreated keyDate="yes" qualifier="questionable"><xsl:value-of select="."/></dateCreated>                      
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>                                              
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$parts_length = 2">
+                <xsl:choose>
+                <xsl:when test="string-length($date_parts[2]) >= 4">
+                    <xsl:choose>
+                        <xsl:when test="contains($date_parts[1], '?')">
+                            <dateCreated keyDate="yes" point="start" qualifier="questionable"><xsl:value-of select="$date_parts[1]"/></dateCreated>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <dateCreated keyDate="yes" point="start"><xsl:value-of select="$date_parts[1]"/></dateCreated>                  
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="contains($date_parts[2], '?')">
+                            <dateCreated point="end" qualifier="questionable"><xsl:value-of select="$date_parts[2]"/></dateCreated>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <dateCreated point="end"><xsl:value-of select="$date_parts[2]"/></dateCreated>                  
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>
+                </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="contains(., '?')">
+                        <dateCreated keyDate="yes" qualifier="questionable"><xsl:value-of select="."/></dateCreated>               
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>               
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="dc:source" mode="esdn">
         <xsl:param name="delimiter"/>
         <xsl:variable name="delim_list" select="tokenize(., $delimiter)"/> 
