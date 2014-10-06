@@ -13,7 +13,7 @@
       </xsl:if>
       
       <originInfo>
-        <xsl:apply-templates select="dc:date"/>
+        <xsl:apply-templates select="dc:date" mode="time-span"/>
       </originInfo>
       
       <xsl:apply-templates select="dc:description"/>

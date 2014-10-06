@@ -14,7 +14,7 @@
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
+          <xsl:apply-templates select="dc:date" mode="livpub01"/>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
           </xsl:if>
@@ -70,6 +70,31 @@
         </name> 
       </xsl:if>
     </xsl:for-each>      
+  </xsl:template>
+  
+  <xsl:template match="dc:date" mode="livpub01">
+    <xsl:variable name="date_list" select="tokenize(., ';')"/>
+    <xsl:variable name="list_length" select="count($date_list)"/>
+    <xsl:choose>
+      <xsl:when test="$list_length > 1">
+        <dateCreated keyDate="yes" point="start">
+          <xsl:if test="contains($date_list[1], '?')">
+            <xsl:attribute name="qualifier">questionable</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="normalize-space($date_list[1])"/>
+        </dateCreated>
+        
+        <dateCreated point="end">
+          <xsl:if test="contains($date_list[$list_length], '?')">
+            <xsl:attribute name="qualifier">questionable</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="normalize-space($date_list[$list_length])"/>
+        </dateCreated>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="." mode="time-span"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template match="dc:source" mode="livpub01">

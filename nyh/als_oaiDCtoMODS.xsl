@@ -14,7 +14,7 @@
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
+          <xsl:apply-templates select="dc:date" mode="time-span"/>
           <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
       </xsl:if>
