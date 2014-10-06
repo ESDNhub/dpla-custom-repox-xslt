@@ -39,11 +39,14 @@
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:type" mode="p16694coll26"/>
+      <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <note type="ownership">Albany Public Library</note> <!-- owning institution -->
     </mods>
   </xsl:template>
+  
+  <!-- ESDN utility templates --> 
+  <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
@@ -75,75 +78,6 @@
     </xsl:for-each>
   </xsl:template>
   
-  <xsl:template match="dc:type" mode="p16694coll26">
-    <!-- we override this template to provide a more complete typeOfResource element
-      more closely conforming to the standard -->
-      <!-- always tokenize, since we sometimes get single values with a delimiter -->
-      <xsl:for-each select="tokenize(., ';')">
-        <!-- check for empty element -->
-        <xsl:if test="normalize-space(.) != ''">
-          <xsl:variable name="dc-type" select="normalize-space(.)" />
-          <typeOfResource>
-            <xsl:choose>
-              <xsl:when test="$dc-type='Collection'">
-                <xsl:attribute name="collection">yes</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Dataset'">
-                <xsl:text>software, multimedia</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Image'">
-                <xsl:text>still image</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Moving Image'">
-                <xsl:text>moving image</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Still Image'">
-                <xsl:text>still image</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'InteractiveResource'">
-                <xsl:text>software, multimedia</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'PhysicalObject'">
-                <xsl:text>three-dimensional object</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Service'">
-                <xsl:text>software, multimedia</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Sound'">
-                <xsl:text>sound recording</xsl:text>
-              </xsl:when>
-              <xsl:when test="$dc-type = 'Text'">
-                <xsl:text>text</xsl:text>
-              </xsl:when>
-              <xsl:otherwise/>
-            </xsl:choose>
-          </typeOfResource>
-          <xsl:call-template name="mods-genre" >
-            <xsl:with-param name="dc_type" select="$dc-type" />
-          </xsl:call-template>
-        </xsl:if>
-      </xsl:for-each>
-  </xsl:template>
-  
-  <xsl:template name="mods-genre">
-    <xsl:param name="dc_type"/>
-    <xsl:choose>
-      <xsl:when test="$dc_type = 'Dataset'">
-        <genre type="dct">dataset</genre>
-      </xsl:when>
-      <xsl:when test="$dc_type = 'Image'">
-        <genre type="dct">image</genre>
-      </xsl:when>
-      <xsl:when test="$dc_type = 'InteractiveResource'">
-        <genre type="dct">interactive resource</genre>
-      </xsl:when>
-      <xsl:when test="$dc_type = 'Service'">
-        <genre type="dct">service</genre>
-      </xsl:when>
-      <xsl:otherwise></xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
   <xsl:template match="dc:identifier" mode="p16694coll26">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
     <xsl:if test="starts-with($idvalue,'http')">
@@ -166,11 +100,22 @@
     <xsl:variable name="list_length" select="count($date_list)"/>
     <xsl:choose>
       <xsl:when test="$list_length > 1">
-        <dateCreated keyDate="yes" point="start"><xsl:value-of select="normalize-space($date_list[1])"/></dateCreated>
-        <dateCreated point="end"><xsl:value-of select="normalize-space($date_list[$list_length])"/></dateCreated>
+        <dateCreated keyDate="yes" point="start">
+          <xsl:if test="contains($date_list[1], '?')">
+          <xsl:attribute name="qualifier">questionable</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="normalize-space($date_list[1])"/>
+        </dateCreated>
+          
+        <dateCreated point="end">
+          <xsl:if test="contains($date_list[$list_length], '?')">
+            <xsl:attribute name="qualifier">questionable</xsl:attribute>
+          </xsl:if>
+            <xsl:value-of select="normalize-space($date_list[$list_length])"/>
+        </dateCreated>
       </xsl:when>
     <xsl:otherwise>
-      <dateCreated keyDate="yes"><xsl:value-of select="normalize-space($date_list[1])"/></dateCreated>
+      <xsl:apply-templates select="." mode="time-span"/>
     </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

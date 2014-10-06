@@ -6,49 +6,34 @@
         <xsl:variable name="parts_length" select="count($date_parts)"/>
         <xsl:choose>
             <xsl:when test="$parts_length = 3">
-                <xsl:choose>
-                    <xsl:when test="contains(., '?')">
-                        <dateCreated keyDate="yes" qualifier="questionable"><xsl:value-of select="."/></dateCreated>                      
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>                                              
-                    </xsl:otherwise>
-                </xsl:choose>
+               <dateCreated keyDate="yes">
+                   <xsl:if test="contains(., '?')">
+                       <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                   </xsl:if>
+                   <xsl:value-of select="."/>
+               </dateCreated>                                              
             </xsl:when>
             <xsl:when test="$parts_length = 2">
-                <xsl:choose>
-                <xsl:when test="string-length($date_parts[2]) >= 4">
-                    <xsl:choose>
-                        <xsl:when test="contains($date_parts[1], '?')">
-                            <dateCreated keyDate="yes" point="start" qualifier="questionable"><xsl:value-of select="$date_parts[1]"/></dateCreated>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <dateCreated keyDate="yes" point="start"><xsl:value-of select="$date_parts[1]"/></dateCreated>                  
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="contains($date_parts[2], '?')">
-                            <dateCreated point="end" qualifier="questionable"><xsl:value-of select="$date_parts[2]"/></dateCreated>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <dateCreated point="end"><xsl:value-of select="$date_parts[2]"/></dateCreated>                  
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <dateCreated keyDate="yes" point="start">
+                    <xsl:if test="contains($date_parts[1], '?')">
+                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$date_parts[1]"/>
+                </dateCreated>
+                <dateCreated point="end">
+                    <xsl:if test="contains($date_parts[2], '?')">
+                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$date_parts[2]"/>
+                </dateCreated>
                 </xsl:when>
-                <xsl:otherwise>
-                    <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>
-                </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
             <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="contains(., '?')">
-                        <dateCreated keyDate="yes" qualifier="questionable"><xsl:value-of select="."/></dateCreated>               
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <dateCreated keyDate="yes"><xsl:value-of select="."/></dateCreated>               
-                    </xsl:otherwise>
-                </xsl:choose>
+                <dateCreated keyDate="yes">
+                    <xsl:if test="contains(., '?')">
+                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="."/>
+                </dateCreated>               
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
