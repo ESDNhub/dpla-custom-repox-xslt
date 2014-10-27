@@ -1,3 +1,4 @@
+*.lnk
 *.bak
 oaiDCtoMODS_cdm6.5.xsl
 oaiDCtoMODS_cdmbase.xsl
