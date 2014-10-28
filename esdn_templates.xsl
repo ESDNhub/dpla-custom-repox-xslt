@@ -56,11 +56,15 @@
         <xsl:variable name="quote_len" select="count($delim_list)"/>
         <xsl:choose>
             <xsl:when test="$quote_len = 3">
-                <extent><xsl:value-of select="normalize-space($delim_list[3])"/></extent>
+                <xsl:if test="normalize-space($delim_list[3]) != ''">
+                    <extent><xsl:value-of select="normalize-space($delim_list[3])"/></extent>
+                </xsl:if>
                 <form><xsl:value-of select="$delim_list[1]"/><xsl:value-of select="$delimiter"/><xsl:value-of select="$delim_list[2]"/></form>
             </xsl:when>
             <xsl:when test="$quote_len = 2">
-                <extent><xsl:value-of select="normalize-space($delim_list[2])"/></extent>
+                <xsl:if test="normalize-space($delim_list[2]) != ''">
+                    <extent><xsl:value-of select="normalize-space($delim_list[2])"/></extent>
+                </xsl:if>
                 <form><xsl:value-of select="$delim_list[1]"/></form>
             </xsl:when>
             <xsl:otherwise>
