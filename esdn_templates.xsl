@@ -14,18 +14,30 @@
                </dateCreated>                                              
             </xsl:when>
             <xsl:when test="$parts_length = 2">
-                <dateCreated keyDate="yes" point="start">
-                    <xsl:if test="contains($date_parts[1], '?')">
-                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                    </xsl:if>
-                    <xsl:value-of select="$date_parts[1]"/>
-                </dateCreated>
-                <dateCreated point="end">
-                    <xsl:if test="contains($date_parts[2], '?')">
-                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                    </xsl:if>
-                    <xsl:value-of select="$date_parts[2]"/>
-                </dateCreated>
+                <xsl:choose>
+                    <xsl:when test="string-length($date_parts[2]) >= 4">
+                        <dateCreated keyDate="yes" point="start">
+                            <xsl:if test="contains($date_parts[1], '?')">
+                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="$date_parts[1]"/>
+                        </dateCreated>
+                        <dateCreated point="end">
+                            <xsl:if test="contains($date_parts[2], '?')">
+                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="$date_parts[2]"/>
+                        </dateCreated>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <dateCreated keyDate="yes">
+                            <xsl:if test="contains(., '?')">
+                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="."/>
+                        </dateCreated>
+                    </xsl:otherwise>
+                </xsl:choose>
                 </xsl:when>
             <xsl:otherwise>
                 <dateCreated keyDate="yes">
