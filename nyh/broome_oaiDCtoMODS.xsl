@@ -15,7 +15,7 @@
       <xsl:if test="normalize-space(dc:date[1]) != ''">      
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date[1])) != 'unknown'">
-            <xsl:apply-templates select="dc:date[1]" mode="time-span"/>
+            <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
           </xsl:if>
         </originInfo>
       </xsl:if>

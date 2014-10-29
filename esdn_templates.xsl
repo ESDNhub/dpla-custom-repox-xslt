@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
 
-    <xsl:template match="dc:date" mode="time-span">
+    <xsl:template match="dc:date" mode="esdn">
         <xsl:variable name="date_parts" select="tokenize(., '-')"/>
         <xsl:variable name="parts_length" select="count($date_parts)"/>
         <xsl:choose>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   <xsl:template match="text()|@*"/>
@@ -115,7 +115,7 @@
         </dateCreated>
       </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="." mode="time-span"/>
+      <xsl:apply-templates select="." mode="esdn"/>
     </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

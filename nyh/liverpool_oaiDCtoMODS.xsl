@@ -92,7 +92,7 @@
         </dateCreated>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="." mode="time-span"/>
+        <xsl:apply-templates select="." mode="esdn"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
