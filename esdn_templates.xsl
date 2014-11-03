@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
 
+    <xsl:template match="dc:coverage" mode="esdn">
+        <xsl:variable name="coveragevalue" select="normalize-space(.)"/>
+        <xsl:for-each select="tokenize($coveragevalue,';')">
+            <xsl:if test="normalize-space(.)!=''">
+                <xsl:choose>
+                    <!-- check to see if there are any numbers in this coverage value -->
+                    <xsl:when test='matches(.,"\d+")'>
+                        <xsl:choose>
+                            <!-- if numbers follow a coordinate pattern, it's probably geo data -->
+                            <xsl:when test='matches(.,"\d+\.\d+")'>
+                                <subject><cartographic><coordinates><xsl:value-of select="normalize-space(.)"/></coordinates></cartographic></subject> <!--coverage-->
+                            </xsl:when>
+                            <!-- if there's no coordinate pattern, it's probably temporal data; put it in <subject><topic> -->
+                            <xsl:otherwise>
+                                <subject><topic><xsl:value-of select="normalize-space(.)"/></topic></subject>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <!-- if there are no numbers, it's probably geo data --> 
+                    <xsl:otherwise>
+                        <subject><geographic><xsl:value-of select="normalize-space(.)"/></geographic></subject> <!--coverage-->
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>  
+    
     <xsl:template match="dc:date" mode="esdn">
         <xsl:variable name="date_parts" select="tokenize(., '-')"/>
         <xsl:variable name="parts_length" select="count($date_parts)"/>
