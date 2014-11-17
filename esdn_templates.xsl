@@ -57,12 +57,14 @@
                         </dateCreated>
                     </xsl:when>
                     <xsl:otherwise>
-                        <dateCreated keyDate="yes">
-                            <xsl:if test="contains(., '?')">
-                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                            </xsl:if>
-                            <xsl:value-of select="."/>
-                        </dateCreated>
+                        <xsl:if test="normalize-space(.)!='9999'">
+                            <dateCreated keyDate="yes">
+                                <xsl:if test="contains(., '?')">
+                                    <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                                </xsl:if>
+                                <xsl:value-of select="."/>
+                            </dateCreated>
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
                 </xsl:when>
