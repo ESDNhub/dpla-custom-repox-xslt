@@ -31,8 +31,8 @@
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-      <!-- hard code "New York" in subject/geographic -->
-      <subject><geographic>New York</geographic></subject>
+
+
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
