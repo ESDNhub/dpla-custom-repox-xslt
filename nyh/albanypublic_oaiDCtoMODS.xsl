@@ -17,7 +17,7 @@
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date" mode="p16694coll26"/>
+          <xsl:apply-templates select="dc:date" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
       </xsl:if>
@@ -95,30 +95,5 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="dc:date" mode="p16694coll26">
-    <xsl:variable name="date_list" select="tokenize(., ';')"/>
-    <xsl:variable name="list_length" select="count($date_list)"/>
-    <xsl:choose>
-      <xsl:when test="$list_length > 1">
-        <dateCreated keyDate="yes" point="start">
-          <xsl:if test="contains($date_list[1], '?')">
-          <xsl:attribute name="qualifier">questionable</xsl:attribute>
-          </xsl:if>
-          <xsl:value-of select="normalize-space($date_list[1])"/>
-        </dateCreated>
-          
-        <dateCreated point="end">
-          <xsl:if test="contains($date_list[$list_length], '?')">
-            <xsl:attribute name="qualifier">questionable</xsl:attribute>
-          </xsl:if>
-            <xsl:value-of select="normalize-space($date_list[$list_length])"/>
-        </dateCreated>
-      </xsl:when>
-    <xsl:otherwise>
-      <xsl:apply-templates select="." mode="esdn"/>
-    </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  <!-- collection-specific templates -->
-  
+  <!-- collection-specific templates -->  
 </xsl:stylesheet>
