@@ -13,7 +13,9 @@
       </xsl:if>
       
       <originInfo>
-        <xsl:apply-templates select="dc:date" mode="esdn"/>
+        <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
+          <xsl:apply-templates select="dc:date" mode="esdn"/>
+        </xsl:if>
       </originInfo>
       
       <xsl:apply-templates select="dc:description"/>
