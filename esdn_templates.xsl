@@ -164,6 +164,9 @@
                         <xsl:when test="$dc-type = lower-case('Text')">
                             <xsl:text>text</xsl:text>
                         </xsl:when>
+                        <xsl:when test="$dc-type = lower-case('DOCUMENT')">
+                            <xsl:text>text</xsl:text>
+                        </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
                 </typeOfResource>
