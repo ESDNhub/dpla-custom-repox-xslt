@@ -34,16 +34,16 @@
         <xsl:choose>
             <xsl:when test="$list_length > 1">
                 <dateCreated keyDate="yes" point="start">
-                    <xsl:if test="contains($date_list[1], '?')">
-                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                    </xsl:if>
+                    <xsl:call-template name="datequal">
+                        <xsl:with-param name="dateval" select="$date_list[1]"/>
+                    </xsl:call-template>
                     <xsl:value-of select="normalize-space($date_list[1])"/>
                 </dateCreated>
                 
                 <dateCreated point="end">
-                    <xsl:if test="contains($date_list[$list_length], '?')">
-                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                    </xsl:if>
+                    <xsl:call-template name="datequal">
+                        <xsl:with-param name="dateval" select="normalize-space($date_list[$list_length])"/>
+                    </xsl:call-template>
                     <xsl:value-of select="normalize-space($date_list[$list_length])"/>
                 </dateCreated>
             </xsl:when>
@@ -53,9 +53,9 @@
                 <xsl:choose>
                     <xsl:when test="$parts_length = 3">
                         <dateCreated keyDate="yes">
-                            <xsl:if test="contains(., '?')">
-                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                            </xsl:if>
+                            <xsl:call-template name="datequal">
+                                <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                            </xsl:call-template>
                             <xsl:value-of select="."/>
                         </dateCreated>                                              
                     </xsl:when>
@@ -63,25 +63,25 @@
                         <xsl:choose>
                             <xsl:when test="string-length($date_parts[2]) >= 4">
                                 <dateCreated keyDate="yes" point="start">
-                                    <xsl:if test="contains($date_parts[1], '?')">
-                                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                                    </xsl:if>
+                                    <xsl:call-template name="datequal">
+                                        <xsl:with-param name="dateval" select="normalize-space($date_parts[1])"/>
+                                    </xsl:call-template>
                                     <xsl:value-of select="$date_parts[1]"/>
                                 </dateCreated>
                                 <dateCreated point="end">
-                                    <xsl:if test="contains($date_parts[2], '?')">
-                                        <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                                    </xsl:if>
+                                    <xsl:call-template name="datequal">
+                                        <xsl:with-param name="dateval" select="normalize-space($date_parts[2])"/>
+                                    </xsl:call-template>
                                     <xsl:value-of select="$date_parts[2]"/>
                                 </dateCreated>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:if test="normalize-space(.)!='9999'">
                                     <dateCreated keyDate="yes">
-                                        <xsl:if test="contains(., '?')">
-                                            <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                                        </xsl:if>
-                                        <xsl:value-of select="."/>
+                                        <xsl:call-template name="datequal">
+                                            <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                                        </xsl:call-template>
+                                        <xsl:value-of select="./text()"/>
                                     </dateCreated>
                                 </xsl:if>
                             </xsl:otherwise>
@@ -89,15 +89,29 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <dateCreated keyDate="yes">
-                            <xsl:if test="contains(., '?')">
-                                <xsl:attribute name="qualifier">questionable</xsl:attribute>
-                            </xsl:if>
+                            <xsl:call-template name="datequal">
+                                <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                            </xsl:call-template>
                             <xsl:value-of select="."/>
                         </dateCreated>               
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    
+    <!-- determine qualifier attribute for date element. -->
+    <xsl:template name="datequal">
+        <xsl:param name="dateval"/>
+        <xsl:choose>
+            <xsl:when test="contains(lower-case($dateval), 'c')">
+                <xsl:attribute name="qualifier">approximate</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="contains($dateval, '?')">
+                <xsl:attribute name="qualifier">questionable</xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>        
     </xsl:template>
     
     <xsl:template match="dc:source" mode="esdn">
@@ -211,6 +225,14 @@
             <location><url access="preview"><xsl:value-of select="concat($contentdmroot,'/utils/getthumbnail/collection/',$alias,'/id/',$pointer)"/></url></location> <!--CONTENTdm thumbnail url-->
             <!-- end CONTENTdm thumbnail url processing -->           
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="owner-note">
+        <xsl:param name="owner"/>
+        <xsl:element name="note">
+            <xsl:attribute name="type">ownership</xsl:attribute>
+            <xsl:value-of select="$owner"/>
+        </xsl:element>
     </xsl:template>
     
 </xsl:stylesheet>
