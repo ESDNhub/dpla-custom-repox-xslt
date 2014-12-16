@@ -110,6 +110,9 @@
             <xsl:when test="contains($dateval, '?')">
                 <xsl:attribute name="qualifier">questionable</xsl:attribute>
             </xsl:when>
+            <xsl:when test="contains($dateval, '[')">
+                <xsl:attribute name="qualifier">inferred</xsl:attribute>
+            </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>        
     </xsl:template>
@@ -213,8 +216,6 @@
     <xsl:template match="dc:identifier" mode="esdn">
         <xsl:variable name="idvalue" select="normalize-space(.)"/>
         <xsl:if test="starts-with($idvalue,'http')">
-            <!-- add URL wrapped in simple identifier wrapper. We override the other template to add this one item. -->
-            <identifier><xsl:value-of select="$idvalue"/></identifier>
             <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
             <location><url usage="primary display" access="object in context"><xsl:value-of select="$idvalue"/></url></location> <!-- ref url-->          
             <!-- process identifier into CONTENTdm 6.5 thumbnail urls --> 
