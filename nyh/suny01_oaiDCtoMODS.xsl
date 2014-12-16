@@ -50,9 +50,10 @@
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
-      <note type="ownership">SUNY Upstate</note>
-     </mods>
+      <xsl:call-template name="owner-note">
+        <xsl:with-param name="owner">SUNY Upstate Medical University</xsl:with-param>
+      </xsl:call-template>
+    </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
