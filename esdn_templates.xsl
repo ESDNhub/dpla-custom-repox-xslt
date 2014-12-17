@@ -149,44 +149,59 @@
             <!-- check for empty element -->
             <xsl:if test="normalize-space(.) != ''">
                 <xsl:variable name="dc-type" select="lower-case(normalize-space(.))" />
-                <typeOfResource>
                     <xsl:choose>
                         <xsl:when test="$dc-type = lower-case('Collection')">
-                            <xsl:attribute name="collection">yes</xsl:attribute>
+                            <xsl:element name="typeOfResource">
+                                <xsl:attribute name="collection">yes</xsl:attribute>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('Dataset')">
-                            <xsl:text>software, multimedia</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>software, multimedia</xsl:text>
+                            </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Image')">
-                            <xsl:text>still image</xsl:text>
+                        <xsl:when test="starts-with($dc-type, lower-case('Image'))">
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>still image</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('Moving Image')">
-                            <xsl:text>moving image</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>moving image</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('Still Image')">
-                            <xsl:text>still image</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>still image</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('InteractiveResource')">
-                            <xsl:text>software, multimedia</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>software, multimedia</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('PhysicalObject')">
-                            <xsl:text>three-dimensional object</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>three-dimensional object</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('Service')">
-                            <xsl:text>software, multimedia</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>software, multimedia</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="$dc-type = lower-case('Sound')">
-                            <xsl:text>sound recording</xsl:text>
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>sound recording</xsl:text>
+                            </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Text')">
-                            <xsl:text>text</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('DOCUMENT')">
-                            <xsl:text>text</xsl:text>
+                        <xsl:when test="$dc-type = lower-case('Text') or $dc-type = lower-case('DOCUMENT')">
+                            <xsl:element name="typeOfResource">
+                                <xsl:text>text</xsl:text>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
-                </typeOfResource>
                 <xsl:call-template name="mods-genre" >
                     <xsl:with-param name="dc_type" select="$dc-type" />
                 </xsl:call-template>
@@ -200,7 +215,7 @@
             <xsl:when test="$dc_type = lower-case('Dataset')">
                 <genre type="dct">dataset</genre>
             </xsl:when>
-            <xsl:when test="$dc_type = lower-case('Image')">
+            <xsl:when test="starts-with($dc_type, lower-case('Image'))">
                 <genre type="dct">image</genre>
             </xsl:when>
             <xsl:when test="$dc_type = lower-case('InteractiveResource')">
