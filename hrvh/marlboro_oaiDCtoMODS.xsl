@@ -47,7 +47,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Newburgh Free Library</xsl:with-param>
+        <xsl:with-param name="owner">Marlboro Free Library</xsl:with-param>
       </xsl:call-template>
      </mods>
   </xsl:template>
