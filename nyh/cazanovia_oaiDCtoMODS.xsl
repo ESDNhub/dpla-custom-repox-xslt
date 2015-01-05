@@ -22,7 +22,7 @@
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Canastota Public Library</note>
+      <note type="ownership">Cazenovia College</note>
      </mods>
   </xsl:template>
   

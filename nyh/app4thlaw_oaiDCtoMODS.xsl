@@ -43,7 +43,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Appellate Division Fourth Department Law Library</note>
+      <note type="ownership">Appellate Division, Fourth Department Law Library</note>
      </mods>
   </xsl:template>
   

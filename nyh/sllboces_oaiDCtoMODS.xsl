@@ -37,7 +37,7 @@
         <xsl:apply-templates select="dc:type" mode="sllboces"/>
       </xsl:if>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">St. Lawrence-Lewis BOCES Collection</xsl:with-param>
+        <xsl:with-param name="owner">St. Lawrence-Lewis BOCES</xsl:with-param>
       </xsl:call-template>
     </mods>
   </xsl:template>

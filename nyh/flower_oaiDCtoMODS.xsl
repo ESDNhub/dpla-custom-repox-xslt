@@ -25,7 +25,7 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="flower"/>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Flower Memorial Library</xsl:with-param>
+        <xsl:with-param name="owner">Watertown Flower Memorial Library</xsl:with-param>
       </xsl:call-template>
     </mods>
   </xsl:template>

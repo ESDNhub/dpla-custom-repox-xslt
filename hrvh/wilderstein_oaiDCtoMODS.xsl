@@ -38,7 +38,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Wilderstein Preservation</note>
+      <note type="ownership">Wilderstein Historic Site</note>
      </mods>
   </xsl:template>
   

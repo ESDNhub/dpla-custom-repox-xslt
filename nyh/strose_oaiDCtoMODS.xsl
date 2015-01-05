@@ -49,7 +49,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Steinmetz Digital Collection of Schenectady</note>
+      <note type="ownership">The College of Saint Rose</note>
      </mods>
   </xsl:template>
   

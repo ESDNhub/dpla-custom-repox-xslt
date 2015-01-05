@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Erie Canal Museum</note>
+      <note type="ownership">The Erie Canal Museum</note>
      </mods>
   </xsl:template>
   

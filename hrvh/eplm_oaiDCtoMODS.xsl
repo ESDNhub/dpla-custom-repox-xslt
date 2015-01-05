@@ -42,7 +42,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code ownership note -->
-      <note type="ownership">Ellenville Public Library and Museum</note>
+      <note type="ownership">Ellenville Public Library &amp; Museum</note>
      </mods>
   </xsl:template>
   
