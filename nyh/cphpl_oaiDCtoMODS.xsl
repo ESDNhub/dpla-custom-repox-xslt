@@ -8,12 +8,12 @@
       <xsl:apply-templates select="dc:title"/>
       
       <!-- cphpl uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:creator)),'unknown'))">
         <xsl:apply-templates select="dc:creator" mode="cphpl"/>
       </xsl:if>
       
       <!-- cphpl uses 'unknown' for dc:contributor when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:contributor)),'unknown'))">
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
       
@@ -48,7 +48,9 @@
       <xsl:apply-templates select="dc:subject"/>
 
 
-      <xsl:apply-templates select="dc:coverage"/>
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:coverage)),'unknown'))">
+        <xsl:apply-templates select="dc:coverage"/>
+      </xsl:if>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <note type="ownership">Clifton Park-Halfmoon Public Library</note>

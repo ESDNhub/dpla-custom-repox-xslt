@@ -8,12 +8,12 @@
       <xsl:apply-templates select="dc:title"/>
       
       <!-- siena uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:creator)),'unknown'))">
         <xsl:apply-templates select="dc:creator" mode="siena"/>
       </xsl:if>
       
       <!-- siena uses 'unknown' for dc:contributor when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:contributor)),'unknown'))">
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
       
