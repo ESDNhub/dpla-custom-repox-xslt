@@ -7,7 +7,7 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       
-      <xsl:if test="normalize-space(dc:date) != ''">
+<!--      <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
             <xsl:apply-templates select="dc:date" mode="esdn"/>
@@ -15,7 +15,7 @@
         </originInfo>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:description"/>
+-->      <xsl:apply-templates select="dc:description"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
