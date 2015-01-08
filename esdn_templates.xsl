@@ -202,10 +202,10 @@
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
-                <xsl:call-template name="mods-genre" >
+<!--                <xsl:call-template name="mods-genre" >
                     <xsl:with-param name="dc_type" select="$dc-type" />
                 </xsl:call-template>
-            </xsl:if>
+-->            </xsl:if>
         </xsl:for-each>
     </xsl:template>
     
