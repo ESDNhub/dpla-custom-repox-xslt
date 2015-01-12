@@ -40,7 +40,7 @@
       
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
       <xsl:apply-templates select="dc:coverage"/>
-      <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:type" mode="scpl"/>
       
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Scarsdale Public Library</xsl:with-param>
@@ -61,4 +61,13 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
+  <xsl:template match="dc:type" mode="scpl">
+      <xsl:for-each select="tokenize(., ';')">
+        <xsl:if test="lower-case(normalize-space(.))='still image'">
+          <xsl:element name="typeOfResource">
+            <xsl:value-of select="normalize-space(lower-case(.))"/>
+          </xsl:element>
+        </xsl:if>
+      </xsl:for-each>
+  </xsl:template>
 </xsl:stylesheet>
