@@ -29,18 +29,27 @@
     </xsl:template>  
         
     <xsl:template match="dc:date" mode="esdn">
-        <xsl:variable name="date_list" select="tokenize(., ';')"/>
+        <xsl:call-template name="date-to-mods">
+            <xsl:with-param name="dateval">
+                <xsl:value-of select="normalize-space(.)"/>                    
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+        
+    <xsl:template name="date-to-mods">
+        <xsl:param name="dateval"/>
+        <xsl:variable name="date_list" select="tokenize($dateval, ';')"/>
         <xsl:variable name="list_length" select="count($date_list)"/>
         <xsl:choose>
             <xsl:when test="$list_length > 1">
-                <dateCreated keyDate="yes" point="start">
+                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="start">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="$date_list[1]"/>
                     </xsl:call-template>
                     <xsl:value-of select="normalize-space($date_list[1])"/>
                 </dateCreated>
                 
-                <dateCreated point="end">
+                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="end">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="normalize-space($date_list[$list_length])"/>
                     </xsl:call-template>
@@ -52,7 +61,7 @@
                 <xsl:variable name="parts_length" select="count($date_parts)"/>
                 <xsl:choose>
                     <xsl:when test="$parts_length = 3">
-                        <dateCreated keyDate="yes">
+                        <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
                             <xsl:call-template name="datequal">
                                 <xsl:with-param name="dateval" select="normalize-space(.)"/>
                             </xsl:call-template>
@@ -62,13 +71,13 @@
                     <xsl:when test="$parts_length = 2">
                         <xsl:choose>
                             <xsl:when test="string-length($date_parts[2]) >= 4">
-                                <dateCreated keyDate="yes" point="start">
+                                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="start">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval" select="normalize-space($date_parts[1])"/>
                                     </xsl:call-template>
                                     <xsl:value-of select="$date_parts[1]"/>
                                 </dateCreated>
-                                <dateCreated point="end">
+                                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" point="end">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval" select="normalize-space($date_parts[2])"/>
                                     </xsl:call-template>
@@ -77,7 +86,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:if test="normalize-space(.)!='9999'">
-                                    <dateCreated keyDate="yes">
+                                    <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
                                         <xsl:call-template name="datequal">
                                             <xsl:with-param name="dateval" select="normalize-space(.)"/>
                                         </xsl:call-template>
@@ -88,7 +97,7 @@
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <dateCreated keyDate="yes">
+                        <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
                             <xsl:call-template name="datequal">
                                 <xsl:with-param name="dateval" select="normalize-space(.)"/>
                             </xsl:call-template>
