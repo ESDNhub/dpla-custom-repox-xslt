@@ -171,10 +171,24 @@
             <xsl:when test="starts-with($dateval, 'c')">
                 <xsl:choose>
                     <xsl:when test="starts-with($dateval, 'ca')">
-                        <xsl:value-of select="normalize-space(substring-after($dateval, 'ca.'))"/>
+                        <xsl:choose>
+                            <xsl:when test="starts-with($dateval, 'ca.')">
+                                <xsl:value-of select="normalize-space(substring-after($dateval, 'ca.'))"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="normalize-space(substring-after($dateval, 'ca'))"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                         <xsl:value-of select="normalize-space(substring-after($dateval, 'c.'))"/>
+                        <xsl:choose>
+                            <xsl:when test="starts-with($dateval, 'c.')">
+                                <xsl:value-of select="normalize-space(substring-after($dateval, 'c.'))"/>       
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="normalize-space(substring-after($dateval, 'c'))"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
