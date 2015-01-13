@@ -46,15 +46,25 @@
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="$date_list[1]"/>
                     </xsl:call-template>
-                    <xsl:value-of select="normalize-space($date_list[1])"/>
-                </dateCreated>
+                    <xsl:call-template name="clean-date">
+                        <xsl:with-param name="dateval">
+                            <xsl:value-of select="normalize-space($date_list[1])"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+<!--                    <xsl:value-of select="normalize-space($date_list[1])"/>
+-->                </dateCreated>
                 
                 <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="end">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="normalize-space($date_list[$list_length])"/>
                     </xsl:call-template>
-                    <xsl:value-of select="normalize-space($date_list[$list_length])"/>
-                </dateCreated>
+                    <xsl:call-template name="clean-date">
+                        <xsl:with-param name="dateval">
+                            <xsl:value-of select="normalize-space($date_list[$list_length])"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+<!--                    <xsl:value-of select="normalize-space($date_list[$list_length])"/>
+-->                </dateCreated>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="date_parts" select="tokenize(., '-')"/>
@@ -65,7 +75,12 @@
                             <xsl:call-template name="datequal">
                                 <xsl:with-param name="dateval" select="normalize-space(.)"/>
                             </xsl:call-template>
-                            <xsl:value-of select="."/>
+                            <xsl:call-template name="clean-date">
+                                <xsl:with-param name="dateval">
+                                    <xsl:value-of select="."/>
+                                </xsl:with-param>
+                            </xsl:call-template>
+<!--                            <xsl:value-of select="."/>-->
                         </dateCreated>                                              
                     </xsl:when>
                     <xsl:when test="$parts_length = 2">
@@ -75,13 +90,23 @@
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval" select="normalize-space($date_parts[1])"/>
                                     </xsl:call-template>
-                                    <xsl:value-of select="$date_parts[1]"/>
+                                    <xsl:call-template name="clean-date">
+                                        <xsl:with-param name="dateval">
+                                            <xsl:value-of select="normalize-space($date_parts[1])"/>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+<!--                                    <xsl:value-of select="$date_parts[1]"/>-->
                                 </dateCreated>
                                 <dateCreated xsl:exclude-result-prefixes="oai_dc dc" point="end">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval" select="normalize-space($date_parts[2])"/>
                                     </xsl:call-template>
-                                    <xsl:value-of select="$date_parts[2]"/>
+                                    <xsl:call-template name="clean-date">
+                                        <xsl:with-param name="dateval">
+                                            <xsl:value-of select="normalize-space($date_parts[2])"/>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+<!--                                    <xsl:value-of select="$date_parts[2]"/>-->
                                 </dateCreated>
                             </xsl:when>
                             <xsl:otherwise>
@@ -90,7 +115,12 @@
                                         <xsl:call-template name="datequal">
                                             <xsl:with-param name="dateval" select="normalize-space(.)"/>
                                         </xsl:call-template>
-                                        <xsl:value-of select="./text()"/>
+                                        <xsl:call-template name="clean-date">
+                                            <xsl:with-param name="dateval">
+                                                <xsl:value-of select="normalize-space(./text())"/>
+                                            </xsl:with-param>
+                                        </xsl:call-template>
+<!--                                        <xsl:value-of select="./text()"/>-->
                                     </dateCreated>
                                 </xsl:if>
                             </xsl:otherwise>
@@ -101,7 +131,12 @@
                             <xsl:call-template name="datequal">
                                 <xsl:with-param name="dateval" select="normalize-space(.)"/>
                             </xsl:call-template>
-                            <xsl:value-of select="."/>
+                            <xsl:call-template name="clean-date">
+                                <xsl:with-param name="dateval">
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </xsl:with-param>
+                            </xsl:call-template>
+<!--                            <xsl:value-of select="."/>-->
                         </dateCreated>               
                     </xsl:otherwise>
                 </xsl:choose>
@@ -113,7 +148,7 @@
     <xsl:template name="datequal">
         <xsl:param name="dateval"/>
         <xsl:choose>
-            <xsl:when test="contains(lower-case($dateval), 'c')">
+            <xsl:when test="starts-with(lower-case($dateval), 'c')">
                 <xsl:attribute name="qualifier">approximate</xsl:attribute>
             </xsl:when>
             <xsl:when test="contains($dateval, '?')">
@@ -124,6 +159,32 @@
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>        
+    </xsl:template>
+    
+    <!-- strip superfluous characters from date once it's been qualified -->
+    <xsl:template name="clean-date">
+        <xsl:param name="dateval"/>
+        <xsl:choose>
+            <xsl:when test="ends-with($dateval, '?')">
+                <xsl:value-of select="substring-before($dateval, '?')"/>
+            </xsl:when>
+            <xsl:when test="starts-with($dateval, 'c')">
+                <xsl:choose>
+                    <xsl:when test="starts-with($dateval, 'ca')">
+                        <xsl:value-of select="normalize-space(substring-after($dateval, 'ca.'))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                         <xsl:value-of select="normalize-space(substring-after($dateval, 'c.'))"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="starts-with($dateval, '[')">
+                <xsl:value-of select="substring-after(substring-before($dateval, ']'), '[')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$dateval"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="dc:source" mode="esdn">
