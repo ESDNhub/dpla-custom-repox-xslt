@@ -12,14 +12,14 @@
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
-      <xsl:if test="normalize-space(dc:date) != ''">
+<!--      <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
             <xsl:apply-templates select="dc:date" mode="esdn"/>
           </xsl:if>
         </originInfo>
       </xsl:if>
-      
+-->      
       <xsl:apply-templates select="dc:description"/>
       
       <!-- Format and extent info stored in dc:source. -->
