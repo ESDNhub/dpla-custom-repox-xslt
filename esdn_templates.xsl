@@ -51,8 +51,7 @@
                             <xsl:value-of select="normalize-space($date_list[1])"/>
                         </xsl:with-param>
                     </xsl:call-template>
-<!--                    <xsl:value-of select="normalize-space($date_list[1])"/>
--->                </dateCreated>
+                </dateCreated>
                 
                 <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="end">
                     <xsl:call-template name="datequal">
@@ -63,8 +62,7 @@
                             <xsl:value-of select="normalize-space($date_list[$list_length])"/>
                         </xsl:with-param>
                     </xsl:call-template>
-<!--                    <xsl:value-of select="normalize-space($date_list[$list_length])"/>
--->                </dateCreated>
+                </dateCreated>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="date_parts" select="tokenize(., '-')"/>
@@ -80,7 +78,6 @@
                                     <xsl:value-of select="."/>
                                 </xsl:with-param>
                             </xsl:call-template>
-<!--                            <xsl:value-of select="."/>-->
                         </dateCreated>                                              
                     </xsl:when>
                     <xsl:when test="$parts_length = 2">
@@ -95,7 +92,6 @@
                                             <xsl:value-of select="normalize-space($date_parts[1])"/>
                                         </xsl:with-param>
                                     </xsl:call-template>
-<!--                                    <xsl:value-of select="$date_parts[1]"/>-->
                                 </dateCreated>
                                 <dateCreated xsl:exclude-result-prefixes="oai_dc dc" point="end">
                                     <xsl:call-template name="datequal">
@@ -106,7 +102,6 @@
                                             <xsl:value-of select="normalize-space($date_parts[2])"/>
                                         </xsl:with-param>
                                     </xsl:call-template>
-<!--                                    <xsl:value-of select="$date_parts[2]"/>-->
                                 </dateCreated>
                             </xsl:when>
                             <xsl:otherwise>
@@ -120,7 +115,6 @@
                                                 <xsl:value-of select="normalize-space(./text())"/>
                                             </xsl:with-param>
                                         </xsl:call-template>
-<!--                                        <xsl:value-of select="./text()"/>-->
                                     </dateCreated>
                                 </xsl:if>
                             </xsl:otherwise>
@@ -136,7 +130,6 @@
                                     <xsl:value-of select="normalize-space(.)"/>
                                 </xsl:with-param>
                             </xsl:call-template>
-<!--                            <xsl:value-of select="."/>-->
                         </dateCreated>               
                     </xsl:otherwise>
                 </xsl:choose>
