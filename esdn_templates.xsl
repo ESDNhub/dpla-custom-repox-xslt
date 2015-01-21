@@ -53,7 +53,7 @@
                     </xsl:call-template>
                 </dateCreated>
                 
-                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes" point="end">
+                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" point="end">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="normalize-space($date_list[$list_length])"/>
                     </xsl:call-template>
