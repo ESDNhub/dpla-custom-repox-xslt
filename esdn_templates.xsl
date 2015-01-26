@@ -105,32 +105,32 @@
                                 </dateCreated>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:if test="normalize-space(.)!='9999'">
-                                    <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
-                                        <xsl:call-template name="datequal">
-                                            <xsl:with-param name="dateval" select="normalize-space(.)"/>
-                                        </xsl:call-template>
-                                        <xsl:call-template name="clean-date">
-                                            <xsl:with-param name="dateval">
-                                                <xsl:value-of select="normalize-space(./text())"/>
-                                            </xsl:with-param>
-                                        </xsl:call-template>
-                                    </dateCreated>
-                                </xsl:if>
+                                <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
+                                    <xsl:call-template name="datequal">
+                                        <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="clean-date">
+                                        <xsl:with-param name="dateval">
+                                            <xsl:value-of select="normalize-space(./text())"/>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+                                </dateCreated>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
-                            <xsl:call-template name="datequal">
-                                <xsl:with-param name="dateval" select="normalize-space(.)"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="clean-date">
-                                <xsl:with-param name="dateval">
-                                    <xsl:value-of select="normalize-space(.)"/>
-                                </xsl:with-param>
-                            </xsl:call-template>
-                        </dateCreated>               
+                        <xsl:if test="normalize-space(.)!='9999'">
+                            <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
+                                <xsl:call-template name="datequal">
+                                    <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="clean-date">
+                                    <xsl:with-param name="dateval">
+                                        <xsl:value-of select="normalize-space(.)"/>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                            </dateCreated>   
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
