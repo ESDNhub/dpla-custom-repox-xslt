@@ -8,7 +8,7 @@
       
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
-      <xsl:apply-templates select="dc:coverage" mode="p16694coll26"/>
+      <xsl:apply-templates select="dc:coverage"/>
       
       <!-- Albany used 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
@@ -59,19 +59,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
-  <xsl:template match="dc:coverage" mode="p16694coll26">
-    <!-- override to hard-code LCSH values -->
-    <xsl:for-each select="tokenize(.,';')">
-      <xsl:variable name="coveragevalue" select="normalize-space(.)"/>
-      <!-- return LCSH for Albany, NY -->
-      <xsl:if test="$coveragevalue !=''">
-        <subject><geographic><xsl:text>Albany (N.Y.)</xsl:text></geographic>
-        </subject>
-        <subject><geographic><xsl:text>New York</xsl:text></geographic>
-        </subject>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template> 
   
   <xsl:template match="dc:source">
     <xsl:for-each select=".">
