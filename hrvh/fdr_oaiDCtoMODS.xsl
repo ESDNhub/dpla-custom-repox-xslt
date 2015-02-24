@@ -4,6 +4,7 @@
   
   <xsl:template match="text()|@*"/>
   <xsl:template match="//oai_dc:dc">
+    <xsl:if test="not(contains(dc:relation/node(), 'dprmdpla'))">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
@@ -40,6 +41,7 @@
       <!-- hard code ownership note -->
       <note type="ownership">Franklin D. Roosevelt Presidential Library and Museum</note>
      <xsl:apply-templates select="dc:relation"/></mods>
+    </xsl:if>
   </xsl:template>
   
   <!-- ESDN utility templates -->
