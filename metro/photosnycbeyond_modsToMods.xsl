@@ -17,8 +17,21 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition/@type"/>
+    <xsl:template match="mods:relatedItem/@type"/>
     <xsl:template match="mods:internetMediaType" />
     <xsl:template match="mods:digitalOrigin" />
+    
+    <xsl:template match="mods:roleTerm">
+        <xsl:copy>
+        <xsl:choose>
+            <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
+            <xsl:when test="normalize-space(lower-case(.))='collector'">Contributor</xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="@*|node()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:copy>
+   </xsl:template>
     
     <xsl:template match="mods:dateCreated">
         <xsl:copy>
