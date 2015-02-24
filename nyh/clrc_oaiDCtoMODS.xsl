@@ -42,7 +42,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <note type="ownership">Central New York Library Resources Council</note>
-     </mods>
+     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

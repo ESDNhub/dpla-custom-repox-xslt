@@ -48,7 +48,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Buffalo &amp; Erie County Public Library</xsl:with-param>
       </xsl:call-template>
-    </mods>
+    <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

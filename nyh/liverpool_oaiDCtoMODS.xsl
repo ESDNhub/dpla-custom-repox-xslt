@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <note type="ownership">Liverpool Public Library</note>
-     </mods>
+     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

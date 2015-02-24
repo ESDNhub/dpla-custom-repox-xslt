@@ -56,7 +56,7 @@
         <xsl:with-param name="owner">McGraw Historical Society</xsl:with-param>
       </xsl:call-template>
 
-    </mods>
+    <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

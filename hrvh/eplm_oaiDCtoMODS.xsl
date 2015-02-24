@@ -43,7 +43,7 @@
       
       <!-- hard code ownership note -->
       <note type="ownership">Ellenville Public Library &amp; Museum</note>
-     </mods>
+     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

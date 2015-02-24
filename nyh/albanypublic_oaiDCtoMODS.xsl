@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <note type="ownership">Albany Public Library</note> <!-- owning institution -->
-    </mods>
+    <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates --> 

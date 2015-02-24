@@ -52,7 +52,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <note type="ownership">Onondaga County Public Library - Local History &amp; Genealogy Department</note>
-     </mods>
+     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

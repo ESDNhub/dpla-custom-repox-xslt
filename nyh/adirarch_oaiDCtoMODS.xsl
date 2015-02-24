@@ -35,10 +35,11 @@
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:relation" />
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Adirondack Architectural Heritage</xsl:with-param>
       </xsl:call-template>
-    </mods>
+    <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

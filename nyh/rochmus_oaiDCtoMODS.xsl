@@ -45,7 +45,7 @@
        <xsl:call-template name="owner-note">
          <xsl:with-param name="owner">Rochester Museum &amp; Science Center</xsl:with-param>
        </xsl:call-template>
-    </mods>
+    <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
