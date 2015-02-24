@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Albany Law School</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Albany Law School</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

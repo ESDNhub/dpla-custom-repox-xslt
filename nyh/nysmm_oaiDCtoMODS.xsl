@@ -44,7 +44,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">New York State Military Museum</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">New York State Military Museum</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

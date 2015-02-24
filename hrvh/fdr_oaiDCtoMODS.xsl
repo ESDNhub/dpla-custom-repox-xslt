@@ -39,7 +39,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Franklin D. Roosevelt Presidential Library and Museum</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Franklin D. Roosevelt Presidential Library and Museum</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
     </xsl:if>
   </xsl:template>

@@ -45,7 +45,7 @@
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
-      <note type="ownership">Albany Public Library</note> <!-- owning institution -->
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Albany Public Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

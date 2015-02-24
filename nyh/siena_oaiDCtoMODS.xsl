@@ -56,7 +56,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Siena College</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Siena College</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

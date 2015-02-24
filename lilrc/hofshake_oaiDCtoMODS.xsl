@@ -39,7 +39,7 @@
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Hofstra University</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Hofstra University</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

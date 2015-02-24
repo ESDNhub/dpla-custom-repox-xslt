@@ -35,7 +35,7 @@
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <!-- hard code ownership note -->
-      <note type="ownership">Freeport Memorial Library</note>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Freeport Memorial Library</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   
