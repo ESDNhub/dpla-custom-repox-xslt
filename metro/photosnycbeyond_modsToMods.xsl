@@ -59,6 +59,14 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="mods:genre">
+        <xsl:element namespace="http://www.loc.gov/mods/v3" name="physicalDescription">
+            <xsl:element namespace="http://www.loc.gov/mods/v3" name="form">
+                <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
