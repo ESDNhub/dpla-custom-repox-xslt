@@ -22,7 +22,9 @@
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Cazenovia College</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note"><xsl:with-param
+                                               name="owner">Cazenovia
+      College. Library</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

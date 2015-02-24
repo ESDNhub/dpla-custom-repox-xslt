@@ -34,7 +34,7 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">SUNY New Paltz</xsl:with-param>
+        <xsl:with-param name="owner">SUNY New Paltz. Sojourner Truth Library</xsl:with-param>
       </xsl:call-template>
       
  

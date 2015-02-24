@@ -44,7 +44,8 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Hobart and William Smith Colleges</xsl:with-param>
+        <xsl:with-param name="owner">Hobart and William Smith
+        Colleges. Warren Hunting Smith Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>

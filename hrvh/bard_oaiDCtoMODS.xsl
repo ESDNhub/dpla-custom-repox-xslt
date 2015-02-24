@@ -38,7 +38,9 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Bard College</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note"><xsl:with-param
+                                               name="owner">Bard
+      College. Bard College Archives</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

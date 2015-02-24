@@ -51,7 +51,8 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">SUNY Upstate Medical University</xsl:with-param>
+        <xsl:with-param name="owner">SUNY Upstate Medical University.
+        Health Sciences Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>

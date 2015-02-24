@@ -51,7 +51,9 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Onondaga County Public Library - Local History &amp; Genealogy Department</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note"><xsl:with-param
+                                               name="owner">Onondaga
+      County Public Library. Local History &amp; Genealogy Department</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

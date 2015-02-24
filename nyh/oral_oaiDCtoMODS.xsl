@@ -43,7 +43,8 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">University of Rochester Medical Center, Eastman Institute for Oral Health</xsl:with-param>
+        <xsl:with-param name="owner">University of Rochester. Medical
+        Center. Eastman Institute for Oral Health</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>

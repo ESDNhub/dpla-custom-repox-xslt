@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:coverage" mode="highland"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Highland Hospital</xsl:with-param>
+        <xsl:with-param name="owner">Highland Hospital. Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
