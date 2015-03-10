@@ -14,15 +14,16 @@
         </xsl:if>
       </xsl:for-each>
       
-      <originInfo>
-        <xsl:for-each select="dc:publisher">
-        <xsl:if test="lower-case(normalize-space(.)) != 'unknown'">
-          <xsl:if test="not(contains(lower-case(.), 'freeport memorial library'))">
-            <xsl:apply-templates select="."/>
-          </xsl:if>
+      <xsl:for-each select="dc:publisher">
+      <xsl:if test="lower-case(normalize-space(.)) != 'unknown'">
+        <xsl:if test="not(contains(lower-case(.), 'freeport memorial library'))">
+          <xsl:element name="originInfo">
+          <xsl:apply-templates select="."/>
+          </xsl:element>
         </xsl:if>
-      </xsl:for-each>
-      </originInfo>
+      </xsl:if>
+    </xsl:for-each>
+        
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
