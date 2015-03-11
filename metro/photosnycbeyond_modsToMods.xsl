@@ -17,9 +17,7 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition/@type"/>
-    <xsl:template match="mods:relatedItem/@type">
-        
-    </xsl:template>
+    <xsl:template match="mods:relatedItem/@type" />
     <xsl:template match="mods:internetMediaType" />
     <xsl:template match="mods:digitalOrigin" />
     <xsl:template match="mods:location" />
