@@ -17,9 +17,12 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition/@type"/>
-    <xsl:template match="mods:relatedItem/@type"/>
+    <xsl:template match="mods:relatedItem/@type">
+        
+    </xsl:template>
     <xsl:template match="mods:internetMediaType" />
     <xsl:template match="mods:digitalOrigin" />
+    <xsl:template match="mods:location" />
     
     <xsl:template match="mods:roleTerm">
         <xsl:copy>
@@ -59,14 +62,27 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="mods:genre">
-        <xsl:element namespace="http://www.loc.gov/mods/v3" name="physicalDescription">
-            <xsl:element namespace="http://www.loc.gov/mods/v3" name="form">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:element>
+    <xsl:template match="mods:note/@displayLabel"/>
+    <xsl:template match="mods:note">
+        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">content</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="mods:physicalDescription">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:for-each select="../mods:genre">
+                <xsl:element name="form" xmlns="http://www.loc.gov/mods/v3">
+                    <xsl:apply-templates select="@*|node()"/>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:genre"/>
+
     <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
