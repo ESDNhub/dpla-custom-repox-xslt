@@ -12,8 +12,8 @@
       </xsl:if>
       
       <!-- Check for 'unknown' in dc:contributor when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
-        <xsl:apply-templates select="dc:contributor"/>
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:contributor)),'unknown'))">
+        <xsl:apply-templates select="dc:contributor" mode="nysl"/>
       </xsl:if>
       
       <xsl:if test="dc:publisher != ''">
@@ -70,6 +70,20 @@
     </xsl:for-each>      
   </xsl:template>
     
+  <xsl:template match="dc:contributor" mode="nysl">
+    <xsl:variable name="contriblist" select="tokenize(normalize-space(.), ';')"/>
+    <xsl:if test="count($contriblist) > 0">
+      <xsl:for-each select="$contriblist">
+        <name>
+          <namePart>
+            <xsl:value-of select="normalize-space(.)"/> <!--contributor-->
+          </namePart>
+          <role><roleTerm>contributor</roleTerm></role>
+        </name>            
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template match="dc:title" mode="nysl">
     <xsl:if test="normalize-space(.)!=''">
       <!-- strip out dc:alternative child -->
@@ -102,15 +116,21 @@
   </xsl:template>
 
 <xsl:template match="dc:language" mode="nysl">
-  <xsl:variable name="langvalue" select="normalize-space(lower-case(.))"/>
-  <xsl:choose><xsl:when test="$langvalue='english'">
+  <xsl:variable name="langlist" select="tokenize(normalize-space(lower-case(.)), ';')"/>
+  <xsl:if test="count($langlist) > 0">
     <xsl:element name="language">
-      <xsl:element name="languageTerm">eng</xsl:element>
+      <xsl:for-each select="$langlist">
+        <xsl:choose>
+          <xsl:when test="normalize-space(lower-case(.))='english'">
+            <xsl:element name="languageTerm">eng</xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="languageTerm"><xsl:value-of select="."/></xsl:element>
+        </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
     </xsl:element>
-  </xsl:when>
-  <xsl:otherwise>
-    <xsl:apply-templates select="."/>
-  </xsl:otherwise></xsl:choose>
+  </xsl:if>
 </xsl:template>
 </xsl:stylesheet>
 
