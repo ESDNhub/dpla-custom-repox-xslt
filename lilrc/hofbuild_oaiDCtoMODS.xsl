@@ -35,13 +35,14 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:source" mode="hofstra"/>
 
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Hofstra University</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
@@ -56,6 +57,16 @@
   <!-- collection-specific templates start here --> 
   <xsl:template match="dc:format" mode="hofcal">
     <form><xsl:value-of select="."/></form>
+  </xsl:template>
+  
+  <xsl:template match="dc:source" mode="hofstra">
+    <xsl:element name="relatedItem">
+      <xsl:element name="titleInfo">
+        <xsl:element name="title">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:element>
   </xsl:template>
   
 </xsl:stylesheet>

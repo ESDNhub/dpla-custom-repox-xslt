@@ -27,7 +27,8 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Freeport Memorial Library</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     <xsl:apply-templates select="dc:source" mode="freeport"/>
+    </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
@@ -40,6 +41,16 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
-
+  <xsl:template match="dc:source" mode="freeport">
+    <xsl:element name="relatedItem">
+      <xsl:element name="titleInfo">
+        <xsl:element name="title">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
+  
 </xsl:stylesheet>
 

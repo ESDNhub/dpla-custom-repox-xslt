@@ -50,7 +50,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Freeport Memorial Library</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+    </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
