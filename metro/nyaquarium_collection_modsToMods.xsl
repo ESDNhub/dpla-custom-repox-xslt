@@ -7,8 +7,6 @@
     xmlns:mods="http://www.loc.gov/mods/v3"
     exclude-result-prefixes="xs"
     version="2.0">
-    <xsl:output omit-xml-declaration="yes" indent="yes"/>
-    <xsl:strip-space elements="*"/>
     
     <xsl:template match="@*|node()">
         <xsl:copy>
@@ -20,7 +18,33 @@
     <xsl:template match="mods:languageTerm/@type"/>
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
-    <xsl:template match="mods:note[@type='condition']"/>
+    <xsl:template match="mods:relatedItem/@displayLabel"/>
+    
+    <xsl:template match="mods:mods">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:call-template name="owner-note">
+                <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
+            </xsl:call-template>    
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:originInfo">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:for-each select="../mods:note[@type='dateuncontrolled']">
+                <xsl:call-template name="date-to-mods">
+                    <xsl:with-param name="dateval">
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:for-each>            
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:roleTerm">
+        <xsl:copy>Contributor</xsl:copy>
+    </xsl:template>
     
     <xsl:template match="mods:dateIssued">
         <xsl:call-template name="date-to-mods">
@@ -30,14 +54,6 @@
         </xsl:call-template>
     </xsl:template>
     
-    <xsl:template match="mods:note[@type='dateuncontrolled']">
-        <xsl:call-template name="date-to-mods">
-            <xsl:with-param name="dateval">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
     <xsl:template match="mods:identifier"/>
     <xsl:template match="identifier">
         <xsl:if test=".[@type='uri']">
@@ -59,6 +75,29 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="mods:note[@type='dateuncontrolled']"/>
+    <xsl:template match="mods:note">
+        <xsl:if test="normalize-space(.)!=''">
+            <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">content</xsl:attribute>
+                <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:for-each select="../mods:genre">
+                <xsl:element name="form" xmlns="http://www.loc.gov/mods/v3">
+                    <xsl:apply-templates select="@*|node()"/>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:genre"/>
+
     <xsl:template match="mods:extent">
         <xsl:variable name="extents" select="tokenize(normalize-space(.), ';')"/>
         <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
@@ -68,21 +107,27 @@
             <xsl:value-of select="normalize-space($extents[2])"/>
         </xsl:element>
     </xsl:template>
-        <xsl:template match="mods:typeOfResource">
+    
+    <xsl:template match="mods:languageTerm">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test="normalize-space(lower-case(.))='english'">en</xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+        </xsl:copy>
+    </xsl:template>
+    
+    
+    <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-<!--        <xsl:call-template name="mods-genre">
+        <xsl:call-template name="mods-genre">
             <xsl:with-param name="dc_type">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:with-param>
         </xsl:call-template>
--->    
-            <xsl:call-template name="owner-note">
-                <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
-            </xsl:call-template>
-        </xsl:template>
-    
+    </xsl:template>    
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
