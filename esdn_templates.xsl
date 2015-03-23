@@ -120,7 +120,7 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="normalize-space(.)!='9999'">
-                            <dateCreated xsl:exclude-result-prefixes="oai_dc dc" keyDate="yes">
+                            <dateCreated xsl:exclude-result-prefixes="xsi oai_dc dc" keyDate="yes">
                                 <xsl:call-template name="datequal">
                                     <xsl:with-param name="dateval" select="normalize-space(.)"/>
                                 </xsl:call-template>
