@@ -142,13 +142,13 @@
         <xsl:param name="dateval"/>
         <xsl:choose>
             <xsl:when test="starts-with(lower-case($dateval), 'c')">
-                <xsl:attribute name="qualifier">approximate</xsl:attribute>
+                <xsl:attribute name="qualifier" exclude-result-prefixes="#all">approximate</xsl:attribute>
             </xsl:when>
             <xsl:when test="contains($dateval, '?')">
-                <xsl:attribute name="qualifier">questionable</xsl:attribute>
+                <xsl:attribute name="qualifier" exclude-result-prefixes="#all">questionable</xsl:attribute>
             </xsl:when>
             <xsl:when test="contains($dateval, '[')">
-                <xsl:attribute name="qualifier">inferred</xsl:attribute>
+                <xsl:attribute name="qualifier" exclude-result-prefixes="#all">inferred</xsl:attribute>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>        
