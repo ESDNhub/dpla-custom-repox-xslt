@@ -36,11 +36,13 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
             <xsl:for-each select="../mods:note[@type='dateuncontrolled']">
-                <xsl:call-template name="date-to-mods">
-                    <xsl:with-param name="dateval">
-                        <xsl:value-of select="normalize-space(.)"/>
-                    </xsl:with-param>
-                </xsl:call-template>
+                <xsl:if test="normalize-space(lower-case(.))!='undated'">
+                    <xsl:call-template name="date-to-mods">
+                        <xsl:with-param name="dateval">
+                            <xsl:value-of select="normalize-space(.)"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:for-each>            
         </xsl:copy>
     </xsl:template>
