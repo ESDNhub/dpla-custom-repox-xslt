@@ -85,6 +85,15 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="mods:abstract">
+        <xsl:if test="normalize-space(.)!=''">
+            <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">content</xsl:attribute>
+                <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template match="mods:physicalDescription">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
