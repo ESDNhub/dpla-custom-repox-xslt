@@ -22,7 +22,7 @@
     <xsl:template match="mods:relatedItem/@displayLabel"/>
     <xsl:template match="mods:note[@displayLabel]"/>
     <xsl:template match="mods:genre"/>
-    
+    <xsl:template match="mods:location"/>
     <xsl:template match="mods:mods">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
@@ -95,6 +95,7 @@
     </xsl:template>
     
     <xsl:template match="mods:note[@type='dateuncontrolled']"/>
+    <xsl:template match="mods:note[@type='condition']"/>
     <xsl:template match="mods:note">
         <xsl:if test="normalize-space(.)!=''">
             <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
@@ -113,27 +114,13 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="mods:physicalDescription">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-            <xsl:for-each select="../mods:genre">
-                <xsl:element name="form" xmlns="http://www.loc.gov/mods/v3">
-                    <xsl:apply-templates select="@*|node()"/>
-                </xsl:element>
-            </xsl:for-each>
-        </xsl:copy>
-    </xsl:template>
-    
-    <xsl:template match="mods:genre"/>
-
     <xsl:template match="mods:extent">
         <xsl:variable name="extents" select="tokenize(normalize-space(.), ';')"/>
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space($extents[1])"/>
-        </xsl:element>
-        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space($extents[2])"/>
-        </xsl:element>
+        <xsl:for-each select="$extents">
+            <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+                <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+        </xsl:for-each>
     </xsl:template>
     
     <xsl:template match="mods:languageTerm">
