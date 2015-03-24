@@ -126,7 +126,7 @@
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
             <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='english'">en</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='english'">eng</xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
         </xsl:copy>
