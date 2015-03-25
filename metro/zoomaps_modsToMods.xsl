@@ -83,8 +83,17 @@
             </xsl:call-template>
         </xsl:template>
     
+    <xsl:template match="mods:languageTerm">
+        <xsl:copy>
+            <xsl:call-template name="iso693-codes">
+                <xsl:with-param name="lval">
+                    <xsl:value-of select="normalize-space(lower-case(.))"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:copy>
+    </xsl:template>
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
-    
+    <xsl:include href="iso69x.xsl"/>
 </xsl:stylesheet>

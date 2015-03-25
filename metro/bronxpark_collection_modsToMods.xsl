@@ -129,13 +129,13 @@
     
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
-            <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='english'">en</xsl:when>
-                <xsl:otherwise/>
-            </xsl:choose>
+            <xsl:call-template name="iso693-codes">
+                <xsl:with-param name="lval">
+                    <xsl:value-of select="normalize-space(lower-case(.))"/>
+                </xsl:with-param>
+            </xsl:call-template>
         </xsl:copy>
     </xsl:template>
-    
     
     <xsl:template match="mods:typeOfResource">
         <xsl:copy>
@@ -150,5 +150,7 @@
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
+    <xsl:include href="iso69x.xsl"/>
+    
     
 </xsl:stylesheet>
