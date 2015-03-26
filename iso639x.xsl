@@ -5,7 +5,7 @@
     version="2.0">
     
     <!-- lookup tables for iso69x language codes -->
-    <xsl:template name="iso693-codes">
+    <xsl:template name="iso6393-codes">
         <xsl:param name="lval"/>
         <xsl:variable name="langval" select="lower-case($lval)"/>
         <xsl:choose>
@@ -7876,7 +7876,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="iso692-codes">
+    <xsl:template name="iso6392-codes">
         <xsl:param name="lval"/>
         <xsl:variable name="langval" select="lower-case($lval)"/>
         <xsl:choose>
@@ -8303,7 +8303,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="iso691-codes">
+    <xsl:template name="iso6391-codes">
         <xsl:param name="lval"/>
         <xsl:variable name="langval" select="lower-case($lval)"/>
         <xsl:choose>
