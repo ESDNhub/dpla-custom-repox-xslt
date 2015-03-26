@@ -16,6 +16,15 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="mods:mods">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:call-template name="owner-note">
+                <xsl:with-param name="owner">New-York Historical Society</xsl:with-param>
+            </xsl:call-template>    
+        </xsl:copy>
+    </xsl:template>
+    
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:relatedItem/@type" />
     <xsl:template match="mods:internetMediaType" />
