@@ -85,7 +85,9 @@
     
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
-            <xsl:call-template name="iso693-codes">
+            <xsl:attribute name="type">code</xsl:attribute>
+            <xsl:attribute name="encoding">iso639-3</xsl:attribute>
+            <xsl:call-template name="iso6393-codes">
                 <xsl:with-param name="lval">
                     <xsl:value-of select="normalize-space(lower-case(.))"/>
                 </xsl:with-param>
@@ -95,5 +97,5 @@
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
-    <xsl:include href="iso69x.xsl"/>
+    <xsl:include href="iso639x.xsl"/>
 </xsl:stylesheet>
