@@ -38,8 +38,7 @@
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="mods:identifier"/>
-    <xsl:template match="identifier">
+     <xsl:template match="mods:identifier">
         <xsl:if test=".[@type='uri']">
             <!-- we do this to workaround Islandora's assigning the default namesapce to
                 this element by adding an empty @xmlns in the original. -->

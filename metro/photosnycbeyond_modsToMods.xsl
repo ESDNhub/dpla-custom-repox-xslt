@@ -41,8 +41,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:identifier"/>
-    <xsl:template match="identifier">
+    <xsl:template match="mods:identifier">
         <xsl:if test=".[@type='uri']">
             <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
                 <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
