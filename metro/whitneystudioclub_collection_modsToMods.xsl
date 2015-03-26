@@ -133,7 +133,6 @@
         </xsl:copy>
     </xsl:template>
     
-    
     <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
