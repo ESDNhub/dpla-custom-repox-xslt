@@ -103,7 +103,7 @@
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
             <xsl:attribute name="type">code</xsl:attribute>
-            <xsl:attribute name="encoding">iso639-3</xsl:attribute>
+            <xsl:attribute name="authority">iso639-3</xsl:attribute>
             <xsl:call-template name="iso6393-codes">
                 <xsl:with-param name="lval">
                     <xsl:value-of select="normalize-space(lower-case(.))"/>
