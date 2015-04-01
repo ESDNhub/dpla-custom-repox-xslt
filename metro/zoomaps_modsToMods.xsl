@@ -20,7 +20,7 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
             <xsl:call-template name="owner-note">
-                <xsl:with-param name="owner">New-York Historical Society</xsl:with-param>
+                <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
             </xsl:call-template>    
         </xsl:copy>
     </xsl:template>
