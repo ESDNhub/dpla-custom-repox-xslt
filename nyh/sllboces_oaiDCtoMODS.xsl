@@ -28,7 +28,7 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
@@ -44,7 +44,8 @@
   </xsl:template>
   
   <!-- ESDN utility templates -->
-  <xsl:include href="esdn_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
+<xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
