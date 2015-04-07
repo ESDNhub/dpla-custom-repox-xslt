@@ -320,6 +320,17 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="dc:language" mode="esdn">
+        <xsl:variable name="languagevalue" select="normalize-space(.)"/>
+        <xsl:element name="language">
+            <xsl:for-each select="tokenize($languagevalue,';')">
+                <xsl:if test="normalize-space(.)!=''">
+                    <languageTerm><xsl:value-of select="normalize-space(.)"/></languageTerm>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template name="owner-note">
         <xsl:param name="owner"/>
         <xsl:element name="note">
