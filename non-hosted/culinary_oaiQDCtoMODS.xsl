@@ -98,9 +98,13 @@
   </xsl:template>
   
   <xsl:template match="dcterms:spatial" mode="culinary">
-    <xsl:element name="subject">
-      <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
-    </xsl:element>
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:element name="subject">
+          <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+        </xsl:element>
+      </xsl:if>
+    </xsl:for-each>
 </xsl:template>
   
 </xsl:stylesheet>
