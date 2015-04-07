@@ -22,3 +22,9 @@ lilrc/esdn_templates.xsl
 metro/esdn_templates.xsl
 metro/iso69x.xsl
 metro/iso639x.xsl
+
+./non-hosted/esdn_templates.xsl
+./non-hosted/iso639x.xsl
+./non-hosted/oaiDCtoMODS_base.xsl
+./non-hosted/oaiDCtoMODS_cdm6.5.xsl
+./non-hosted/oaiDCtoMODS_cdmbase.xsl
