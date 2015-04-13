@@ -32,22 +32,21 @@
     <xsl:template match="mods:location" />
     
     <xsl:template match="mods:roleTerm">
-        <xsl:copy>
-        <xsl:choose>
-            <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
-            <xsl:when test="normalize-space(lower-case(.))='collector'">Contributor</xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="@*|node()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:copy>
+        <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
+            <xsl:choose>
+                <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='collector'">Contributor</xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
    </xsl:template>
     
     <xsl:template match="mods:dateCreated">
-        <xsl:copy>
-            <xsl:attribute name="keyDate">yes</xsl:attribute>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:call-template name="date-to-mods">
+            <xsl:with-param name="dateval"><xsl:value-of select="normalize-space(.)"></xsl:value-of></xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
     
     <xsl:template match="mods:identifier">
@@ -69,6 +68,7 @@
     </xsl:template>
     
     <xsl:template match="mods:note/@displayLabel"/>
+    <xsl:template match="mods:note[@displayLabel='Photographer Note']" />
     <xsl:template match="mods:note">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
