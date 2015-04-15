@@ -51,9 +51,11 @@
                             </xsl:call-template>
                         </xsl:for-each>
                         <xsl:for-each select="marc:datafield[@tag='260'][marc:subfield[@code='b']]">
-                            <xsl:element name="publisher">
-                                <xsl:value-of select="normalize-space(./marc:subfield[@code='b'])"/>
-                            </xsl:element>
+                            <xsl:for-each select="./marc:subfield[@code='b']">
+                                <xsl:element name="publisher">
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </xsl:element>
+                            </xsl:for-each>
                         </xsl:for-each>
                     </originInfo>
                 </xsl:if>
@@ -142,6 +144,9 @@
                         <xsl:attribute name="access">object in context</xsl:attribute>
                         <xsl:value-of select="normalize-space(marc:datafield[@tag='856']/marc:subfield[@code='u'])"/>
                     </xsl:element>
+                </xsl:element>
+                
+                <xsl:element name="location">
                     <xsl:for-each select="marc:datafield[@tag='856'][marc:subfield[@code='x']]">
                         <xsl:element name="url">
                             <xsl:attribute name="access">preview</xsl:attribute>
