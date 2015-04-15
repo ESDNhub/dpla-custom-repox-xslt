@@ -65,7 +65,7 @@
                 </dateCreated>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="date_parts" select="tokenize(., '-')"/>
+                <xsl:variable name="date_parts" select="tokenize($dateval, '-')"/>
                 <xsl:variable name="parts_length" select="count($date_parts)"/>
                 <xsl:choose>
                     <xsl:when test="$parts_length = 3">
@@ -107,11 +107,11 @@
                             <xsl:otherwise>
                                 <dateCreated xsl:exclude-result-prefixes="xsi oai_dc dc" keyDate="yes">
                                     <xsl:call-template name="datequal">
-                                        <xsl:with-param name="dateval" select="normalize-space(.)"/>
+                                        <xsl:with-param name="dateval" select="normalize-space($date_parts[1])"/>
                                     </xsl:call-template>
                                     <xsl:call-template name="clean-date">
                                         <xsl:with-param name="dateval">
-                                            <xsl:value-of select="normalize-space(./text())"/>
+                                            <xsl:value-of select="normalize-space($date_parts[1])"/>
                                         </xsl:with-param>
                                     </xsl:call-template>
                                 </dateCreated>
@@ -157,41 +157,7 @@
     <!-- strip superfluous characters from date once it's been qualified -->
     <xsl:template name="clean-date">
         <xsl:param name="dateval"/>
-        <xsl:choose>
-            <xsl:when test="ends-with($dateval, '?')">
-                <xsl:value-of select="substring-before($dateval, '?')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($dateval, 'c')">
-                <xsl:choose>
-                    <xsl:when test="starts-with($dateval, 'ca')">
-                        <xsl:choose>
-                            <xsl:when test="starts-with($dateval, 'ca.')">
-                                <xsl:value-of select="normalize-space(substring-after($dateval, 'ca.'))"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(substring-after($dateval, 'ca'))"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="starts-with($dateval, 'c.')">
-                                <xsl:value-of select="normalize-space(substring-after($dateval, 'c.'))"/>       
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(substring-after($dateval, 'c'))"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:when test="starts-with($dateval, '[')">
-                <xsl:value-of select="substring-after(substring-before($dateval, ']'), '[')"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$dateval"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="replace($dateval, '[^0-9\-]', '')"/>
     </xsl:template>
     
     <xsl:template match="dc:source" mode="esdn">
