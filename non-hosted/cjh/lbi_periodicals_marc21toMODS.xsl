@@ -16,7 +16,7 @@
                 
                 <xsl:for-each select="marc:datafield[@tag='700'][not(marc:subfield[@code='t'])]">
                     <name>
-                        <namePart><xsl:value-of select="concat(.[@tag='700'], .[@tag='700'][marc:subfield][@code='d'])"/></namePart>
+                        <namePart><xsl:value-of select="normalize-space(./marc:subfield[@code='a'])"/></namePart>
                         <role>
                             <roleTerm>contributor</roleTerm>
                         </role>
