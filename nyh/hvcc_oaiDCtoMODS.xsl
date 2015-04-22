@@ -17,12 +17,12 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       
-      <!-- Check dc:creator for 'unknown'. Ignore it if present.-->
+<!--      <!-\- Check dc:creator for 'unknown'. Ignore it if present.-\->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
-      <!-- Check dc:contributor for 'unknown'. Ignore it if present.-->
+-->      <!-- Check dc:contributor for 'unknown'. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
@@ -32,10 +32,10 @@
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
             <xsl:apply-templates select="dc:date" mode="esdn"/>
           </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
+ <!--         <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
               <xsl:apply-templates select="dc:publisher"/>
           </xsl:if>
-        </originInfo>
+ -->       </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
@@ -58,8 +58,8 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
-      <xsl:apply-templates select="dc:coverage" mode="esdn"/>
-      <xsl:apply-templates select="dc:type" mode="esdn"/>
+ <!--     <xsl:apply-templates select="dc:coverage" mode="esdn"/>
+ -->     <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Hudson Valley Community College</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
