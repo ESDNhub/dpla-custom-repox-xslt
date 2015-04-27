@@ -133,7 +133,7 @@
         <xsl:template match="dc:subject">
           <xsl:variable name="subjectvalue" select="normalize-space(.)"/>
             <xsl:if test="normalize-space(.)!=''">
-              <xsl:variable name="subjlist" select="tokenize(., ';')"/>
+              <xsl:variable name="subjlist" select="tokenize(., '[;/]')"/>
                 <xsl:for-each select="$subjlist">
                   <subject><topic><xsl:value-of select="normalize-space(.)"/></topic></subject> <!--subject-->
                 </xsl:for-each>
