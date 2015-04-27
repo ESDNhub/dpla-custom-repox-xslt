@@ -157,7 +157,7 @@
     <!-- strip superfluous characters from date once it's been qualified -->
     <xsl:template name="clean-date">
         <xsl:param name="dateval"/>
-        <xsl:value-of select="replace($dateval, '[^0-9\-]', '')"/>
+        <xsl:value-of select="replace($dateval, '[^0-9\-/]', '')"/>
     </xsl:template>
     
     <xsl:template match="dc:source" mode="esdn">
