@@ -13,14 +13,12 @@
       </xsl:if>
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">      
-      <originInfo>
-        <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-          <xsl:apply-templates select="dc:date" mode="esdn"/>
+        <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown' or lower-case(normalize-space(dc:publisher)) != 'unknown'">      
+          <xsl:element name="originInfo">
+            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:publisher"/>
+          </xsl:element>
         </xsl:if>
-        <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-          <xsl:apply-templates select="dc:publisher" mode="esdn"/>
-        </xsl:if>
-      </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
