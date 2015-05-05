@@ -17,11 +17,12 @@
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
       
-      <xsl:if test="dc:publisher != ''">
+      <xsl:if test="dc:publisher != '' or dc:date !=''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
           </xsl:if>
+            <xsl:apply-templates select="dc:date" mode="esdn"/>
         </originInfo>
       </xsl:if>
       
