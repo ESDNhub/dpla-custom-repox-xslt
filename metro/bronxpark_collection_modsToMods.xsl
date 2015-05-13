@@ -24,12 +24,6 @@
     <xsl:template match="mods:mods">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
-            <xsl:call-template name="owner-note">
-                <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
-            </xsl:call-template>    
-            <xsl:call-template name="owner-note">
-                <xsl:with-param name="owner">The New York Botanical Garden</xsl:with-param>
-            </xsl:call-template>    
         </xsl:copy>
     </xsl:template>
     
@@ -149,6 +143,19 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>    
+  
+  <xsl:template match="mods:note[not(@*)]">
+    <xsl:variable name="notestr" select="."/>
+    <xsl:variable name="owner">
+    <xsl:choose>
+      <xsl:when test="contains($notestr, 'New York Botanical Garden')">The New York Botanical Garden</xsl:when>
+      <xsl:otherwise>Wildlife Conservation Society</xsl:otherwise>
+    </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="owner-note">
+      <xsl:with-param name="owner"><xsl:value-of select="$owner"></xsl:value-of></xsl:with-param>
+    </xsl:call-template>    
+  </xsl:template>
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
