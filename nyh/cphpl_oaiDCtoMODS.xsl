@@ -50,7 +50,7 @@
 
 
       <xsl:if test="not(contains(lower-case(normalize-space(dc:coverage)),'unknown'))">
-        <xsl:apply-templates select="dc:coverage"/>
+        <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       </xsl:if>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->

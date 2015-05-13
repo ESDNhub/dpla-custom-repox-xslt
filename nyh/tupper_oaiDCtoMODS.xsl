@@ -31,7 +31,7 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-      <xsl:apply-templates select="dc:coverage" mode="esdn"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Goff-Nelson Memorial Library</xsl:with-param>

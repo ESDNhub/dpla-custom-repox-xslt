@@ -43,7 +43,7 @@
 
 
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:coverage"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
     <xsl:call-template name="owner-note">

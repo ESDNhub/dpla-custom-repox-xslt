@@ -31,7 +31,7 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
-      <xsl:apply-templates select="dc:coverage" mode="esdn"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <!-- Check for existence first, since just jamming in a value -->
       <xsl:if test="normalize-space(dc:type) !=''">
         <xsl:apply-templates select="dc:type" mode="sllboces"/>

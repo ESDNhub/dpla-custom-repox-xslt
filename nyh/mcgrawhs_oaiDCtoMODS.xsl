@@ -49,7 +49,7 @@
 
       <!-- Check for 'unknown' in dc:coverage. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:coverage)) != 'unknown'">
-        <xsl:apply-templates select="dc:coverage"/>
+        <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       </xsl:if>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:call-template name="owner-note">
