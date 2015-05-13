@@ -193,52 +193,53 @@
             <xsl:if test="normalize-space(.) != ''">
                 <xsl:variable name="dc-type" select="lower-case(normalize-space(.))" />
                     <xsl:choose>
-                        <xsl:when test="$dc-type = lower-case('Collection')">
+                        <xsl:when test="contains($dc-type, 'collection')">
                             <xsl:element name="typeOfResource">
                                 <xsl:attribute name="collection">yes</xsl:attribute>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Dataset')">
+                        <xsl:when test="contains($dc-type, 'dataset')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>software, multimedia</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="starts-with($dc-type, lower-case('Image'))">
+                        <xsl:when test="starts-with($dc-type, 'image')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>still image</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Moving Image')">
+                        <xsl:when test="contains($dc-type, 'moving image')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>moving image</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Still Image')">
+                        <xsl:when test="contains($dc-type, 'still image')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>still image</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('InteractiveResource')">
+                        <xsl:when test="contains($dc-type, '/interactive.*resource/')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>software, multimedia</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('PhysicalObject')">
+                        <xsl:when test="contains($dc-type, '/physical.*object/')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>three-dimensional object</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Service')">
+                        <xsl:when test="contains($dc-type, 'service')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>software, multimedia</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Sound')">
+                        <xsl:when test="contains($dc-type, 'sound')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>sound recording</xsl:text>
                             </xsl:element>
                         </xsl:when>
-                        <xsl:when test="$dc-type = lower-case('Text') or $dc-type = lower-case('DOCUMENT')">
+                      <!-- bletcherous hack for one particular institution -->
+                        <xsl:when test="contains($dc-type, 'text') or contains($dc-type, 'document')">
                             <xsl:element name="typeOfResource">
                                 <xsl:text>text</xsl:text>
                             </xsl:element>
