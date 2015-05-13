@@ -80,7 +80,7 @@
     </xsl:template>
     
     <xsl:template match="mods:note[@type='dateuncontrolled']"/>
-    <xsl:template match="mods:note">
+    <xsl:template match="mods:note[not(@*)]">
         <xsl:if test="normalize-space(.)!=''">
           <xsl:variable name="owner">
             <xsl:choose>
