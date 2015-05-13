@@ -86,17 +86,18 @@
             <xsl:choose>
               <xsl:when test="starts-with(., 'Digitized by') and contains(., 'The New York Botanical Garden')">The New York Botanical Garden</xsl:when>
               <xsl:when test="starts-with(., 'Digitized by') and contains(., 'Wildlife Conservation Society')">Wildlife Conservation Society</xsl:when>
+              <xsl:otherwise/>
             </xsl:choose>
           </xsl:variable>
           <xsl:if test="$owner!=''">
-          <xsl:call-template name="owner-note">
-            <xsl:with-param name="owner"><xsl:value-of select="$owner"></xsl:value-of></xsl:with-param>
-          </xsl:call-template>   
+            <xsl:call-template name="owner-note">
+              <xsl:with-param name="owner"><xsl:value-of select="$owner"></xsl:value-of></xsl:with-param>
+            </xsl:call-template>   
           </xsl:if>
-            <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="type">content</xsl:attribute>
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:element>
+          <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="type">content</xsl:attribute>
+              <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
         </xsl:if>
     </xsl:template>
     
