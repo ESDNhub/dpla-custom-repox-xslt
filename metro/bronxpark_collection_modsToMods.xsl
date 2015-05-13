@@ -82,6 +82,17 @@
     <xsl:template match="mods:note[@type='dateuncontrolled']"/>
     <xsl:template match="mods:note">
         <xsl:if test="normalize-space(.)!=''">
+          <xsl:variable name="owner">
+            <xsl:choose>
+              <xsl:when test="starts-with(., 'Digitized by') and contains(., 'The New York Botanical Garden')">The New York Botanical Garden</xsl:when>
+              <xsl:when test="starts-with(., 'Digitized by') and contains(., 'Wildlife Conservation Society')">Wildlife Conservation Society</xsl:when>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:if test="$owner!=''">
+          <xsl:call-template name="owner-note">
+            <xsl:with-param name="owner"><xsl:value-of select="$owner"></xsl:value-of></xsl:with-param>
+          </xsl:call-template>   
+          </xsl:if>
             <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="type">content</xsl:attribute>
                 <xsl:value-of select="normalize-space(.)"/>
@@ -144,19 +155,6 @@
         </xsl:call-template>
     </xsl:template>    
   
-  <xsl:template match="mods:note[not(@*)]">
-    <xsl:variable name="notestr" select="."/>
-    <xsl:variable name="owner">
-    <xsl:choose>
-      <xsl:when test="contains($notestr, 'New York Botanical Garden')">The New York Botanical Garden</xsl:when>
-      <xsl:otherwise>Wildlife Conservation Society</xsl:otherwise>
-    </xsl:choose>
-    </xsl:variable>
-    <xsl:call-template name="owner-note">
-      <xsl:with-param name="owner"><xsl:value-of select="$owner"></xsl:value-of></xsl:with-param>
-    </xsl:call-template>    
-  </xsl:template>
-    
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
     <xsl:include href="iso639x.xsl"/>
