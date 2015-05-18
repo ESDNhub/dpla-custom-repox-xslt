@@ -79,8 +79,11 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="mods:note[@type='dateuncontrolled']"/>
-    <xsl:template match="mods:note[not(@*)]">
+  <xsl:template match="mods:note[@type='dateuncontrolled']"/>
+  <xsl:template match="mods:note[@displayLabel='inscription']"/>
+  <xsl:template match="mods:relatedItem[./mods:note[@displayLabel='Series Info']]"/>
+  <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
+  <xsl:template match="mods:note[not(@*) or @displayLabel='Content Note']">
         <xsl:if test="normalize-space(.)!=''">
           <xsl:variable name="owner">
             <xsl:choose>
