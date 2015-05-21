@@ -5,6 +5,7 @@
     xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
     xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/"
     xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     exclude-result-prefixes="xs"
     version="2.0">
     
@@ -26,7 +27,9 @@
     <xsl:template match="mods:location"/>
     <xsl:template match="mods:mods">
         <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
+          <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
+          <xsl:attribute name="version">3.4</xsl:attribute>
+          <xsl:apply-templates select="@*|node()"/>
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">Whitney Museum of American Art. Library</xsl:with-param>
             </xsl:call-template>    
