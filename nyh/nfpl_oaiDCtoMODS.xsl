@@ -12,9 +12,12 @@
   xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
+  <xsl:template match="/">
+    <xsl:apply-templates select="//oai_dc:dc[./dc:relation='State Reservation at Niagara']"/>
+  </xsl:template>
+  
   <xsl:template match="text()|@*"/>
-  <xsl:template match="//oai_dc:dc">
-    <xsl:if test="./dc:relation='State Reservation at Niagara'">
+  <xsl:template match="oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
       <xsl:apply-templates select="dc:title"/>
       
@@ -61,7 +64,6 @@
         <xsl:with-param name="owner">Niagara Falls Public Library</xsl:with-param>
       </xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>
-    </xsl:if>
   </xsl:template>
   
   <!-- ESDN utility templates -->
