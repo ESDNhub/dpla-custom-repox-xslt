@@ -37,6 +37,7 @@
   <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
   <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
   
+    <xsl:template match="mods:affiliation"/>
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>
