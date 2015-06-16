@@ -66,7 +66,13 @@
                 </xsl:if>
             </xsl:for-each>
         </xsl:if>
-    </xsl:template>  
+    </xsl:template>
+  
+  <xsl:template name="coords_element">
+    <xsl:param name="lat"/>
+    <xsl:param name="long"/>
+    <xsl:value-of select="concat($lat, ',', $long)"/>
+  </xsl:template>
     
     
 </xsl:stylesheet>
