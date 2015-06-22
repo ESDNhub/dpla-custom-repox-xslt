@@ -43,7 +43,6 @@
         <xsl:apply-templates select="dcterms:temporal"/>
         <xsl:apply-templates select="dcterms:spatial"/>
         <xsl:apply-templates select="dcterms:type"/>
-        <xsl:apply-templates select="dc:type"/>
         <xsl:apply-templates select="edm:isShownAt"/>
         <xsl:apply-templates select="edm:Preview"/>
         
