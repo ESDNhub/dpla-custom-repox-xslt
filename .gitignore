@@ -30,12 +30,10 @@ metro/iso639x.xsl
 ./non-hosted/oaiDCtoMODS_cdmbase.xsl
 ./non-hosted/nyphil/esdn_templates.xsl
 ./non-hosted/nyphil/iso639x.xsl
-./non-hosted/nyphil/oaiDCtoMODS_base.xsl
 ./non-hosted/nyphil/oaiDCtoMODS_cdm6.5.xsl
 ./non-hosted/nyphil/oaiDCtoMODS_cdmbase.xsl
 non-hosted/nyphil/esdn_templates.xsl
 non-hosted/nyphil/iso639x.xsl
-non-hosted/nyphil/oaiDCtoMODS_base.xsl
 non-hosted/nyphil/oaiDCtoMODS_cdm6.5.xsl
 non-hosted/nyphil/oaiDCtoMODS_cdmbase.xsl
 
