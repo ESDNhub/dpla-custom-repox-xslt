@@ -41,7 +41,7 @@
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='interviewee'">creator</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='interviewer'">creator</xsl:when>
                 <xsl:otherwise>contributor</xsl:otherwise>
             </xsl:choose>
         </xsl:element>
