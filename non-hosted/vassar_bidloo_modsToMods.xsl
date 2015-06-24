@@ -25,7 +25,12 @@
           <xsl:apply-templates select="@*|node()"/>
             <xsl:call-template name="owner-note">
               <xsl:with-param name="owner">Vassar College Libraries, Poughkeepsie, N.Y</xsl:with-param>
-            </xsl:call-template>    
+            </xsl:call-template>
+          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The original collection of books that comprised the library when Vassar College opened its doors in 1865 was the gift of Matthew Vassar. He donated between 3,000 and 4,000 volumes from his personal library and purchased an additional 1,000 from Elias Magoon, one of the college’s first trustees. Today the library is renowned as one of the finest college libraries in the world. In 2011, the 150th anniversary of the college's founding, the Vassar Libraries acquired the college's millionth volume — Anatomia humani corporis by Govard Bidloo, a 17th-century anatomy atlas.</xsl:element>
+          </xsl:element>
         </xsl:copy>
     </xsl:template>
     

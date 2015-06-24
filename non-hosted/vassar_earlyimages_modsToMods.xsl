@@ -26,6 +26,16 @@
           <xsl:call-template name="owner-note">
             <xsl:with-param name="owner">Vassar College Libraries, Poughkeepsie, N.Y</xsl:with-param>
           </xsl:call-template>    
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">host</xsl:attribute>
+          <xsl:attribute name="displayLabel">collection</xsl:attribute>
+          <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Images of Early Vassar collection consists of materials relating to 
+            the early history of Vassar College, from its founding in 1861 to the 
+            early years of the 20th century. The images provide visual documentation
+            of Raymond Avenue, college buildings and buildings relating to Matthew 
+            Vassar, class groups, faculty, presidents, students, trustees, Vassar 
+            Lake, and Matthew Vassar and his relatives.</xsl:element>
+        </xsl:element>
       </xsl:copy>
   </xsl:template>
   
