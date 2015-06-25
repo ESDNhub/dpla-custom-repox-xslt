@@ -47,7 +47,6 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <xsl:choose>
         <xsl:when test="count(dc:coverage) = 2 and (matches(dc:coverage[1], '\d+') and matches(dc:coverage[2], '\d+'))">
           <xsl:element name="subject">
