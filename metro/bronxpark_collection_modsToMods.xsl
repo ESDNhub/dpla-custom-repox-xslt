@@ -83,7 +83,7 @@
     </xsl:template>
     
   <xsl:template match="mods:note[@type='dateuncontrolled']"/>
-  <xsl:template match="mods:note[@displayLabel='inscription']"/>
+  <xsl:template match="mods:note[@displayLabel='Inscription']"/>
   <xsl:template match="mods:relatedItem[./mods:note[@displayLabel='Series Info']]"/>
   <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
   <xsl:template match="mods:note[not(@*) or @displayLabel='Content Note']">
