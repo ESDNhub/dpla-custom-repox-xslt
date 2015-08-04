@@ -59,7 +59,7 @@
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
-  <xsl:include href="oaiDCtoMODS_cdmbase.xsl"/>
+  <xsl:include href="oaidctomods_cdmbase.xsl"/>
   
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
