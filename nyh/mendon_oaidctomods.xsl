@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/'
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/"
+  xmlns:mods="http://www.loc.gov/mods/v3"
+  exclude-result-prefixes="xs"
+  
+  version="2.0"
+  xmlns="http://www.loc.gov/mods/v3">
+  <xsl:output omit-xml-declaration="yes" indent="yes"/>
+  
+  <xsl:template match="/">
+    <xsl:apply-templates select="//oai_dc:dc"/>
+  </xsl:template>
+  
+  <xsl:template match="text()|@*"/>
+  <xsl:template match="oai_dc:dc">
+    <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
+      <xsl:apply-templates select="dc:title"/>
+      
+      <!--<xsl:apply-templates select="dc:contributor"/>-->
+      <xsl:apply-templates select="dc:creator"/>
+      
+      <xsl:if test="count(dc:date[lower-case(normalize-space(./text()))!='unknown']) > 0 or
+        count(dc:publisher[lower-case(normalize-space(./text()))!='unknown']) > 0">
+          <originInfo>
+            <xsl:apply-templates select="dc:date[lower-case(normalize-space(./text()))!='unknown']" mode="esdn"/>
+            <xsl:apply-templates select="dc:publisher[lower-case(normalize-space(./text()))!='unknown']"/>
+          </originInfo>
+        </xsl:if>
+      
+      <xsl:apply-templates select="dc:description"/>
+      <xsl:element name="physicalDescription">
+        <xsl:apply-templates select="dc:source" mode="mendon"/>
+      </xsl:element>
+      
+      <!-- templates we override get a mode attribute with the setSpec of the collection -->
+      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:attribute name="authority">iso639-3</xsl:attribute>
+            <xsl:attribute name="type">code</xsl:attribute>
+            <xsl:call-template name="iso6393-codes">
+              <xsl:with-param name="lval"><xsl:value-of select="dc:language"/></xsl:with-param>
+            </xsl:call-template>
+          </xsl:element>
+        </xsl:element>
+        <xsl:apply-templates select="dc:relation"/>
+      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
+
+
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <!-- hard code ownership note -->
+      <xsl:call-template name="owner-note">
+        <xsl:with-param name="owner">Mendon Public Library</xsl:with-param>
+      </xsl:call-template>
+     <xsl:apply-templates select="dc:relation"/></mods>
+  </xsl:template>
+  
+  <!-- ESDN utility templates -->
+  <xsl:include href="nyh_templates.xsl"/>
+  <xsl:include href="esdn_templates.xsl"/>
+  <xsl:include href="iso639x.xsl"/>
+  
+  <!-- dublin core field templates -->
+  <xsl:include href="oaidctomods_cdmbase.xsl"/>
+  
+  <!-- reference URL, thumbnail URL --> 
+  <xsl:include href="oaidctomods_cdm6.5.xsl"/>
+  
+  <!-- collection-specific templates start here --> 
+  <xsl:template match="dc:source" mode="mendon">
+    <xsl:variable name="elms" select="tokenize(.,';')"/>
+    <xsl:element name="extent">
+      <xsl:value-of select="normalize-space(concat($elms[3], ', ', $elms[4], ',', $elms[5]))"/>
+    </xsl:element>
+    <xsl:element name="form">
+      <xsl:value-of select="normalize-space(concat($elms[1], ', ', $elms[2]))"/>
+    </xsl:element>
+  </xsl:template>
+  
+</xsl:stylesheet>
+
