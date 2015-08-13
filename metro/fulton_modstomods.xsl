@@ -6,6 +6,7 @@
     xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/"
     xmlns:mods="http://www.loc.gov/mods/v3"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     exclude-result-prefixes="xs"
     version="2.0">
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
@@ -33,6 +34,7 @@
     <xsl:template match="mods:relatedItem/@type"/>
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
+    <xsl:template match="mods:relatedItem/@xlink:href"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:location"/>
