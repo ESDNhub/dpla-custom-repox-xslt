@@ -293,13 +293,9 @@
             <xsl:for-each select="tokenize($languagevalue,';')">
                 <xsl:if test="normalize-space(.)!=''">
                     <xsl:element name="languageTerm">
-                      <xsl:attribute name="type">code</xsl:attribute>
+<!--                      <xsl:attribute name="type">code</xsl:attribute>
                       <xsl:attribute name="authority">iso639-3</xsl:attribute>
-                      <xsl:call-template name="iso6393-codes">
-                        <xsl:with-param name="lval">
-                          <xsl:value-of select="normalize-space(lower-case(.))"/>
-                        </xsl:with-param>
-                      </xsl:call-template>
+-->                          <xsl:value-of select="normalize-space(lower-case(.))"/>
                     </xsl:element>
                 </xsl:if>
             </xsl:for-each>
@@ -314,5 +310,4 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:include href="iso639x.xsl"/>
 </xsl:stylesheet>
