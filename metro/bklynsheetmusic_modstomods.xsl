@@ -76,7 +76,7 @@
   </xsl:template>
   
   <xsl:template match="mods:note[@type='dateuncontrolled'][not(exists(./mods:originInfo))]">
-    <xsl:element name="originInfo">
+    <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
       <xsl:call-template name="date-to-mods">
         <xsl:with-param name="dateval">
           <xsl:value-of select="normalize-space(.)"/>
