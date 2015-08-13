@@ -33,6 +33,7 @@
         </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
+      
       <xsl:if test="exists(dc:source)">
         <xsl:element name="physicalDescription">
           <xsl:apply-templates select="dc:source" mode="newark"/>
