@@ -61,14 +61,30 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:note[@type='dateuncontrolled']">
-        <xsl:call-template name="date-to-mods">
-            <xsl:with-param name="dateval">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
+  <xsl:template match="mods:originInfo[not(exists(./mods:dateIssued))]">
+    <xsl:copy>
+      <xsl:apply-templates select="mods:note[@type='dateuncontrolled'][exists(./mods:originInfo)]"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="mods:note[@type='dateuncontrolled'][exists(./mods:originInfo)]">
+    <xsl:call-template name="date-to-mods">
+      <xsl:with-param name="dateval">
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="mods:note[@type='dateuncontrolled'][not(exists(./mods:originInfo))]">
+    <xsl:element name="originInfo">
+      <xsl:call-template name="date-to-mods">
+        <xsl:with-param name="dateval">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:element>
+  </xsl:template>
+  
     <xsl:template match="mods:note[@type='condition']"/>
     
   <!-- Both templates are here due to Islandora's inconsistent addition of an empty namespace
@@ -131,5 +147,4 @@
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
-    <xsl:include href="iso639x.xsl"/>
 </xsl:stylesheet>
