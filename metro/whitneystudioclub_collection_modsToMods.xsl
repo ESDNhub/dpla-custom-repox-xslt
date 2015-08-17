@@ -77,27 +77,47 @@
         </xsl:call-template>
     </xsl:template>
     
-    <xsl:template match="mods:identifier">
-        <xsl:if test=".[@type='uri']">
-            <!-- we do this to workaround Islandora's assigning the default namesapce to
+  <xsl:template match="mods:identifier">
+    <xsl:if test=".[@type='uri']">
+      <!-- we do this to workaround Islandora's assigning the default namesapce to
                 this element by adding an empty @xmlns in the original. -->
-            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:attribute name="usage">primary display</xsl:attribute>
-                    <xsl:attribute name="access">object in context</xsl:attribute>
-                    <xsl:value-of select="normalize-space(.)"/>
-                </xsl:element>
-            </xsl:element>
-            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:attribute name="access">preview</xsl:attribute>
-                    <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
-                </xsl:element>
-            </xsl:element>
-        </xsl:if>
-    </xsl:template>
-    
-    <xsl:template match="mods:note[@type='dateuncontrolled']"/>
+      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="usage">primary display</xsl:attribute>
+          <xsl:attribute name="access">object in context</xsl:attribute>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="access">preview</xsl:attribute>
+          <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="identifier">
+    <xsl:if test=".[@type='uri']">
+      <!-- we do this to workaround Islandora's assigning the default namesapce to
+                this element by adding an empty @xmlns in the original. -->
+      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="usage">primary display</xsl:attribute>
+          <xsl:attribute name="access">object in context</xsl:attribute>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="access">preview</xsl:attribute>
+          <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="mods:note[@type='dateuncontrolled']"/>
     <xsl:template match="mods:note[@type='condition']"/>
     <xsl:template match="mods:note">
         <xsl:if test="normalize-space(.)!=''">
