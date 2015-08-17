@@ -32,7 +32,7 @@
     <xsl:template match="mods:identifier[@type='local']"/>
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:relatedItem/@type"/>
-    <xsl:template match="mods:relatedItem/@xlink:href"/>
+    <xsl:template match="mods:relatedItem[exists(./@xlink:href)]"/>
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
@@ -63,6 +63,7 @@
 
   <xsl:template match="mods:originInfo[not(exists(./mods:dateIssued))]">
     <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
       <xsl:apply-templates select="mods:note[@type='dateuncontrolled'][exists(./mods:originInfo)]"/>
     </xsl:copy>
   </xsl:template>
