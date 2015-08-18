@@ -32,12 +32,14 @@
         <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The collection includes correspondence of Jasper Parrish, 1790-1829, and others, 1757-1869, relating to the Painted Post treaty, payments to Indians, supplies to the Seneca mission, conduct of the St. Regis Indians, and work of the Quakers among the Indians. There are addresses and messages, 1803-1823, of Timothy Pickering, Thomas Jefferson, and John C. Calhoun to Iroquois chiefs including Red Jacket, Cornplanter, Farmer's Brother, Little Billy, Young King, and others. There are also legal papers, agreements and deeds, 1791-1824, including a deed of conveyance pertaining to the property of Mary Jemison. Records of Jasper Parrish's business transactions include receipts, invoices, notes, and accounts, 1793-1837. There are military and government records relating to the War of 1812 and the New York State Indians, including annuity payment agreements to the Indians and petitions for payments not received, a census of the Six Nations, 1792-1828, and other miscellaneous items, 1799-1860. There is also a set of transcripts along with an introduction prepared by Dorothy May Fairbank, Vassar Class of 1940, another set of transcripts created in 1954, and two biographical narratives of Jasper Parrish contributed by Caroline Townsend Monks, who was Vassar Class of 1940 and a direct descendant of Jasper Parrish. Digitization of the collection was made possible by a generous grant from Dr. Georgette Bennett in honor of Dr. Leonard Polonsky CBE.</xsl:element>
       </xsl:element>
       <xsl:for-each select="mods:subject/mods:topic">
-        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="authority">lcsh</xsl:attribute>
-          <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="."/>
+        <xsl:if test="normalize-space(.)!=''">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">lcsh</xsl:attribute>
+            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
           </xsl:element>
-        </xsl:element>
+        </xsl:if>
       </xsl:for-each>
     </xsl:copy>
   </xsl:template>

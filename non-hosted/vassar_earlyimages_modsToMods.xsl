@@ -37,12 +37,14 @@
             Lake, and Matthew Vassar and his relatives.</xsl:element>
         </xsl:element>
         <xsl:for-each select="mods:subject/mods:topic">
-          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">lcsh</xsl:attribute>
-            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-              <xsl:value-of select="."/>
+          <xsl:if test="normalize-space(.)!=''">
+            <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="authority">lcsh</xsl:attribute>
+              <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:element>
             </xsl:element>
-          </xsl:element>
+          </xsl:if>
         </xsl:for-each>
       </xsl:copy>
   </xsl:template>

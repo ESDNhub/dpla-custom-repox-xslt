@@ -32,12 +32,14 @@
         <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Student Diaries collection provides access to more than fifty diaries from Vassar students from the nineteenth century. The diaries concern life on campus, other students, classes, relationships with their professors, vacations, family news, and other subjects; some volumes have short entries on daily activities while others have longer, more reflective entries. Students include Florence Wislocki, 1922; Frances M. Bromley, 1875-1877; Abby Holden, 1871-1872; Bertha Keffer, 1868-1871; Elma G. Martin, 1892-1893; Anne Page Brydon, 1922-1923; Helen Hartley Pease, 1914-1915; Anne Wyman, 1878-1880; Marjorie Anthony Markwich, 1914; and Constance E. Anthony, 1915.</xsl:element>
       </xsl:element>
       <xsl:for-each select="mods:subject/mods:topic">
-        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="authority">lcsh</xsl:attribute>
-          <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="."/>
+        <xsl:if test="normalize-space(.)!=''">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">lcsh</xsl:attribute>
+            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
           </xsl:element>
-        </xsl:element>
+        </xsl:if>
       </xsl:for-each>
     </xsl:copy>
   </xsl:template>
