@@ -31,6 +31,14 @@
             <xsl:attribute name="displayLabel">collection</xsl:attribute>
             <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The original collection of books that comprised the library when Vassar College opened its doors in 1865 was the gift of Matthew Vassar. He donated between 3,000 and 4,000 volumes from his personal library and purchased an additional 1,000 from Elias Magoon, one of the college’s first trustees. Today the library is renowned as one of the finest college libraries in the world. In 2011, the 150th anniversary of the college's founding, the Vassar Libraries acquired the college's millionth volume — Anatomia humani corporis by Govard Bidloo, a 17th-century anatomy atlas.</xsl:element>
           </xsl:element>
+          <xsl:for-each select="mods:subject/mods:topic">
+            <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="authority">lcsh</xsl:attribute>
+              <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                <xsl:value-of select="."/>
+              </xsl:element>
+            </xsl:element>
+          </xsl:for-each>
         </xsl:copy>
     </xsl:template>
     
@@ -38,7 +46,8 @@
     <xsl:template match="mods:classification"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:dateOther"/>
-    <xsl:template match="mods:name[./mods:role/mods:roleTerm='former owner']"/>
+    <xsl:template match="mods:subject[exists(./mods:topic)]"/>
+  <xsl:template match="mods:name[./mods:role/mods:roleTerm='former owner']"/>
   
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">

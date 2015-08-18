@@ -32,6 +32,14 @@
           <xsl:attribute name="displayLabel">collection</xsl:attribute>
           <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">John Burroughs (1837-1921) was a noted naturalist, essayist and a significant figure in the history of environmentalism. He was born in a small town in the Catskills and spent the bulk of his adult life in West Park. The project is currently a work in progress; at completion, there will be 54 volumes available.</xsl:element>
         </xsl:element>
+        <xsl:for-each select="mods:subject/mods:topic">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">lcsh</xsl:attribute>
+            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="."/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:for-each>
       </xsl:copy>
   </xsl:template>
   
@@ -40,6 +48,7 @@
   <xsl:template match="mods:publisher"/>
   <xsl:template match="mods:relatedItem/@type"/>
   <xsl:template match="mods:note"/>
+  <xsl:template match="mods:subject[exists(./mods:topic)]"/>
   
   
   <xsl:template match="mods:dateCreated[./@point='start']">

@@ -31,7 +31,15 @@
           <xsl:attribute name="displayLabel">collection</xsl:attribute>
           <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">Susan Brownell Anthony was born in Adams, Massachusetts, on 15 February1820. Her parents, Daniel Anthony and Lucy Read, raised her and her seven siblings as Quakers. After a series of financial setbacks and relocations, the Anthony family settled in Rochester, New York, where Susan B. Anthony became acquainted with many abolitionists and women's rights reformers of her day, including William Lloyd Garrison, Frederick Douglass, Amelia Bloomer and Samuel May. In the early 1850s she formed an alliance with Elizabeth Cady Stanton that was critical to the fight for woman suffrage. The main concern of Anthony's letters from 1854-1866 was the antislavery movement. After the Civil War she directed all her energy to the struggle for equal rights for women. Major correspondents include Francis Jackson Garrison, William Lloyd Garrison, Samuel May, Eliza R. Whiting, and Elizabeth Cady Stanton. (Letters from Anthony to  Stanton are in Vassar's Stanton collection). Most letters are hand-written and have an accompanying transcript.  Digitization of the  collection was made possible by a generous grant from Dr. Georgette Bennett in honor of Dr. Leonard Polonsky CBE.</xsl:element>
         </xsl:element>
-      </xsl:copy>
+        <xsl:for-each select="mods:subject/mods:topic">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">lcsh</xsl:attribute>
+            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="."/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:for-each>
+       </xsl:copy>
   </xsl:template>
   
   <xsl:template match="mods:accessCondition/@type" />
@@ -41,6 +49,7 @@
   <xsl:template match="mods:place"/>
   <xsl:template match="mods:dateOther"/>
   <xsl:template match="mods:publisher"/>
+  <xsl:template match="mods:subject[exists(./mods:topic)]"/>
   
   <xsl:template match="mods:roleTerm">
       <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
@@ -83,7 +92,7 @@
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
   </xsl:template>
-
+  
   <!-- ESDN utility templates -->
   <xsl:include href="esdn_templates.xsl"/>
   <xsl:include href="iso639x.xsl"/>

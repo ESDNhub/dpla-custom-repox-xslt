@@ -36,6 +36,14 @@
             Vassar, class groups, faculty, presidents, students, trustees, Vassar 
             Lake, and Matthew Vassar and his relatives.</xsl:element>
         </xsl:element>
+        <xsl:for-each select="mods:subject/mods:topic">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">lcsh</xsl:attribute>
+            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="."/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:for-each>
       </xsl:copy>
   </xsl:template>
   
@@ -46,6 +54,7 @@
   <xsl:template match="mods:publisher"/>
   <xsl:template match="mods:identifier[@type='local']"/>
   <xsl:template match="mods:subject[@authority='local']"/>
+  <xsl:template match="mods:subject[exists(./mods:topic)]"/>
   <xsl:template match="mods:subject/mods:hierarchicalGeographic/mods:continent"/>
   <xsl:template match="mods:form/@authority"/>
   
