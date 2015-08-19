@@ -20,19 +20,28 @@
     
   <xsl:template match="//mods:mods">
     <xsl:copy>
-      <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
+      <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
+        http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
       <xsl:attribute name="version">3.4</xsl:attribute>
-      <xsl:apply-templates select="@*|node()"/>
-        <xsl:call-template name="owner-note">
-          <xsl:with-param name="owner">Vassar College Libraries, Poughkeepsie, N.Y</xsl:with-param>
-        </xsl:call-template>    
+      <xsl:apply-templates select="@* | node()"/>
+      <xsl:call-template name="owner-note">
+        <xsl:with-param name="owner">Vassar College Libraries, Poughkeepsie, N.Y</xsl:with-param>
+      </xsl:call-template>
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">collection</xsl:attribute>
-        <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Student Diaries collection provides access to more than fifty diaries from Vassar students from the nineteenth century. The diaries concern life on campus, other students, classes, relationships with their professors, vacations, family news, and other subjects; some volumes have short entries on daily activities while others have longer, more reflective entries. Students include Florence Wislocki, 1922; Frances M. Bromley, 1875-1877; Abby Holden, 1871-1872; Bertha Keffer, 1868-1871; Elma G. Martin, 1892-1893; Anne Page Brydon, 1922-1923; Helen Hartley Pease, 1914-1915; Anne Wyman, 1878-1880; Marjorie Anthony Markwich, 1914; and Constance E. Anthony, 1915.</xsl:element>
+        <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Student Diaries
+          collection provides access to more than fifty diaries from Vassar students from the
+          nineteenth century. The diaries concern life on campus, other students, classes,
+          relationships with their professors, vacations, family news, and other subjects; some
+          volumes have short entries on daily activities while others have longer, more reflective
+          entries. Students include Florence Wislocki, 1922; Frances M. Bromley, 1875-1877; Abby
+          Holden, 1871-1872; Bertha Keffer, 1868-1871; Elma G. Martin, 1892-1893; Anne Page Brydon,
+          1922-1923; Helen Hartley Pease, 1914-1915; Anne Wyman, 1878-1880; Marjorie Anthony
+          Markwich, 1914; and Constance E. Anthony, 1915.</xsl:element>
       </xsl:element>
       <xsl:for-each select="mods:subject/mods:topic">
-        <xsl:if test="normalize-space(.)!=''">
+        <xsl:if test="normalize-space(.) != ''">
           <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">lcsh</xsl:attribute>
             <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
@@ -42,24 +51,45 @@
         </xsl:if>
       </xsl:for-each>
       <xsl:for-each select="mods:subject/mods:geographic">
-        <xsl:variable name="dash_list" select="tokenize(., '--')"/>
-        <xsl:if test="normalize-space(.)!=''">
-          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">lcsh</xsl:attribute>
-            <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-              <xsl:value-of select="normalize-space(.)"/>
-            </xsl:element>
-          </xsl:element>
+        <xsl:if test="normalize-space(.) != ''">
+          <xsl:variable name="dash_list" select="tokenize(., '--')"/>
+          <xsl:variable name="last_node_index" select="count(preceding-sibling::node())"/>
           <xsl:choose>
-            <xsl:when test="not(starts-with(preceding-sibling::node()[1]/text(), $dash_list[1]))">
+            <xsl:when test="count($dash_list) = 1">
               <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="authority">lcsh</xsl:attribute>
                 <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                  <xsl:value-of select="normalize-space($dash_list[1])"/>
+                  <xsl:value-of select="normalize-space(.)"/>
                 </xsl:element>
               </xsl:element>
             </xsl:when>
-            <xsl:otherwise/>
+            <xsl:otherwise>
+              <xsl:choose>
+                <xsl:when
+                  test="not(starts-with(preceding-sibling::node()[1]/text(), $dash_list[1]))">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:attribute name="authority">lcsh</xsl:attribute>
+                    <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:value-of select="normalize-space($dash_list[1])"/>
+                    </xsl:element>
+                  </xsl:element>
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:attribute name="authority">lcsh</xsl:attribute>
+                    <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:element>
+                  </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:attribute name="authority">lcsh</xsl:attribute>
+                    <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:element>
+                  </xsl:element>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:if>
       </xsl:for-each>
