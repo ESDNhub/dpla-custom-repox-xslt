@@ -46,7 +46,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Middleburgh Library</xsl:with-param>
       </xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+    </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
