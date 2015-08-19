@@ -41,6 +41,28 @@
               </xsl:element>
             </xsl:if>
           </xsl:for-each>
+          <xsl:for-each select="mods:subject/mods:geographic">
+            <xsl:variable name="dash_list" select="tokenize(., '--')"/>
+            <xsl:if test="normalize-space(.)!=''">
+              <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="authority">lcsh</xsl:attribute>
+                <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                  <xsl:value-of select="normalize-space(.)"/>
+                </xsl:element>
+              </xsl:element>
+              <xsl:choose>
+                <xsl:when test="not(starts-with(preceding-sibling::node()[1]/text(), $dash_list[1]))">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:attribute name="authority">lcsh</xsl:attribute>
+                    <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:value-of select="normalize-space($dash_list[1])"/>
+                    </xsl:element>
+                  </xsl:element>
+                </xsl:when>
+                <xsl:otherwise/>
+              </xsl:choose>
+            </xsl:if>
+          </xsl:for-each>
         </xsl:copy>
     </xsl:template>
     
@@ -48,8 +70,9 @@
     <xsl:template match="mods:classification"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:dateOther"/>
-    <xsl:template match="mods:subject[exists(./mods:topic)]"/>
-  <xsl:template match="mods:name[./mods:role/mods:roleTerm='former owner']"/>
+    <xsl:template match="mods:subject/mods:topic"/>
+    <xsl:template match="mods:subject/mods:geographic"/>
+    <xsl:template match="mods:name[./mods:role/mods:roleTerm='former owner']"/>
   
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
