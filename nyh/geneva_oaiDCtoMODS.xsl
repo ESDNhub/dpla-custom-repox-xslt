@@ -6,21 +6,15 @@
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:contributor"/>
+      <xsl:apply-templates select="dc:contributor[normalize-space(lower-case(./text()))!='unknown']"/>
       
       <!-- Geneva uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator"/>
-      </xsl:if>
+      <xsl:apply-templates select="dc:creator[normalize-space(lower-case(./text()))!='unknown']"/>
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-            <xsl:apply-templates select="dc:publisher"/>
-          </xsl:if>
+          <xsl:apply-templates select="dc:date[normalize-space(lower-case(./text()))!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[normalize-space(lower-case(./text()))!='unknown']"/>
         </originInfo>
       </xsl:if>
       
@@ -37,7 +31,7 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
-      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:apply-templates select="dc:coverage[normalize-space(lower-case(./text()))!='unknown']" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Geneva Historical Society</xsl:with-param></xsl:call-template>
