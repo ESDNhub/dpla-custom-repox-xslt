@@ -9,18 +9,12 @@
       <xsl:apply-templates select="dc:contributor"/>
       
       <!-- HRVH uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator"/>
-      </xsl:if>
+      <xsl:apply-templates select="dc:creator[normalize-space(lower-case(./text()))!='unknown']"/>
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-          </xsl:if>
-            <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[normalize-space(lower-case(./text()))!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[normalize-space(lower-case(./text()))!='unknown']"/>
         </originInfo>
       </xsl:if>
       
@@ -35,7 +29,7 @@
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
 
 
-      <xsl:apply-templates select="dc:coverage"/>
+      <xsl:apply-templates select="dc:coverage[normalize-space(lower-case(./text()))!='unknown']"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note"><xsl:with-param

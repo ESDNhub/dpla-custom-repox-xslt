@@ -76,12 +76,16 @@
   
   <xsl:template match="dc:source" mode="nysmm">
     <xsl:variable name="parts" select="tokenize(., ';')"/>
+    <xsl:if test="normalize-space($parts[1]) != ''">
       <xsl:element name="form">
         <xsl:value-of select="concat(normalize-space($parts[1]), '; ', normalize-space($parts[2]), '; ', normalize-space($parts[3]))"/>
       </xsl:element>
+    </xsl:if>
+    <xsl:if test="normalize-space($parts[4]) != ''">
       <xsl:element name="extent">
         <xsl:value-of select="normalize-space($parts[4])"/>
       </xsl:element>
+    </xsl:if>
   </xsl:template>
   
 </xsl:stylesheet>

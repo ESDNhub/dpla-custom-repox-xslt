@@ -14,9 +14,14 @@
       
       <xsl:if test="dc:date != '' or dc:publisher != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="dc:date[matches(normalize-space(lower-case(text())), 'jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec')]">
+              <xsl:apply-templates select="dc:date[normalize-space(lower-case(./text()))!='unknown']"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="dc:date[normalize-space(lower-case(./text()))!='unknown']" mode="esdn"/>
+            </xsl:otherwise>
+          </xsl:choose>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
           </xsl:if>
@@ -33,7 +38,7 @@
         <xsl:element name="physicalDescription">
            <xsl:element name="extent">
              <xsl:value-of select="dc:source"/>
-           </xsl:element>
+           </xsl:element>I am
         </xsl:element>
       </xsl:if>
       
