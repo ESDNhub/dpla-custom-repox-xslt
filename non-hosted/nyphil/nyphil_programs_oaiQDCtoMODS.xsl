@@ -25,7 +25,7 @@
   <xsl:template match="oai_dc:dc">
     <xsl:if test="./edm:Preview[not(contains(., 'NotAvailable'))]">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
-        <xsl:apply-templates select="dc:creator"/>     
+        <xsl:apply-templates select="edm:dataProvider"/>     
         <xsl:apply-templates select="dcterms:title"/>     
         
         <xsl:if test="normalize-space(dc:date) != ''">
@@ -56,7 +56,7 @@
         
         <!-- hard code ownership note -->
         <xsl:call-template name="owner-note">
-          <xsl:with-param name="owner"><xsl:value-of select="normalize-space(edm:dataProvider)"/></xsl:with-param>
+          <xsl:with-param name="owner"><xsl:value-of select="normalize-space(dc:creator)"/></xsl:with-param>
         </xsl:call-template>
        </mods>
     </xsl:if>
@@ -158,6 +158,20 @@
         </xsl:element>
       </xsl:element>
     </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="edm:dataProvider">
+    <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($creatorvalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <name>
+          <namePart>
+            <xsl:value-of select="normalize-space(.)"/> <!--creator-->
+          </namePart>
+          <role><roleTerm>creator</roleTerm></role>
+        </name> 
+      </xsl:if>
+    </xsl:for-each>      
   </xsl:template>
   
 </xsl:stylesheet>
