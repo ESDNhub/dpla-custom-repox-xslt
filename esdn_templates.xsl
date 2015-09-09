@@ -310,4 +310,12 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template name="intermediate-provider">
+        <xsl:param name="council"/>
+        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">regional council</xsl:attribute>
+            <xsl:value-of select="$council"/>
+        </xsl:element>
+    </xsl:template>
+    
 </xsl:stylesheet>
