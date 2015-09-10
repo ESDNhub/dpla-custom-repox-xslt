@@ -24,7 +24,7 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="flower"/>
-      <xsl:call-template name="owner-note">
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Watertown Flower Memorial Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>

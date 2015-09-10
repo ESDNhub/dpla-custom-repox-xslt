@@ -45,7 +45,7 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Albany Public Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Capital District Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Albany Public Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>
   

@@ -80,7 +80,7 @@
       </xsl:choose>
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:call-template name="owner-note">
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">The Buffalo History Museum</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>

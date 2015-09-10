@@ -38,7 +38,7 @@
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <xsl:call-template name="owner-note">
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Buffalo Olmsted Parks Conservancy</xsl:with-param>
       </xsl:call-template>
      <xsl:apply-templates select="dc:relation"/></mods>

@@ -50,9 +50,8 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">SUNY Upstate Medical University.
-        Health Sciences Library</xsl:with-param>
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
+        <xsl:with-param name="owner">SUNY Upstate Medical University. Health Sciences Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation"/></mods>
   </xsl:template>

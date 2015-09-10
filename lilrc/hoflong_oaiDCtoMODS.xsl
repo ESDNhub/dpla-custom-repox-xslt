@@ -35,7 +35,7 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Hofstra University</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Long Island Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Hofstra University</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:source" mode="hofstra"/>
     </mods>
   </xsl:template>
