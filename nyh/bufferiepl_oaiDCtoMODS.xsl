@@ -58,6 +58,7 @@
             </xsl:element>
           </xsl:element>
         </xsl:when>
+        <xsl:when test="count(dc:coverage) = 0"/>
         <xsl:otherwise>
           <xsl:apply-templates select="dc:coverage[1]" mode="nyh"/>
           <xsl:element name="subject">
