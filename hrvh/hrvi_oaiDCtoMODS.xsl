@@ -11,7 +11,7 @@
       
         <xsl:element name="originInfo">
           <xsl:apply-templates select="dc:date" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       
       <xsl:apply-templates select="dc:description"/>
