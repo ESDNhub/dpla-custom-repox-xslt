@@ -30,7 +30,9 @@
         </xsl:variable>
         <xsl:for-each select="tokenize(., ';')">
             <xsl:if test="not(contains($ignored_topics, lower-case(normalize-space(.))))">
-                <subject><topic><xsl:value-of select="normalize-space(.)"/></topic></subject>
+                <subject><topic><xsl:call-template name="normalize-dashes-nyh">
+                    <xsl:with-param name="dash-str"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+                </xsl:call-template></topic></subject>
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
@@ -68,11 +70,16 @@
         </xsl:if>
     </xsl:template>
   
-  <xsl:template name="coords_element">
+  <xsl:template name="coords_element-nyh">
     <xsl:param name="lat"/>
     <xsl:param name="long"/>
     <xsl:value-of select="concat($lat, ',', $long)"/>
   </xsl:template>
+    
+    <xsl:template name="normalize-dashes-nyh">
+        <xsl:param name="dash-str"/>
+        <xsl:value-of select="replace($dash-str, '\s*-+\s*', '--')"/> 
+    </xsl:template>
     
     
 </xsl:stylesheet>

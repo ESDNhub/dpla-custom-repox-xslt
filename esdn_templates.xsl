@@ -318,4 +318,16 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template name="coords_element">
+        <xsl:param name="lat"/>
+        <xsl:param name="long"/>
+        <xsl:value-of select="concat($lat, ',', $long)"/>
+    </xsl:template>
+    
+    <xsl:template name="normalize-dashes">
+        <xsl:param name="dash-str"/>
+        <xsl:value-of select="replace($dash-str, '\s*-+\s*', '--')"/> 
+    </xsl:template>
+    
+    
 </xsl:stylesheet>
