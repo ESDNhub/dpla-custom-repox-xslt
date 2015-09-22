@@ -13,9 +13,9 @@
                             <xsl:when test='matches(.,"\d+\.\d+")'>
                                 <subject><cartographic><coordinates><xsl:value-of select="normalize-space(.)"/></coordinates></cartographic></subject> <!--coverage-->
                             </xsl:when>
-                            <!-- if there's no coordinate pattern, it's probably temporal data; put it in <subject><topic> -->
+                            <!-- if there's no coordinate pattern, it's probably temporal data; put it in <subject><temporal> -->
                             <xsl:otherwise>
-                                <subject><topic><xsl:value-of select="normalize-space(.)"/></topic></subject>
+                                <subject><temporal><xsl:value-of select="normalize-space(.)"/></temporal></subject>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
