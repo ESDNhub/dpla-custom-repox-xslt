@@ -8,7 +8,7 @@
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="//oai_dc:dc[./dc:relation = 'State Reservation at Niagara']"/>
+    <xsl:apply-templates select="//oai_dc:dc"/>
   </xsl:template>
 
   <xsl:template match="text() | @*"/>
@@ -28,7 +28,7 @@
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
 
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
+      <xsl:if test="normalize-space(dc:date[1]) != '' or normalize-space(dc:publisher[1]) != ''">
         <originInfo>
           <xsl:apply-templates select="dc:date" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
@@ -57,6 +57,7 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:source"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
@@ -66,7 +67,7 @@
           <xsl:choose>
             <xsl:when test="contains(lower-case(dc:relation), 'polster photographs')">Lockport
               Public Library</xsl:when>
-            <xsl:when test="contains(lower-case(dc:relation), 'early records of the saracissa')"
+            <xsl:when test="contains(lower-case(dc:relation), 'early records of the sacarissa')"
               >Lewiston Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:relation), 'state reservation at niagara')"
               >Niagara Falls Public Library</xsl:when>
