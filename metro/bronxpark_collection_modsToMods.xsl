@@ -125,7 +125,7 @@
               <xsl:value-of select="normalize-space(.)"/>
           </xsl:element>
         </xsl:if>
-    </xsl:template>
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param></xsl:call-template>    </xsl:template>
     
     <xsl:template match="mods:abstract">
         <xsl:if test="normalize-space(.)!=''">
