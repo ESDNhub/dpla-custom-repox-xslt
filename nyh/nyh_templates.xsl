@@ -78,7 +78,7 @@
     
     <xsl:template name="normalize-dashes-nyh">
         <xsl:param name="dash-str"/>
-        <xsl:value-of select="replace($dash-str, '\s*-+\s*', '--')"/> 
+        <xsl:value-of select="replace($dash-str, '\s*--\s*', '--')"/> 
     </xsl:template>
     
     
