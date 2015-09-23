@@ -12,11 +12,13 @@
         <xsl:apply-templates select="dc:creator" mode="p16694coll35"/>
       </xsl:if>
       
-      <originInfo>
-        <xsl:if test="lower-case(normalize-space(dc:date[1])) != 'unknown'">
-          <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
-        </xsl:if>
-      </originInfo>
+      <xsl:if test="exists(dc:date)">
+        <originInfo>
+          <xsl:if test="lower-case(normalize-space(dc:date[1])) != 'unknown'">
+            <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
+          </xsl:if>
+        </originInfo>
+      </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       
