@@ -52,6 +52,12 @@
 
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:title"/>
+      <xsl:element name="typeOfResource">
+        <xsl:choose>
+          <xsl:when test="not(contains(dc:relation[1], 'Aurora Gareiss Papers'))">still image</xsl:when>
+          <xsl:otherwise>text</xsl:otherwise>
+        </xsl:choose>
+      </xsl:element>
 
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
