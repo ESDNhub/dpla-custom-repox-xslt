@@ -53,3 +53,4 @@ nyh/iso639x.xsl
 ./non-hosted/fordham/oaiDCtoMODS_cdmbase.xsl
 
 non-hosted/fordham/esdn_templates.xsl
+non-hosted/fordham/iso639x.xsl
