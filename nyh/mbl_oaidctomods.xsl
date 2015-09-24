@@ -37,6 +37,7 @@
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
