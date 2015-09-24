@@ -61,7 +61,7 @@
           <xsl:attribute name="type">code</xsl:attribute>
           <xsl:attribute name="authority">iso639-3</xsl:attribute>
           <xsl:for-each select="tokenize(dc:language, ';')">
-            <xsl:element name="languageType">
+            <xsl:element name="languageTerm">
               <xsl:call-template name="iso6393-codes">
                 <xsl:with-param name="lval">
                   <xsl:value-of select="."/>
