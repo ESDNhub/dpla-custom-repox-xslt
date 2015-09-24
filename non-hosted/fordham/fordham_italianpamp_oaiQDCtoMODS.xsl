@@ -16,7 +16,8 @@
   <xsl:template match="text() | @*"/>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="//oai_qdc:qualifieddc[dc:title != 'Quality target']"/>
+    <xsl:apply-templates
+      select="//oai_qdc:qualifieddc[not(ends-with(lower-case(dc:title), 'target'))]"/>
   </xsl:template>
 
   <xsl:template match="oai_qdc:qualifieddc">
@@ -40,14 +41,36 @@
       </xsl:element>
 
       <xsl:if test="exists(dcterms:isPartOf) or exists(dcterms:isFormatOf)">
-        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-          <xsl:apply-templates select="dcterms:isFormatOf"/>
-          <xsl:apply-templates select="dcterms:isPartOf"/>
-        </xsl:element>
+        <xsl:if test="exists(dcterms:isPartOf)">
+          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:apply-templates select="dcterms:isPartOf"/>
+          </xsl:element>
+        </xsl:if>
+        <xsl:if test="exists(dcterms:isFormatOf)">
+          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:apply-templates select="dcterms:isFormatOf"/>
+          </xsl:element>
+        </xsl:if>
       </xsl:if>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type"/>
+
+      <xsl:if test="exists(dc:language)">
+        <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">code</xsl:attribute>
+          <xsl:attribute name="authority">iso639-3</xsl:attribute>
+          <xsl:for-each select="tokenize(dc:language, ';')">
+            <xsl:element name="languageType">
+              <xsl:call-template name="iso6393-codes">
+                <xsl:with-param name="lval">
+                  <xsl:value-of select="."/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:element>
+          </xsl:for-each>
+        </xsl:element>
+      </xsl:if>
 
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
@@ -58,6 +81,7 @@
 
   <!-- ESDN utility templates -->
   <xsl:include href="esdn_templates.xsl"/>
+  <xsl:include href="iso639x.xsl"/>
 
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
@@ -94,7 +118,14 @@
       <xsl:if test="normalize-space(.) != ''">
         <name>
           <namePart>
-            <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+            <xsl:choose>
+              <xsl:when test="contains(., '--author')">
+                <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:otherwise>
+            </xsl:choose>
             <!--contributor-->
           </namePart>
           <role>
@@ -111,7 +142,14 @@
       <xsl:if test="normalize-space(.) != ''">
         <name>
           <namePart>
-            <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+            <xsl:choose>
+              <xsl:when test="contains(., '--author')">
+                <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:otherwise>
+            </xsl:choose>
             <!--contributor-->
           </namePart>
           <role>
