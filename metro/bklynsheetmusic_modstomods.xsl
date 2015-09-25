@@ -145,6 +145,29 @@
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </xsl:template>
+  
+  <xsl:template match="mods:subject">
+    <xsl:if test="normalize-space(.)!=''">
+      <xsl:choose>
+        <xsl:when test="(contains(., 'New York'))">
+          <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="authority">lcsh</xsl:attribute>
+              <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+      <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="authority">lcsh</xsl:attribute>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+      </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
     
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
