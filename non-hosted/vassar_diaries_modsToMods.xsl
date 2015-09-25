@@ -40,7 +40,7 @@
           1922-1923; Helen Hartley Pease, 1914-1915; Anne Wyman, 1878-1880; Marjorie Anthony
           Markwich, 1914; and Constance E. Anthony, 1915.</xsl:element>
       </xsl:element>
-      <xsl:for-each select="mods:subject/mods:topic">
+      <xsl:for-each select="mods:subject/mods:topic[not(@authority='local')]">
         <xsl:if test="normalize-space(.) != ''">
           <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">lcsh</xsl:attribute>
