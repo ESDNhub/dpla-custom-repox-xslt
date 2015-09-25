@@ -152,6 +152,13 @@
       </xsl:for-each>
     </xsl:template>
   
+  <xsl:template match="mods:genre">
+    <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="authority">aat</xsl:attribute>
+      <xsl:value-of select="replace(.,'book', 'books')"/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="mods:titleInfo">
     <xsl:copy>
       <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
