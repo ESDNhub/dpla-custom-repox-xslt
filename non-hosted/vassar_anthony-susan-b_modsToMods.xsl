@@ -139,6 +139,13 @@
     </xsl:element>
   </xsl:template>
   
+  <xsl:template match="mods:genre">
+    <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="authority">aat</xsl:attribute>
+      <xsl:value-of select="replace(.,'letter', 'letters (correspondence)')"/>
+    </xsl:element>
+  </xsl:template>
+  
   <!-- ESDN utility templates -->
   <xsl:include href="esdn_templates.xsl"/>
   <xsl:include href="iso639x.xsl"/>
