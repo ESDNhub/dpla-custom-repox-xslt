@@ -50,7 +50,7 @@
           <xsl:element name="subject">
             <xsl:element name="cartographics">
               <xsl:element name="coordinates">
-                <xsl:call-template name="coords_element">
+                <xsl:call-template name="coords_element-nyh">
                   <xsl:with-param name="lat"><xsl:value-of select="dc:coverage[1]"/></xsl:with-param>
                   <xsl:with-param name="long"><xsl:value-of select="dc:coverage[2]"/></xsl:with-param>
                 </xsl:call-template>          
@@ -64,7 +64,7 @@
           <xsl:element name="subject">
             <xsl:element name="cartographics">
               <xsl:element name="coordinates">
-                <xsl:call-template name="coords_element">
+                <xsl:call-template name="coords_element-nyh">
                   <xsl:with-param name="lat"><xsl:value-of select="dc:coverage[2]"/></xsl:with-param>
                   <xsl:with-param name="long"><xsl:value-of select="dc:coverage[3]"/></xsl:with-param>
                 </xsl:call-template>          
