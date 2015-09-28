@@ -58,8 +58,6 @@
 
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="type">code</xsl:attribute>
-          <xsl:attribute name="authority">iso639-3</xsl:attribute>
           <xsl:for-each select="tokenize(dc:language, ';')">
             <xsl:element name="languageTerm">
               <xsl:call-template name="iso6393-codes">
