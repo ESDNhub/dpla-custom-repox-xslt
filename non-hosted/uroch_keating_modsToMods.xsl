@@ -76,6 +76,13 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    
+    <xsl:template match="mods:genre">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:value-of select="replace(.,'Interview', 'interviews')"/>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="mods:note[@type='condition']"/>
     

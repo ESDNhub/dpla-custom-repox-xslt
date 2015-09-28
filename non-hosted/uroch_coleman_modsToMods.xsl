@@ -111,6 +111,13 @@
     </xsl:copy>
   </xsl:template>
     
+    <xsl:template match="mods:genre">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:value-of select="replace(.,'Diaries', 'diaries')"/>
+        </xsl:element>
+    </xsl:template>
+    
   <xsl:template match="mods:originInfo[exists(./mods:place)]">
     <xsl:apply-templates select="./mods:place"/>
   </xsl:template>
