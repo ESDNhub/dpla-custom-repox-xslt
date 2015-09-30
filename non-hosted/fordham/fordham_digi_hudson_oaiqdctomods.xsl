@@ -16,8 +16,7 @@
   <xsl:template match="text() | @*"/>
 
   <xsl:template match="/">
-    <xsl:apply-templates
-      select="//oai_qdc:qualifieddc[not(ends-with(lower-case(dc:title), 'target'))]"/>
+    <xsl:apply-templates select="//oai_qdc:qualifieddc[not(exists(./dc:source))]"/>
   </xsl:template>
 
   <xsl:template match="oai_qdc:qualifieddc">
@@ -27,9 +26,9 @@
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor" mode="fordham"/>
       <xsl:apply-templates select="dc:creator" mode="fordham"/>
-      <xsl:if test="exists(dc:date) or exists(dc:publisher)">
+      <xsl:if test="exists(dcterms:created) or exists(dc:publisher)">
         <xsl:element name="originInfo">
-          <xsl:apply-templates select="dc:date[not(starts-with(./text(), 'MD'))]" mode="esdn"/>
+          <xsl:apply-templates select="dcterms:created" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
@@ -54,6 +53,7 @@
       </xsl:if>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
+      <xsl:apply-templates select="dcterms:spatial" mode="digi_hudson"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type"/>
 
@@ -118,7 +118,7 @@
         <name>
           <namePart>
             <xsl:choose>
-              <xsl:when test="contains(., '--')">
+              <xsl:when test="contains(., '--author')">
                 <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
               </xsl:when>
               <xsl:otherwise>
@@ -142,7 +142,7 @@
         <name>
           <namePart>
             <xsl:choose>
-              <xsl:when test="contains(., '--')">
+              <xsl:when test="contains(., '--author')">
                 <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
               </xsl:when>
               <xsl:otherwise>
@@ -163,6 +163,75 @@
     <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="dcterms:accessRights">
+    <xsl:call-template name="access_cond_element">
+      <xsl:with-param name="rights_txt">
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="dcterms:rightsHolder">
+    <xsl:call-template name="access_cond_element">
+      <xsl:with-param name="rights_txt">
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="dcterms:temporal">
+    <xsl:call-template name="subject_element">
+      <xsl:with-param name="subj_val">
+        <xsl:value-of select="."/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="subject_element">
+    <xsl:param name="subj_val"/>
+    <xsl:variable name="subj_list" select="tokenize($subj_val, ';')"/>
+    <xsl:for-each select="$subj_list">
+      <xsl:element name="subject">
+        <xsl:element name="topic">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="access_cond_element">
+    <xsl:param name="rights_txt"/>
+    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="$rights_txt"/>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="dcterms:spatial" mode="digi_hudson">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:choose>
+        <xsl:when test="contains(., '--')">
+          <xsl:element name="subject">
+            <xsl:element name="geographic">
+              <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+            </xsl:element>
+          </xsl:element>
+          <xsl:element name="subject">
+            <xsl:element name="topic">
+              <xsl:value-of select="normalize-space(substring-after(., '--'))"/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="subject">
+            <xsl:element name="geographic">
+              <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>
