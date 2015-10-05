@@ -143,7 +143,7 @@
       <xsl:template match="dc:type">
         <xsl:variable name="typevalue" select="normalize-space(.)"/>
           <xsl:if test="normalize-space(.)!=''">
-          <genre><xsl:value-of select="normalize-space(.)"/></genre> <!--type-->
+          <typeOfResource><xsl:value-of select="normalize-space(.)"/></typeOfResource> <!--type-->
           </xsl:if>    
       </xsl:template>
        
