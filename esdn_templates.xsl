@@ -221,11 +221,11 @@
         <xsl:choose>
             <xsl:when test="$quote_len = 3">
                 <xsl:if test="normalize-space($delim_list[3]) != ''">
-                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
                         <xsl:value-of select="normalize-space($delim_list[3])"/>
                     </xsl:element>
                 </xsl:if>
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
                     <xsl:value-of select="$delim_list[1]"/>
                     <xsl:value-of select="$delimiter"/>
                     <xsl:value-of select="$delim_list[2]"/>
@@ -233,17 +233,17 @@
             </xsl:when>
             <xsl:when test="$quote_len = 2">
                 <xsl:if test="normalize-space($delim_list[2]) != ''">
-                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
                         <xsl:value-of select="normalize-space($delim_list[2])"/>
                     </xsl:element>
                 </xsl:if>
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
                     <xsl:value-of select="$delim_list[1]"/>
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
                 <!-- too many values, just dump contents -->
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>
