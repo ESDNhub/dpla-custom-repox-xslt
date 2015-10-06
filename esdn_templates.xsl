@@ -221,31 +221,31 @@
         <xsl:choose>
             <xsl:when test="$quote_len = 3">
                 <xsl:if test="normalize-space($delim_list[3]) != ''">
-                    <extent>
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
                         <xsl:value-of select="normalize-space($delim_list[3])"/>
-                    </extent>
+                    </xsl:element>
                 </xsl:if>
-                <form>
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
                     <xsl:value-of select="$delim_list[1]"/>
                     <xsl:value-of select="$delimiter"/>
                     <xsl:value-of select="$delim_list[2]"/>
-                </form>
+                </xsl:element>
             </xsl:when>
             <xsl:when test="$quote_len = 2">
                 <xsl:if test="normalize-space($delim_list[2]) != ''">
-                    <extent>
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
                         <xsl:value-of select="normalize-space($delim_list[2])"/>
-                    </extent>
+                    </xsl:element>
                 </xsl:if>
-                <form>
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
                     <xsl:value-of select="$delim_list[1]"/>
-                </form>
+                </xsl:element>
             </xsl:when>
             <xsl:otherwise>
                 <!-- too many values, just dump contents -->
-                <form>
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
                     <xsl:value-of select="."/>
-                </form>
+                </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
