@@ -39,7 +39,7 @@
                                         exclude-result-prefixes="#all">
                                         <xsl:value-of select="normalize-space(.)"/>
                                     </xsl:element>
-                                </xsl:element>> </xsl:otherwise>
+                                </xsl:element></xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <!-- if there are no numbers, it's probably geo data -->
