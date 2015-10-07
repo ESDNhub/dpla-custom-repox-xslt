@@ -16,9 +16,14 @@
                         <xsl:choose>
                             <!-- if numbers follow a coordinate pattern, it's probably geo data -->
                             <xsl:when test='matches(., "\d+\.\d+")'>
-                                <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
-                                    <xsl:element name="cartographic"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
-                                        <xsl:element name="coordinates"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                                <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3"
+                                    exclude-result-prefixes="#all">
+                                    <xsl:element name="cartographic"
+                                        namespace="http://www.loc.gov/mods/v3"
+                                        exclude-result-prefixes="#all">
+                                        <xsl:element name="coordinates"
+                                            namespace="http://www.loc.gov/mods/v3"
+                                            exclude-result-prefixes="#all">
                                             <xsl:value-of select="normalize-space(.)"/>
                                         </xsl:element>
                                     </xsl:element>
@@ -27,18 +32,22 @@
                             </xsl:when>
                             <!-- if there's no coordinate pattern, it's probably temporal data; put it in <subject><temporal> -->
                             <xsl:otherwise>
-                                <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
-                                    <xsl:element name="temporal" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                                <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3"
+                                    exclude-result-prefixes="#all">
+                                    <xsl:element name="temporal"
+                                        namespace="http://www.loc.gov/mods/v3"
+                                        exclude-result-prefixes="#all">
                                         <xsl:value-of select="normalize-space(.)"/>
                                     </xsl:element>
-                                </xsl:element>>
-                            </xsl:otherwise>
+                                </xsl:element>> </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <!-- if there are no numbers, it's probably geo data -->
                     <xsl:otherwise>
-                        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
-                            <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
+                            <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3"
+                                exclude-result-prefixes="#all">
                                 <xsl:value-of select="normalize-space(.)"/>
                             </xsl:element>
                         </xsl:element>
@@ -58,14 +67,16 @@
     </xsl:template>
 
     <xsl:template match="dcterms:alternative" mode="esdn">
-        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3"
+            exclude-result-prefixes="#all">
             <xsl:attribute name="type">alternative</xsl:attribute>
-            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3"  exclude-result-prefixes="#all">
+            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3"
+                exclude-result-prefixes="#all">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template match="dc:date" mode="esdn">
         <xsl:call-template name="date-to-mods">
             <xsl:with-param name="dateval">
@@ -223,11 +234,13 @@
         <xsl:choose>
             <xsl:when test="$quote_len = 3">
                 <xsl:if test="normalize-space($delim_list[3]) != ''">
-                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"
+                        exclude-result-prefixes="#all">
                         <xsl:value-of select="normalize-space($delim_list[3])"/>
                     </xsl:element>
                 </xsl:if>
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"
+                    exclude-result-prefixes="#all">
                     <xsl:value-of select="$delim_list[1]"/>
                     <xsl:value-of select="$delimiter"/>
                     <xsl:value-of select="$delim_list[2]"/>
@@ -235,17 +248,20 @@
             </xsl:when>
             <xsl:when test="$quote_len = 2">
                 <xsl:if test="normalize-space($delim_list[2]) != ''">
-                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"
+                        exclude-result-prefixes="#all">
                         <xsl:value-of select="normalize-space($delim_list[2])"/>
                     </xsl:element>
                 </xsl:if>
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"
+                    exclude-result-prefixes="#all">
                     <xsl:value-of select="$delim_list[1]"/>
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
                 <!-- too many values, just dump contents -->
-                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"
+                    exclude-result-prefixes="#all">
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>
@@ -262,53 +278,63 @@
                 <xsl:variable name="dc-type" select="lower-case(normalize-space(.))"/>
                 <xsl:choose>
                     <xsl:when test="contains($dc-type, 'collection')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:attribute name="collection">yes</xsl:attribute>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'dataset')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>software, multimedia</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="starts-with($dc-type, 'image')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>still image</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'moving image')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>moving image</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'still image')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>still image</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, '/interactive.*resource/')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>software, multimedia</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, '/physical.*object/')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>three-dimensional object</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'service')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>software, multimedia</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'sound')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>sound recording</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <!-- bletcherous hack for one particular institution -->
                     <xsl:when test="contains($dc-type, 'text') or contains($dc-type, 'document')">
-                        <xsl:element name="typeOfResource"  namespace="http://www.loc.gov/mods/v3" exclude-result-prefixes="#all">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
                             <xsl:text>text</xsl:text>
                         </xsl:element>
                     </xsl:when>
@@ -324,21 +350,18 @@
 
     <xsl:template name="mods-genre">
         <xsl:param name="dc_type"/>
-        <xsl:choose>
-            <xsl:when test="$dc_type = lower-case('Dataset')">
-                <genre type="dct">dataset</genre>
-            </xsl:when>
-            <xsl:when test="starts-with($dc_type, lower-case('Image'))">
-                <genre type="dct">image</genre>
-            </xsl:when>
-            <xsl:when test="$dc_type = lower-case('InteractiveResource')">
-                <genre type="dct">interactive resource</genre>
-            </xsl:when>
-            <xsl:when test="$dc_type = lower-case('Service')">
-                <genre type="dct">service</genre>
-            </xsl:when>
-            <xsl:otherwise/>
-        </xsl:choose>
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3"
+            exclude-result-prefixes="#all">
+            <xsl:attribute name="type">dct</xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="$dc_type = lower-case('Dataset')">dataset</xsl:when>
+                <xsl:when test="starts-with($dc_type, lower-case('Image'))">image</xsl:when>
+                <xsl:when test="$dc_type = lower-case('InteractiveResource')">interactive
+                    resource</xsl:when>
+                <xsl:when test="$dc_type = lower-case('Service')">service</xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="dc:identifier" mode="esdn">
@@ -361,7 +384,7 @@
             <xsl:variable name="pointer" select="substring-after($recordinfo, '/id/')"/>
             <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
                 <xsl:element name="url">
-                   <xsl:attribute name="access">preview</xsl:attribute>
+                    <xsl:attribute name="access">preview</xsl:attribute>
                     <xsl:value-of
                         select="concat($contentdmroot, '/utils/getthumbnail/collection/', $alias, '/id/', $pointer)"
                     />
