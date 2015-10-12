@@ -21,7 +21,7 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:language"/>
+      <xsl:apply-templates select="dc:language" mode="hobart"/>
       
       <!-- Storing format and extent info in dc:source. -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
@@ -71,6 +71,21 @@
     </xsl:element>
   </xsl:element>
 </xsl:template>
+  
+  <xsl:template match="dc:language" mode="hobart">
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>eng</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 </xsl:stylesheet>
 
