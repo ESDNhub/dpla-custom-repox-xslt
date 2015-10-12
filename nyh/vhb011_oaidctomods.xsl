@@ -33,6 +33,7 @@
       <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      <xsl:apply-templates select="dc:language" mode="buffaloerie"/>
 
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
@@ -56,6 +57,21 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:language" mode="buffaloerie">
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>eng</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
   
 </xsl:stylesheet>
 
