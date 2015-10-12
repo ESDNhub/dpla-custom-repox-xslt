@@ -38,7 +38,7 @@
         <xsl:element name="physicalDescription">
            <xsl:element name="extent">
              <xsl:value-of select="dc:source"/>
-           </xsl:element>I am
+           </xsl:element>
         </xsl:element>
       </xsl:if>
       
