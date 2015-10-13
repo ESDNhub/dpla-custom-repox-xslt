@@ -158,15 +158,17 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="mods:genre">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:value-of select="lower-case(normalize-space(.))"/>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-        <xsl:call-template name="mods-genre">
-            <xsl:with-param name="dc_type">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
     </xsl:template>    
   
     <!-- ESDN utility templates -->

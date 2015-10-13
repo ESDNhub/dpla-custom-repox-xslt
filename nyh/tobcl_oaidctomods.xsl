@@ -42,15 +42,13 @@
         <xsl:apply-templates select="dc:source" mode="esdn">
           <xsl:with-param name="delimiter">;</xsl:with-param>
         </xsl:apply-templates>
-        <xsl:if test="not(contains(dc:format/text(), 'jpeg'))">
-          <xsl:apply-templates select="dc:format"/>
-        </xsl:if>
       </xsl:element>
+      
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
-      <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 

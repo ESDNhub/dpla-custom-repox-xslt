@@ -39,6 +39,14 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
+        </physicalDescription>
+      </xsl:if>
+      
 
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
