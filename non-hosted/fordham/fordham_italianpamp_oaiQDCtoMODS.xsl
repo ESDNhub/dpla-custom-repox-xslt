@@ -56,6 +56,7 @@
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type"/>
+      <xsl:apply-templates select="dc:rights"/>
 
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
