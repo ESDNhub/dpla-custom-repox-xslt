@@ -48,7 +48,7 @@
       <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>

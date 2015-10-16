@@ -47,8 +47,6 @@
         </physicalDescription>
       </xsl:if>
       
-
-
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->

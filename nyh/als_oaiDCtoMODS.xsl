@@ -25,6 +25,7 @@
       
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:language"/>
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <!-- als stores format and extent info in dc:source. -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't

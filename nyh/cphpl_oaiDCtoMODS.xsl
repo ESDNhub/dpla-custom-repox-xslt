@@ -47,7 +47,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
 
       <xsl:if test="not(contains(lower-case(normalize-space(dc:coverage)),'unknown'))">
         <xsl:apply-templates select="dc:coverage" mode="nyh"/>
