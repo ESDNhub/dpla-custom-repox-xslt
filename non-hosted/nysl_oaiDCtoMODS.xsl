@@ -29,11 +29,7 @@
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="nysl"/>
-      <xsl:element name="accessCondition">
-        <xsl:text>
-          This document or image is provided for education and research purposes. Rights may be reserved. Responsibility for securing permissions to distribute, publish, reproduce or use it in any way rests with the user. For additional information, see the New York State Library's Copyright and Use Statement, available at http://www.nysl.nysed.gov/scandocs/rights.htm.
-        </xsl:text>
-      </xsl:element>
+      <xsl:element name="accessCondition"><xsl:text>This document or image is provided for education and research purposes. Rights may be reserved. Responsibility for securing permissions to distribute, publish, reproduce or use it in any way rests with the user. For additional information, see the New York State Library's Copyright and Use Statement, available at http://www.nysl.nysed.gov/scandocs/rights.htm.</xsl:text></xsl:element>
       <xsl:apply-templates select="dc:subject"/>
 
 
