@@ -410,6 +410,15 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="dc:subject" mode="esdn">
+        <xsl:variable name="subjectvalue" select="normalize-space(.)"/>
+        <xsl:if test="normalize-space(.)!=''">
+            <xsl:variable name="subjlist" select="tokenize(., ';')"/>
+            <xsl:for-each select="$subjlist">
+                <subject><topic><xsl:call-template name="normalize-dashes-esdn"><xsl:with-param name="dash-str"><xsl:value-of select="normalize-space(.)"/></xsl:with-param></xsl:call-template></topic></subject> <!--subject-->
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
     <xsl:template name="owner-note">
         <xsl:param name="owner"/>
         <xsl:element name="note">
@@ -431,11 +440,11 @@
         <xsl:param name="long"/>
         <xsl:value-of select="concat($lat, ',', $long)"/>
     </xsl:template>
-
-    <xsl:template name="normalize-dashes">
+    
+    <xsl:template name="normalize-dashes-esdn">
         <xsl:param name="dash-str"/>
-        <xsl:value-of select="replace($dash-str, '\s*-+\s*', '--')"/>
+        <xsl:value-of select="replace($dash-str, '\s*--\s*', '--')"/>
     </xsl:template>
-
+    
 
 </xsl:stylesheet>
