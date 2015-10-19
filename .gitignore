@@ -54,3 +54,11 @@ nyh/iso639x.xsl
 
 non-hosted/fordham/esdn_templates.xsl
 non-hosted/fordham/iso639x.xsl
+non-hosted/cjh/utilities.xsl
+lilrc/utilities.xsl
+hrvh/utilities.xsl
+metro/utilities.xsl
+non-hosted/fordham/utilities.xsl
+non-hosted/nyphil/utilities.xsl
+nyh/utilities.xsl
+non-hosted/utilities.xsl
