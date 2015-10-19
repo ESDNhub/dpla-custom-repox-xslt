@@ -41,7 +41,14 @@
             <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="authority">lcsh</xsl:attribute>
               <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:choose>
+                  <xsl:when test="ends-with(normalize-space(.), '.')">
+                    <xsl:value-of select="normalize-space(substring(., 1, (string-length(.) - 1)))"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="normalize-space(.)"/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:element>
             </xsl:element>
           </xsl:if>
