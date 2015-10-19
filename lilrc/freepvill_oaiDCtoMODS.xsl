@@ -19,7 +19,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights" mode="freepvill"/>
       <xsl:apply-templates select="dc:language" mode="freepvill"/>
-      <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:subject" mode="esdn"/>
 
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>

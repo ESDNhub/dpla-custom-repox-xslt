@@ -28,7 +28,7 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights" mode="freepvill"/>
-      <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:subject" mode="esdn"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Long Island Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Freeport Memorial Library</xsl:with-param></xsl:call-template>

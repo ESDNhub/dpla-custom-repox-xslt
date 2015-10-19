@@ -29,7 +29,7 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:subject" mode="esdn"/>
 
 
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
