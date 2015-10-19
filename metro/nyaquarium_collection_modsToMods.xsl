@@ -47,7 +47,7 @@
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">
-        <xsl:copy>Contributor</xsl:copy>
+        <xsl:copy>contributor</xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:dateIssued">
