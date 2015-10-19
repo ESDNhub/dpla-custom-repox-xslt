@@ -4,6 +4,9 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="xs"
     version="2.0">
+    
+    <xsl:include href="utilities.xsl"/>
+    
     <xsl:template match="dc:subject" mode="hrvh">
         <!-- HRVH has a number of cross-collection local topics
       that should not be output. Check normalized lowercase strings
@@ -40,7 +43,9 @@
         </xsl:variable>
         <xsl:for-each select="tokenize(., ';')">
             <xsl:if test="not(contains($ignored_topics, lower-case(normalize-space(.))))">
-                <subject><topic><xsl:value-of select="normalize-space(.)"/></topic></subject>
+                <subject><topic><xsl:call-template name="normalize-dashes">
+                    <xsl:with-param name="dash-str"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+                </xsl:call-template></topic></subject>
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
