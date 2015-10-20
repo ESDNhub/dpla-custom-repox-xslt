@@ -72,7 +72,7 @@
             <xsl:when test="contains(lower-case(dc:relation), 'state reservation at niagara')"
               >Niagara Falls Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:relation), 'daredevils of niagara')">Niagara
-              Falls Public Library"</xsl:when>
+              Falls Public Library</xsl:when>
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
