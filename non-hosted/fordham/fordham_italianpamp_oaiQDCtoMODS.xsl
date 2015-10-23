@@ -29,7 +29,7 @@
       <xsl:apply-templates select="dc:creator" mode="fordham"/>
       <xsl:if test="exists(dc:date) or exists(dc:publisher)">
         <xsl:element name="originInfo">
-          <xsl:apply-templates select="dc:date[not(starts-with(./text(), 'MD'))]" mode="esdn"/>
+          <xsl:apply-templates select="dc:date[not(starts-with(./text(), 'MD'))]"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
@@ -55,7 +55,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:type"/>
+      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">text</xsl:element>
       <xsl:apply-templates select="dc:rights"/>
 
       <xsl:if test="exists(dc:language)">
