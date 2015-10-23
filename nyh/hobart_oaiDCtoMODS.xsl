@@ -15,7 +15,7 @@
       <xsl:if test="dc:date != ''">
         <originInfo>
           <xsl:if test="not(contains(lower-case(normalize-space(dc:date)), 'un'))">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
         </originInfo>
       </xsl:if>

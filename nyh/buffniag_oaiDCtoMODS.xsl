@@ -21,7 +21,7 @@
         <originInfo>
           <!-- Check for 'unknown' in dc:date. Ignore it if present.-->
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
           <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
@@ -31,7 +31,7 @@
       <xsl:apply-templates select="dc:description"/>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language"/>
+      <xsl:apply-templates select="dc:language" mode="buffniag"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
@@ -54,6 +54,22 @@
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
-  <!-- collection-specific templates start here --> 
+  <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dc:language" mode="buffniag">
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>eng</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>
 
