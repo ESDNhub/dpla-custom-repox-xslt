@@ -39,7 +39,7 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
-      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:apply-templates select="dc:coverage" mode="utica"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Utica Public Library</xsl:with-param></xsl:call-template>
@@ -57,5 +57,18 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:coverage" mode="utica">
+    <xsl:variable name="coveragevalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($coveragevalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <subject>
+          <geographic>
+            <xsl:value-of select="normalize-space(.)"/> 
+          </geographic>
+        </subject>
+      </xsl:if>
+    </xsl:for-each>      
+  </xsl:template>
 </xsl:stylesheet>
 
