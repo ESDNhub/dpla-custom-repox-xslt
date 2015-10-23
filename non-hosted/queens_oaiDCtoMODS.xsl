@@ -10,37 +10,45 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
       version="3.4">
-
+      
+      <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
       <xsl:if test="exists(dc:publisher) or exists(dc:date)">
         <originInfo>
           <xsl:apply-templates select="dc:publisher"/>
-          <xsl:apply-templates select="dc:date" mode="esdn"/>
+          <xsl:apply-templates select="dc:date" mode="queens"/>
         </originInfo>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
-
+      
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="dc:format[2]"/>
-        </xsl:element>
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="dc:format[1]"/>
-        </xsl:element>
+        <xsl:if test="exists(dc:format[2])">
+          <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="dc:format[2]"/>
+          </xsl:element>
+        </xsl:if>
+        <xsl:if test="exists(dc:format[1])">
+          <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="dc:format[1]"/>
+          </xsl:element>
+        </xsl:if>
       </xsl:element>
+      
       <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="url">
           <xsl:attribute name="usage">primary display</xsl:attribute>
           <xsl:attribute name="access">object in context</xsl:attribute>
           <xsl:value-of
-            select="concat('http://digitalarchives.queenslibrary.org/vital/access/manager/Repository/', normalize-space(substring-after(dc:identifier[1], 'aql:')))"
+            select="concat('http://digitalarchives.queenslibrary.org/vital/access/manager/Repository/', normalize-space(dc:identifier[1]))"
           />
         </xsl:element>
+      </xsl:element>
+      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="url">
           <xsl:attribute name="access">preview</xsl:attribute>
           <xsl:value-of
-            select="concat('http://digitalarchives.queenslibrary.org/vital/access/manager/Repository/', normalize-space(substring-after(dc:identifier[1], 'aql:')), '/THUMBNAIL')"
+            select="concat('http://digitalarchives.queenslibrary.org/vital/access/services/Download/', normalize-space(dc:identifier[1]), '/JPGSOURCE1-PhotographFront?view=true')"
           />
         </xsl:element>
       </xsl:element>
@@ -49,28 +57,46 @@
         about an item or its copyright status, we want to hear from you. Please contact
         digitalarchive@queenslibrary.org with your contact information and a link to the relevant
         content.</xsl:element>
-
+      
       <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:title"/>
-      <xsl:element name="typeOfResource">
-        <xsl:choose>
-          <xsl:when test="not(contains(dc:relation[1], 'Aurora Gareiss Papers'))">still image</xsl:when>
-          <xsl:otherwise>text</xsl:otherwise>
-        </xsl:choose>
-      </xsl:element>
-
+      <xsl:apply-templates select="dc:coverage[not(contains(./text(), 'unknown'))]" mode="queens"/>
+      
+      <xsl:element name="typeOfResource">still image</xsl:element>
+      
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Queens Borough Public Library</xsl:with-param>
       </xsl:call-template>
-
+      
     </mods>
   </xsl:template>
-
+  
   <!-- ESDN utility templates -->
   <xsl:include href="esdn_templates.xsl"/>
-
+  
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_base.xsl"/>
-
+  
+  <!-- collection-specific templates -->
+  
+  <xsl:template match="dc:coverage" mode="queens">
+    <xsl:if test="normalize-space(.)!=''">
+      <subject>
+        <geographic>
+          <xsl:value-of select="normalize-space(.)"/>
+        </geographic>
+        <!--coverage-->
+      </subject>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="dc:date" mode="queens">
+    <xsl:variable name="datevalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($datevalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <dateCreated keyDate="yes"><xsl:value-of select="normalize-space(.)"/></dateCreated> <!--date-->
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
 </xsl:stylesheet>
