@@ -10,7 +10,6 @@
         <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
       </originInfo>
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:relation" mode="harrison"/>
       <xsl:element name="physicalDescription">
         <xsl:apply-templates select="dc:format"/>
       </xsl:element>
@@ -31,7 +30,6 @@
       <xsl:apply-templates select="dc:creator"/>
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:source" mode="harrison"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="harrison"/>
       
