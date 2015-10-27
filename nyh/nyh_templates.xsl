@@ -166,7 +166,7 @@
                   <xsl:when test="contains($genres, normalize-space(lower-case(.)))">
                       <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
                           <xsl:attribute name="authority">aat</xsl:attribute>
-                          <xsl:value-of select="normalize-space(.)"/>
+                          <xsl:value-of select="normalize-space(lower-case(.))"/>
                       </xsl:element>
                   </xsl:when>
                   <xsl:otherwise/>
