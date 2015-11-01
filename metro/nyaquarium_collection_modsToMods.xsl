@@ -21,6 +21,7 @@
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:relatedItem/@displayLabel"/>
+    <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     
     <xsl:template match="mods:mods">
         <xsl:copy>
@@ -143,11 +144,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-        <xsl:call-template name="mods-genre">
-            <xsl:with-param name="dc_type">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
     </xsl:template>    
     
     <!-- ESDN utility templates -->

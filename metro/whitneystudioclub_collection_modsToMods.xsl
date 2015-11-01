@@ -15,6 +15,7 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="mods:place"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>

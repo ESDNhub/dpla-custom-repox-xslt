@@ -33,6 +33,7 @@
     <xsl:template match="mods:internetMediaType" />
     <xsl:template match="mods:digitalOrigin" />
     <xsl:template match="mods:location" />
+    <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
@@ -40,7 +41,7 @@
                 <xsl:when test="normalize-space(lower-case(.))='photographer'">creator</xsl:when>
                 <xsl:when test="normalize-space(lower-case(.))='collector'">contributor</xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:value-of select="normalize-space(lower-case(.))"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>
@@ -111,11 +112,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-        <xsl:call-template name="mods-genre">
-            <xsl:with-param name="dc_type">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
     </xsl:template>
     
     <xsl:template match="mods:languageTerm">
