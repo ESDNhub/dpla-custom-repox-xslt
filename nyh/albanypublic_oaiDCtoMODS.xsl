@@ -40,7 +40,7 @@
       </xsl:if>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
-      <xsl:apply-templates select="dc:identifier" mode="p16694coll26"/>
+      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
@@ -69,23 +69,6 @@
           <form><xsl:value-of select="$sourcevalue"/></form>
       </xsl:if>
     </xsl:for-each>
-  </xsl:template>
-  
-  <xsl:template match="dc:identifier" mode="p16694coll26">
-    <xsl:variable name="idvalue" select="normalize-space(.)"/>
-    <xsl:if test="starts-with($idvalue,'http')">
-      <!-- add URL wrapped in simple identifier wrapper. We override the other template to add this one item. -->
-      <identifier><xsl:value-of select="$idvalue"/></identifier>
-      <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
-      <location><url usage="primary display" access="object in context"><xsl:value-of select="$idvalue"/></url></location> <!-- ref url-->          
-      <!-- process identifier into CONTENTdm 6.5 thumbnail urls --> 
-      <xsl:variable name="contentdmroot" select="substring-before($idvalue,'/cdm/ref/')"/>
-      <xsl:variable name="recordinfo" select="substring-after($idvalue,'/cdm/ref/collection/')"/>
-      <xsl:variable name="alias" select="substring-before($recordinfo,'/id/')"/>
-      <xsl:variable name="pointer" select="substring-after($recordinfo,'/id/')"/>
-      <location><url access="preview"><xsl:value-of select="concat($contentdmroot,'/utils/getthumbnail/collection/',$alias,'/id/',$pointer)"/></url></location> <!--CONTENTdm thumbnail url-->
-      <!-- end CONTENTdm thumbnail url processing -->           
-    </xsl:if>
   </xsl:template>
   
   <!-- collection-specific templates -->  
