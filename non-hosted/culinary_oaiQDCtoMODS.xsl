@@ -39,7 +39,9 @@
           <xsl:apply-templates select="."/>
         </xsl:if>
       </xsl:for-each>
-      <xsl:apply-templates select="dcterms:temporal" mode="culinary"/>
+      <xsl:if test="not(contains(lower-case(normalize-space(dcterms:temporal)),'unknown'))">
+        <xsl:apply-templates select="dcterms:temporal" mode="culinary"/>
+      </xsl:if>
       <xsl:apply-templates select="dcterms:spatial" mode="culinary"/>
       <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
@@ -90,19 +92,23 @@
   </xsl:template>
   
   <xsl:template match="dcterms:temporal" mode="culinary">
-    <xsl:if test="normalize-space(lower-case(.))!='unknown'">
+     <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="normalize-space(.)!=''">
       <xsl:element name="subject">
         <xsl:element name="temporal"><xsl:value-of select="normalize-space(.)"/></xsl:element>
       </xsl:element>
     </xsl:if>
+     </xsl:for-each>
   </xsl:template>
   
   <xsl:template match="dcterms:spatial" mode="culinary">
     <xsl:for-each select="tokenize(., ';')">
       <xsl:if test="normalize-space(.)!=''">
+        <xsl:if test="normalize-space(lower-case(.))!='unknown'">
         <xsl:element name="subject">
           <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
         </xsl:element>
+        </xsl:if>
       </xsl:if>
     </xsl:for-each>
 </xsl:template>
