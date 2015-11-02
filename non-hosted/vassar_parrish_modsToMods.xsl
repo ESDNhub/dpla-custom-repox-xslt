@@ -44,7 +44,6 @@
                   <xsl:value-of select="normalize-space(.)"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
           </xsl:element>
         </xsl:if>
