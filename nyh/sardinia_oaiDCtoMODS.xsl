@@ -9,15 +9,9 @@
       
       <xsl:if test="dc:date != ''">
              <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-              <xsl:choose>
-                <!-- don't ask. -->
-                <xsl:when test="not(contains(lower-case(normalize-space(dc:date)), '20th century'))">
                   <xsl:element name="originInfo">
-                    <xsl:apply-templates select="dc:date" mode="esdn"/>
+                    <xsl:apply-templates select="dc:date"/>
                   </xsl:element>
-                </xsl:when>
-              <xsl:otherwise/>
-              </xsl:choose>
             </xsl:if>
       </xsl:if>
       
