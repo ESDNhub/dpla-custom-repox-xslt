@@ -119,7 +119,7 @@
             <xsl:attribute name="authority">aat</xsl:attribute>
             <xsl:choose>
                 <xsl:when test="normalize-space(lower-case(.))='negatives (photographic)'">negatives (photographs)</xsl:when>
-                <xsl:when test="normalize-space(lower-case(.))='glass negative'">clichés-verre (negatives)</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='glass negatives'">clichés-verre (negatives)</xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="normalize-space(lower-case(.))"/>
                 </xsl:otherwise>
