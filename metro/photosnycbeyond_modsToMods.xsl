@@ -114,6 +114,19 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="mods:genre">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="normalize-space(lower-case(.))='negatives (photographic)'">negatives (photographs)</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='glass negative'">clichés-verre (negatives)</xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="normalize-space(lower-case(.))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
             <xsl:attribute name="type">code</xsl:attribute>

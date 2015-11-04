@@ -146,6 +146,19 @@
       </xsl:copy>
     </xsl:template>
   
+  <xsl:template match="mods:genre">
+    <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="authority">aat</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="normalize-space(lower-case(.))='sheet music covers'">sheet music</xsl:when>
+        <xsl:when test="normalize-space(lower-case(.))='advertisements'">advertisements</xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="mods:subject">
     <xsl:if test="normalize-space(.)!=''">
       <xsl:choose>

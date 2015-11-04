@@ -114,7 +114,7 @@
     <xsl:template match="mods:genre">
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="replace(.,'Diaries', 'diaries')"/>
+            <xsl:value-of select="normalize-space(lower-case(.))"/>
         </xsl:element>
     </xsl:template>
     

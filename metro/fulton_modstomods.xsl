@@ -62,11 +62,13 @@
     </xsl:template>
 
     <xsl:template match="mods:note[@type='dateuncontrolled']">
-        <xsl:call-template name="date-to-mods">
-            <xsl:with-param name="dateval">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+            <xsl:call-template name="date-to-mods">
+                <xsl:with-param name="dateval">
+                    <xsl:value-of select="normalize-space(.)"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="mods:note[@type='condition']"/>
@@ -119,12 +121,27 @@
         <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
             <xsl:value-of select="normalize-space($extents[2])"/>
         </xsl:element>
+      
     </xsl:template>
         <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
         </xsl:template>
+    
+    <xsl:template match="mods:genre">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="normalize-space(lower-case(.))='trade cards'">trade cards (advertising)</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='receipts'">receipts (financial records)</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='tin types'">tintypes (prints)</xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="normalize-space(lower-case(.))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
     
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
