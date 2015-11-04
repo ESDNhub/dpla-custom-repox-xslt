@@ -29,7 +29,7 @@
       <xsl:apply-templates select="dc:creator" mode="fordham"/>
       <xsl:if test="exists(dc:date) or exists(dc:publisher)">
         <xsl:element name="originInfo">
-          <xsl:apply-templates select="dc:date[not(starts-with(./text(), 'MD'))]"/>
+          <xsl:apply-templates select="dc:date"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
@@ -55,6 +55,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
       <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">text</xsl:element>
       <xsl:apply-templates select="dc:rights"/>
 
@@ -88,6 +89,18 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dcterms:spatial" mode="fordham">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:if test="normalize-space(lower-case(.))!='unknown'">
+          <xsl:element name="subject">
+            <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+          </xsl:element>
+        </xsl:if>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
 
   <xsl:template match="dcterms:tableOfContents">
     <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
