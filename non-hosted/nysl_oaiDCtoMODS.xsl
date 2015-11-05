@@ -40,7 +40,7 @@
       </xsl:element>
       <xsl:apply-templates select="dc:subject" mode="nysl"/>
 
-
+      <xsl:apply-templates select="dc:date" />
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
