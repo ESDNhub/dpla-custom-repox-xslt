@@ -22,10 +22,13 @@
         <xsl:apply-templates select="dc:contributor" mode="nysl"/>
       </xsl:if>
 
-      <xsl:if test="dc:publisher != ''">
+      <xsl:if test="dc:publisher != '' and dc:date != ''" >
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
+          </xsl:if>
+          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
         </originInfo>
       </xsl:if>
@@ -40,7 +43,6 @@
       </xsl:element>
       <xsl:apply-templates select="dc:subject" mode="nysl"/>
 
-      <xsl:apply-templates select="dc:date" />
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
