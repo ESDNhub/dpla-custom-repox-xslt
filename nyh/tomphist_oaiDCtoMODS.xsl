@@ -50,7 +50,7 @@
         <xsl:with-param name="owner">The History Center in Tompkins County</xsl:with-param>
       </xsl:call-template>
 
-    <xsl:apply-templates select="dc:relation"/></mods>
+    <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

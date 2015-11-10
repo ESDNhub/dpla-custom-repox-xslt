@@ -51,7 +51,7 @@
             </xsl:call-template>
           </xsl:element>
         </xsl:element>
-        <xsl:apply-templates select="dc:relation"/>
+        <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
@@ -62,7 +62,7 @@
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Rochester Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Newark Public Library</xsl:with-param>
       </xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

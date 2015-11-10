@@ -65,7 +65,7 @@
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">South Central Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Corning Community College</xsl:with-param>
       </xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

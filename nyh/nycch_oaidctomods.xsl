@@ -58,7 +58,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Chautauqua County Historical Society</xsl:with-param>
       </xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

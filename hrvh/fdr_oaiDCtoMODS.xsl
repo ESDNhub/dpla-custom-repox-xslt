@@ -40,7 +40,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Franklin D. Roosevelt Presidential Library and Museum</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation"/></mods>
+     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
     </xsl:if>
   </xsl:template>
   

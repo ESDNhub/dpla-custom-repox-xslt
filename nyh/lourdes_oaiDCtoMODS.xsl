@@ -54,7 +54,7 @@
         <xsl:with-param name="owner">Lourdes Hospital - Daughters of Charity</xsl:with-param>
       </xsl:call-template>
 
-    <xsl:apply-templates select="dc:relation"/></mods>
+    <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

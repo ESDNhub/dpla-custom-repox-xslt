@@ -40,7 +40,7 @@
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">St. Lawrence-Lewis School Library System</xsl:with-param>
       </xsl:call-template>
-    <xsl:apply-templates select="dc:relation"/></mods>
+    <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->

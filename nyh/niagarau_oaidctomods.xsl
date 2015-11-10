@@ -55,7 +55,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Niagara University</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates select="dc:relation"/>
+      <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
   </xsl:template>
 

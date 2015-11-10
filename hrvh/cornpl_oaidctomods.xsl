@@ -18,7 +18,7 @@
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
-      <xsl:apply-templates select="dc:relation"/>
+      <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
       <xsl:apply-templates select="dc:title"/>

@@ -41,7 +41,7 @@
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Buffalo Niagara Heritage Village</xsl:with-param>
       </xsl:call-template>
-    <xsl:apply-templates select="dc:relation"/></mods>
+    <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
