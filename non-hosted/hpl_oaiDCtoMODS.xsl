@@ -33,6 +33,14 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="harrison"/>
       
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Harrison Public Library-Harrison Remembers Digital Collection</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
     <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Harrison Public Library</xsl:with-param>

@@ -36,6 +36,27 @@
     <xsl:template match="mods:digitalOrigin"/>
   <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
   <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
+    
+    <xsl:template match="mods:relatedItem[@type='series']">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">series</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:value-of select="normalize-space(.)"/>
+                </xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="mods:relatedItem[@type='host']">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">University of Rochester-Kenneth B. Keating Collection</xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
   
     <xsl:template match="mods:affiliation"/>
     <xsl:template match="mods:roleTerm">

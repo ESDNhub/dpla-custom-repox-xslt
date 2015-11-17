@@ -29,8 +29,15 @@
           </xsl:call-template>    
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="type">host</xsl:attribute>
-          <xsl:attribute name="displayLabel">collection</xsl:attribute>
+          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
           <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">John Burroughs (1837-1921) was a noted naturalist, essayist and a significant figure in the history of environmentalism. He was born in a small town in the Catskills and spent the bulk of his adult life in West Park. The project is currently a work in progress; at completion, there will be 54 volumes available.</xsl:element>
+        </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">host</xsl:attribute>
+          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+          <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Vassar College Libraries-John Burroughs Journals</xsl:element>
+          </xsl:element>
         </xsl:element>
         <xsl:for-each select="mods:subject/mods:topic">
           <xsl:if test="normalize-space(.)!=''">

@@ -31,13 +31,22 @@
     
     <xsl:template match="mods:identifier[@type='local']"/>
     <xsl:template match="mods:accessCondition/@type"/>
-    <xsl:template match="mods:relatedItem/@type"/>
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:relatedItem/@xlink:href"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:location"/>
+    
+    <xsl:template match="mods:relatedItem">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library-Fulton Street Trade Cards</xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
   
     <xsl:template match="mods:dateIssued">
         <xsl:call-template name="date-to-mods">

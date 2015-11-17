@@ -29,7 +29,7 @@
       </xsl:call-template>
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
-        <xsl:attribute name="displayLabel">collection</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Student Diaries
           collection provides access to more than fifty diaries from Vassar students from the
           nineteenth century. The diaries concern life on campus, other students, classes,
@@ -39,6 +39,13 @@
           Holden, 1871-1872; Bertha Keffer, 1868-1871; Elma G. Martin, 1892-1893; Anne Page Brydon,
           1922-1923; Helen Hartley Pease, 1914-1915; Anne Wyman, 1878-1880; Marjorie Anthony
           Markwich, 1914; and Constance E. Anthony, 1915.</xsl:element>
+      </xsl:element>
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Vassar College Libraries-Vassar College Student Diaries</xsl:element>
+        </xsl:element>
       </xsl:element>
       <xsl:for-each select="mods:subject/mods:topic[not(@authority='local')]">
         <xsl:if test="normalize-space(.) != ''">

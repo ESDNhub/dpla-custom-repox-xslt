@@ -36,6 +36,16 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
     
+    <xsl:template match="mods:relatedItem">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">WCS Library-New York Aquarium Postcards</xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>

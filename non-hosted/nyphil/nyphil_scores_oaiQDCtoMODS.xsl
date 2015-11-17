@@ -53,6 +53,14 @@
         <xsl:apply-templates select="edm:isShownAt"/>
         <xsl:apply-templates select="edm:Preview"/>
         
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">host</xsl:attribute>
+          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+          <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New York Philharmonic Music Scores Collection</xsl:element>
+          </xsl:element>
+        </xsl:element>
+        
         <!-- hard code ownership note -->
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner"><xsl:value-of select="normalize-space(edm:dataProvider)"/></xsl:with-param>

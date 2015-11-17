@@ -84,7 +84,7 @@
             <relatedItem><location><url><xsl:value-of select="normalize-space(.)"/></url></location></relatedItem> <!--relation-->
           </xsl:when>
           <xsl:otherwise>
-            <relatedItem><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--relation-->
+            <relatedItem type="host" displayLabel="Collection"><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--collection-->
           </xsl:otherwise>
         </xsl:choose>
       </xsl:if>

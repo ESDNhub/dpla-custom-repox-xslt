@@ -72,6 +72,14 @@
           </xsl:for-each>
         </xsl:element>
       </xsl:if>
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Fordham University-Italian Pamphlets Collection</xsl:element>
+        </xsl:element>
+      </xsl:element>
 
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">

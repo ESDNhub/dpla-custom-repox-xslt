@@ -28,13 +28,20 @@
           </xsl:call-template>    
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="type">host</xsl:attribute>
-          <xsl:attribute name="displayLabel">collection</xsl:attribute>
+          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
           <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Images of Early Vassar collection consists of materials relating to 
             the early history of Vassar College, from its founding in 1861 to the 
             early years of the 20th century. The images provide visual documentation
             of Raymond Avenue, college buildings and buildings relating to Matthew 
             Vassar, class groups, faculty, presidents, students, trustees, Vassar 
             Lake, and Matthew Vassar and his relatives.</xsl:element>
+        </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">host</xsl:attribute>
+          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+          <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Vassar College Libraries-Images of Early Vassar</xsl:element>
+          </xsl:element>
         </xsl:element>
         <xsl:for-each select="mods:subject/mods:topic[not(@authority='local')]">
           <xsl:if test="normalize-space(.)!=''">

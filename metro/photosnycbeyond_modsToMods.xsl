@@ -35,6 +35,16 @@
     <xsl:template match="mods:location" />
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     
+    <xsl:template match="mods:relatedItem">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New-York Historical Society-Photographs of New York City and Beyond</xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>

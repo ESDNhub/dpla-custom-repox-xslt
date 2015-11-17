@@ -17,11 +17,19 @@
     
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>
-    <xsl:template match="mods:relatedItem/@type"/>
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
-    <xsl:template match="mods:relatedItem/@displayLabel"/>
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
+    
+    <xsl:template match="mods:relatedItem">
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">WCS Library-New York Aquarium Postcards</xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
     
     <xsl:template match="mods:mods">
         <xsl:copy>
