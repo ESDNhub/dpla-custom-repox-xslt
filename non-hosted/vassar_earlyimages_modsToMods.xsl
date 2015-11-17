@@ -100,6 +100,7 @@
   </xsl:template>
   
   <xsl:template match="mods:accessCondition/@type"/>
+  <xsl:template match="mods:originInfo/mods:dateIssued" />
   <xsl:template match="mods:internetMediaType" />
   <xsl:template match="mods:location" />
   <xsl:template match="mods:dateOther"/>

@@ -93,6 +93,8 @@
     <xsl:template match="mods:dateOther"/>
     <xsl:template match="mods:subject/mods:topic"/>
     <xsl:template match="mods:subject/mods:geographic"/>
+    <xsl:template match="mods:subject/mods:hierarchicalGeographic"/>
+    <xsl:template match="mods:subject/mods:cartographics"/>
     <xsl:template match="mods:name[./mods:role/mods:roleTerm='former owner']"/>
   
     <xsl:template match="mods:roleTerm">

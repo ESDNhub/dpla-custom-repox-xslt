@@ -37,7 +37,7 @@
         <xsl:with-param name="council">Capital District Library Council</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Fort Plains Free Library</xsl:with-param>
+        <xsl:with-param name="owner">Fort Plain Free Library</xsl:with-param>
       </xsl:call-template>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
