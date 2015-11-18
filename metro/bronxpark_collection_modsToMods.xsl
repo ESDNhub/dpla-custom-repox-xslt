@@ -110,6 +110,12 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
+    
+    <xsl:template match="mods:identifier[@type='local']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
   
   <xsl:template match="mods:note[@type='dateuncontrolled']"/>
   <xsl:template match="mods:note[@displayLabel='Inscription']"/>
