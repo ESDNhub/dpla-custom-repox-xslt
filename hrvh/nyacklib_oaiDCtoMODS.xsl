@@ -44,8 +44,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
       <xsl:call-template name="intermediate-provider">
-        <xsl:with-param name="council">Southeastern New York Library Resources
-          Council</xsl:with-param>
+        <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Nyack Library</xsl:with-param>

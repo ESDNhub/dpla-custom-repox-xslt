@@ -20,8 +20,7 @@
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
             <xsl:call-template name="intermediate-provider">
-                <xsl:with-param name="council">Metropolitan New York Library
-                    Council</xsl:with-param>
+                <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
         </xsl:copy>
     </xsl:template>
