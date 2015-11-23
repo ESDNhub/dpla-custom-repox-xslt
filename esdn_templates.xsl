@@ -474,6 +474,98 @@
             <sc>world's fair items dr. best house &amp; medical exhibit</sc>
             <sc>wpa fine arts projects in rochester</sc>
             <sc>yearbooks</sc>
+            <sc>bard college architecture, past and present</sc>
+            <sc>bard - tivoli history collection</sc>
+            <sc>bard family papers</sc>
+            <sc>ward manor collection</sc>
+            <sc>bard - tivoli history collection</sc>
+            <sc>arendtiana collection</sc>
+            <sc>tivoli collection</sc>
+            <sc>paul hartzell album</sc>
+            <sc>harvey fite collection</sc>
+            <sc>wxbc</sc>
+            <sc>student fire department</sc>
+            <sc>elie shneour collection</sc>
+            <sc>harvey fite collection</sc>
+            <sc>peter aaron collection</sc>
+            <sc>sports at st. stephen's</sc>
+            <sc>class photos</sc>
+            <sc>fraternity photos</sc>
+            <sc>bard college presidents</sc>
+            <sc>cornwall public library postcard collection</sc>
+            <sc>cornwall public library oral history collection</sc>
+            <sc>ellenville postcard collection</sc>
+            <sc>grand army of the republic ward post 191 personal war sketches volume.</sc>
+            <sc>yama farms collection</sc>
+            <sc>hudson river valley materials of the franklin d. roosevelt presidential library and museum</sc>
+            <sc>charles sylvester piersaull photograph collection</sc>
+            <sc>the colonial manuscript collection</sc>
+            <sc>as the seasons turn</sc>
+            <sc>around the table</sc>
+            <sc>before hudson</sc>
+            <sc>education in a valley fair</sc>
+            <sc>faces and places of the past</sc>
+            <sc>on the porch steps</sc>
+            <sc>the civil war letters of meeker griffin</sc>
+            <sc>the civil war letters of james thitchener</sc>
+            <sc>katherine deyo cookingham downer collection</sc>
+            <sc>a notion to sew</sc>
+            <sc>mary chadeayne lee</sc>
+            <sc>binary visions</sc>
+            <sc>willie family civil war collection</sc>
+            <sc>atlas of the hudson river valley from new york city to troy</sc>
+            <sc>john burroughs postcard collection</sc>
+            <sc>1909 hudson-fulton celebration</sc>
+            <sc>ulster county postcards</sc>
+            <sc>combination atlas map of rockland county, new york</sc>
+            <sc>library association of rockland county</sc>
+            <sc>hudson fulton collection</sc>
+            <sc>newburgh free library historic images</sc>
+            <sc>hudson-fulton celebration, 1909</sc>
+            <sc>edmund blunt topographic map collection</sc>
+            <sc>glebe documents collection</sc>
+            <sc>frank estabrook collection</sc>
+            <sc>james e. horton collection</sc>
+            <sc>newburgh postcards</sc>
+            <sc>winston c. perry jr. collection</sc>
+            <sc>sally savage collection</sc>
+            <sc>van houten's landing oral history project</sc>
+            <sc>van cura collection</sc>
+            <sc>robert courtwright collection</sc>
+            <sc>lantern slides</sc>
+            <sc>william thompson howel</sc>
+            <sc>harold haliday costain slide collection</sc>
+            <sc>elizabeth arey photograph collection</sc>
+            <sc>starkweather room photograph collection</sc>
+            <sc>historic photograph collection</sc>
+            <sc>education in a valley fair</sc>
+            <sc>college history collection</sc>
+            <sc>college yearbook collection</sc>
+            <sc>pauline nuzzolezze staiano '52 photo album</sc>
+            <sc>sterling mines photograph collection</sc>
+            <sc>sterling iron and railway co</sc>
+            <sc>orange county atlas collection</sc>
+            <sc>militia enrollment scrapbook 1888-1917</sc>
+            <sc>mystery photograph collection</sc>
+            <sc>vertical file photograph collection</sc>
+            <sc>local history room map collection</sc>
+            <sc>village of tuxedo park national register of historic places inventory</sc>
+            <sc>tuxedo park library postcards</sc>
+            <sc>vbmc buildings &amp; grounds</sc>
+            <sc>vbmc construction</sc>
+            <sc>vbmc seasonal photographs</sc>
+            <sc>vbmc interior photographs</sc>
+            <sc>vbmc departments</sc>
+            <sc>vbmc patient care</sc>
+            <sc>disaster drill photographs</sc>
+            <sc>vassar brothers hospital school of nursing</sc>
+            <sc>vbmc operating room</sc>
+            <sc>vbmc physicians &amp; trustees</sc>
+            <sc>vbmc trustees</sc>
+            <sc>vbmc physicians</sc>
+            <sc>jane secor collection</sc>
+            <sc>vbmc ambulance photos</sc>
+            <sc>suckley family world war i collection</sc>
         </xsl:variable>
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>
