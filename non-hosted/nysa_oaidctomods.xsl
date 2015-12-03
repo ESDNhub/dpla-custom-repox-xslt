@@ -23,7 +23,7 @@
       <xsl:apply-templates select="dc:date"/>
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="nysa"/>
-      <xsl:if test="exists(dc:language)">
+      <xsl:if test="normalize-space(dc:language/text())!=''">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
           <xsl:element name="languageTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">code</xsl:attribute>
@@ -104,7 +104,7 @@
       <xsl:attribute name="authority">lcsh</xsl:attribute>
       <xsl:attribute name="valueURI">
         <xsl:value-of
-          select="concat('http://id.loc.gov/authorities/sh', substring-before(substring-after(., 'sh'), ']'))"/>
+          select="concat('http://id.loc.gov/authorities/sh', substring-before(substring-after(., '/sh'), ']'))"/>
       </xsl:attribute>
       <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
         <xsl:value-of select="normalize-space(substring-before(., '['))"/>
