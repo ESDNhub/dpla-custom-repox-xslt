@@ -23,17 +23,19 @@
       <xsl:apply-templates select="dc:date"/>
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="nysa"/>
-      <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
-        <xsl:element name="languageTerm" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="type">code</xsl:attribute>
-          <xsl:attribute name="authority">iso639-3</xsl:attribute>
-          <xsl:call-template name="iso6393-codes">
-            <xsl:with-param name="lval">
-              <xsl:value-of select="dc:language"/>
-            </xsl:with-param>
-          </xsl:call-template>
+      <xsl:if test="exists(dc:language)">
+        <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="languageTerm" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">code</xsl:attribute>
+            <xsl:attribute name="authority">iso639-3</xsl:attribute>
+            <xsl:call-template name="iso6393-codes">
+              <xsl:with-param name="lval">
+                <xsl:value-of select="dc:language"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:element>
         </xsl:element>
-      </xsl:element>
+      </xsl:if>
         <xsl:apply-templates select="dcterms:spatial" mode="nysa"/>
         <xsl:apply-templates select="dc:rights"/>
         <xsl:apply-templates select="dc:subject" mode="nysa"/>
