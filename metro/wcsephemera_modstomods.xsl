@@ -28,6 +28,7 @@
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:recordInfo"/>
+    <xsl:template match="mods:note"/>
     
     <xsl:template match="mods:roleTerm">
         <xsl:copy>
@@ -42,13 +43,6 @@
     </xsl:template>
 
     <xsl:template match="mods:abstract">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template match="mods:note">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
