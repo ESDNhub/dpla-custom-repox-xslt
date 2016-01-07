@@ -37,14 +37,22 @@
       <xsl:apply-templates select="dc:language" mode="nysl"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
+      
       <xsl:apply-templates select="dc:identifier" mode="nysl"/>
+      
+      <!-- hard code rights statement for State Library -->
+      
       <xsl:element name="accessCondition">
         <xsl:text>This document or image is provided for education and research purposes. Rights may be reserved. Responsibility for securing permissions to distribute, publish, reproduce or use it in any way rests with the user. For additional information, see the New York State Library's Copyright and Use Statement, available at http://www.nysl.nysed.gov/scandocs/rights.htm.</xsl:text>
       </xsl:element>
+      
       <xsl:apply-templates select="dc:subject" mode="nysl"/>
 
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      
+      <!-- hard code ownership and collection note -->
       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
@@ -54,7 +62,6 @@
         </xsl:element>
       </xsl:element>
 
-      <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">New York State Library</xsl:with-param>
       </xsl:call-template>

@@ -27,6 +27,9 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:identifier" mode="jdc"/>
+      
+      <!-- hard code collection and ownership note -->
+      
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
@@ -34,7 +37,7 @@
           <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">American Jewish Joint Distribution Committee Archives</xsl:element>
         </xsl:element>
       </xsl:element>
-      <!-- hard code ownership note -->
+
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">American Jewish Joint Distribution Committee Archives</xsl:with-param>
       </xsl:call-template>

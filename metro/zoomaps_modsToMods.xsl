@@ -22,6 +22,9 @@
           <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
           <xsl:attribute name="version">3.4</xsl:attribute>
           <xsl:apply-templates select="@*|node()"/>
+            
+            <!-- hard code ownership note -->
+            
             <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
             </xsl:call-template>    
@@ -35,6 +38,8 @@
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
+    
+    <!-- hard code collection info -->
     
     <xsl:template match="mods:relatedItem">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
@@ -143,7 +148,8 @@
         <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
             <xsl:value-of select="normalize-space($extents[2])"/>
         </xsl:element>
-    </xsl:template>
+   
+  </xsl:template>
         <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>

@@ -73,6 +73,8 @@
         </xsl:element>
       </xsl:if>
       
+      <!-- hard code collection and ownership note -->
+      
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
@@ -80,12 +82,12 @@
           <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Fordham University-Italian Pamphlets Collection</xsl:element>
         </xsl:element>
       </xsl:element>
-
-      <!-- hard code ownership note -->
+      
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Fordham University</xsl:with-param>
       </xsl:call-template>
     </mods>
+    
   </xsl:template>
 
   <!-- ESDN utility templates -->

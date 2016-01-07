@@ -23,6 +23,9 @@
           <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
           <xsl:attribute name="version">3.4</xsl:attribute>
           <xsl:apply-templates select="@*|node()"/>
+          
+          <!-- hard code collection and ownership notes -->
+          
             <xsl:call-template name="owner-note">
               <xsl:with-param name="owner">Vassar College Libraries, Poughkeepsie, N.Y</xsl:with-param>
             </xsl:call-template>
@@ -38,6 +41,7 @@
               <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Vassar College Libraries-Bidloo's Anatomia (Vassar's Millionth Volume)</xsl:element>
             </xsl:element>
           </xsl:element>
+          
           <xsl:for-each select="mods:subject/mods:topic">
             <xsl:if test="normalize-space(.)!=''">
               <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">

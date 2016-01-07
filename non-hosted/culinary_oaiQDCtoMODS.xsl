@@ -43,11 +43,13 @@
         <xsl:apply-templates select="dcterms:temporal" mode="culinary"/>
       </xsl:if>
       <xsl:apply-templates select="dcterms:spatial" mode="culinary"/>
-      <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <!-- hard code ownership note -->
+      
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">The Culinary Institute of America</xsl:with-param></xsl:call-template>
+      <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>  <!-- collection info coming from here -->
+      
      </mods>
   </xsl:template>
   
@@ -84,7 +86,7 @@
             <relatedItem><location><url><xsl:value-of select="normalize-space(.)"/></url></location></relatedItem> <!--relation-->
           </xsl:when>
           <xsl:otherwise>
-            <relatedItem type="host" displayLabel="Collection"><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--collection-->
+            <relatedItem type="host" displayLabel="Collection"><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--collection info-->
           </xsl:otherwise>
         </xsl:choose>
       </xsl:if>

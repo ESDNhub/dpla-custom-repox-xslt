@@ -19,6 +19,9 @@
                 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
+            
+            <!-- hard code ownership note -->
+            
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus
                     Libraries</xsl:with-param>
@@ -36,7 +39,9 @@
     <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
     <xsl:template match="mods:identifier[@type='job']"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
-
+    
+    <!-- collection info -->
+    
     <xsl:template match="mods:relatedItem">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
@@ -122,6 +127,7 @@
         </xsl:copy>
     </xsl:template>
 
+    <!-- add AAT -->
     <xsl:template match="mods:genre">
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">aat</xsl:attribute>

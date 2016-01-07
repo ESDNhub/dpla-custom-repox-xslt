@@ -21,6 +21,8 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     
+    <!-- hard code collection info -->
+    
     <xsl:template match="mods:relatedItem">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">host</xsl:attribute>
@@ -30,6 +32,8 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+    
+    <!-- hard code ownership note -->
     
     <xsl:template match="mods:mods">
         <xsl:copy>
@@ -159,6 +163,8 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>    
+    
+    <!-- add AAT -->
     
     <xsl:template match="mods:genre">
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">

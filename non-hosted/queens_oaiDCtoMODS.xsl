@@ -52,6 +52,9 @@
           />
         </xsl:element>
       </xsl:element>
+        
+      <!-- hard code rights -->
+        
       <xsl:element name="accessCondition">The Queens Library is interested in learning more about
         items you've seen on our websites or elsewhere online. If you have any more information
         about an item or its copyright status, we want to hear from you. Please contact
@@ -60,14 +63,16 @@
       
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:coverage[not(contains(./text(), 'unknown'))]" mode="queens"/>
-      <xsl:apply-templates select="dc:relation[1]" mode="queens"/>
       
-      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">still image</xsl:element>
+        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">still image</xsl:element> <!-- add type, all photographs -->
       
       <!-- hard code ownership note -->
+        
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Queens Borough Public Library</xsl:with-param>
       </xsl:call-template>
+        
+      <xsl:apply-templates select="dc:relation[1]" mode="queens"/> <!-- collection info from here -->
       
     </mods>
   </xsl:template>
@@ -99,7 +104,7 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
-  
+    
  <xsl:template match="dc:relation[1]" mode="queens">
    <xsl:variable name="relationvalue" select="normalize-space(.)"/>
    <xsl:for-each select="$relationvalue">

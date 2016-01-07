@@ -21,6 +21,8 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:relatedItem/@displayLabel"/>
     
+    <!-- hard code collection note -->
+    
     <xsl:template match="mods:relatedItem">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">host</xsl:attribute>
@@ -121,6 +123,7 @@
   <xsl:template match="mods:note[@displayLabel='Inscription']"/>
   <xsl:template match="mods:relatedItem[./mods:note[@displayLabel='Series Info']]"/>
   <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
+  <!-- get correct ownership note -->
   <xsl:template match="mods:note[not(@*) or @displayLabel='Content Note']">
         <xsl:if test="normalize-space(.)!=''">
           <xsl:variable name="owner">

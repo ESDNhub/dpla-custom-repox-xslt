@@ -25,7 +25,7 @@
   <xsl:template match="oai_dc:dc">
     <xsl:if test="./edm:Preview[not(contains(., 'NotAvailable'))]">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
-        <xsl:apply-templates select="edm:dataProvider"/>     
+        <xsl:apply-templates select="edm:dataProvider"/> <!-- to Creator, not Data Provider -->   
         <xsl:apply-templates select="dcterms:title"/>     
         
         <xsl:if test="normalize-space(dc:date) != ''">
@@ -54,6 +54,8 @@
         <xsl:apply-templates select="edm:isShownAt"/>
         <xsl:apply-templates select="edm:Preview"/>
         
+        <!-- hard code collection noate -->
+        
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="type">host</xsl:attribute>
           <xsl:attribute name="displayLabel">Collection</xsl:attribute>
@@ -62,7 +64,7 @@
           </xsl:element>
         </xsl:element>
         
-        <!-- hard code ownership note -->
+        <!-- ownership note -->
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner"><xsl:value-of select="normalize-space(dc:creator)"/></xsl:with-param>
         </xsl:call-template>

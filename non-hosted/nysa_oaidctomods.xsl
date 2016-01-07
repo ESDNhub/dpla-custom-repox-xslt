@@ -19,6 +19,8 @@
   <xsl:template match="text() | @*"/>
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
+      
+      <xsl:apply-templates select="dc:title[1]"/>
       <xsl:apply-templates select="dc:creator"/>
       <xsl:apply-templates select="dc:date"/>
       <xsl:apply-templates select="dc:description"/>
@@ -39,27 +41,37 @@
         <xsl:apply-templates select="dcterms:spatial" mode="nysa"/>
         <xsl:apply-templates select="dc:rights"/>
         <xsl:apply-templates select="dc:subject" mode="nysa"/>
-        <xsl:apply-templates select="dc:title[1]"/>
         <xsl:apply-templates select="dc:type" mode="esdn"/>
-        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="type">host</xsl:attribute>
-          <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-          <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-              <xsl:value-of select="normalize-space(dc:title[2])"/>
-            </xsl:element>
-          </xsl:element>
-        </xsl:element>
+      
+      <!-- hard code ownership note -->
+      
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner">New York State Archives</xsl:with-param>
         </xsl:call-template>
+      
+      <!-- collection info -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(dc:title[2])"/>
+          </xsl:element>
+        </xsl:element>
+      </xsl:element>
     </mods>
+    
   </xsl:template>
+  
+  <!-- ESDN utility templates --> 
   <xsl:include href="esdn_templates.xsl"/>
+  
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
   <xsl:include href="iso639x.xsl"/>
 
+  <!-- collection-specific templates start here --> 
 
   <xsl:template match="dc:identifier" mode="nysa">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
