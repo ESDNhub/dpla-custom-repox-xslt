@@ -31,7 +31,16 @@
 
       <xsl:apply-templates select="dc:coverage[normalize-space(lower-case(./text()))!='unknown']"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Bard College</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
       </xsl:call-template>

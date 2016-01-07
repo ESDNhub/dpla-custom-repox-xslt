@@ -33,7 +33,16 @@
       <xsl:apply-templates select="dc:format" mode="hrvh"/>      
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Library Association of Rockland County</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
@@ -44,17 +53,18 @@
             <xsl:when test="contains(lower-case(dc:source), 'nanuet public library')"
               >Nanuet Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'new city library')">New City Library</xsl:when>
-            <xsl:when test="contains(lower-case(dc:source), 'palisades free library')">Palisades Free Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:source), 'palisades')">Palisades Free Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'pearl river library')">Pearl River Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'piermont public library')">Piermont Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'suffern free library')">Suffern Free Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'tappan library')">Tappan Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:source), 'tomkins cove public library')">Tomkins Cove Public Library</xsl:when>
-            <xsl:when test="contains(lower-case(dc:source), 'west nyack free library')">West Nyack Free Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:source), 'valley cottage library')">Valley Cottage Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:source), 'west nyack library')">West Nyack Free Library</xsl:when>
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
+    <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
   </xsl:template>
   
