@@ -32,11 +32,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:identifier[@type='local']">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
+    <xsl:template match="mods:identifier[@type='local']"/>
     
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:internetMediaType"/>

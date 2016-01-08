@@ -134,12 +134,8 @@
     </xsl:if>
   </xsl:template>
     
-    <xsl:template match="mods:identifier[@type='local']">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
-  
+    <xsl:template match="mods:identifier[@type='local']"/>
+
   <xsl:template match="mods:extent">
         <xsl:variable name="extents" select="tokenize(normalize-space(.), ';')"/>
         <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
