@@ -104,11 +104,7 @@
     </xsl:if>
   </xsl:template>
     
-    <xsl:template match="mods:identifier[@type='local']">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
+    <xsl:template match="mods:identifier[@type='local']"/>
     
     <xsl:template match="mods:note[@type='dateuncontrolled'][not(exists(./mods:originInfo))]">
         <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
