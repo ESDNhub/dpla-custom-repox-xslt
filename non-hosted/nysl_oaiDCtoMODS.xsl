@@ -46,7 +46,7 @@
         <xsl:text>This document or image is provided for education and research purposes. Rights may be reserved. Responsibility for securing permissions to distribute, publish, reproduce or use it in any way rests with the user. For additional information, see the New York State Library's Copyright and Use Statement, available at http://www.nysl.nysed.gov/scandocs/rights.htm.</xsl:text>
       </xsl:element>
       
-      <xsl:apply-templates select="dc:subject" mode="nysl"/>
+      <xsl:apply-templates select="dc:subject"/>
 
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -168,7 +168,7 @@
                 />
               </xsl:matching-substring>
               <xsl:non-matching-substring>
-                <xsl:value-of select="normalize-space(replace($subval, '-', '--'))"/>
+                <xsl:value-of select="normalize-space(replace($subval, '-+', '--'))"/>
               </xsl:non-matching-substring>
             </xsl:analyze-string>
           </xsl:element>
