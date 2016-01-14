@@ -21,6 +21,7 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
+      
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language">
           <xsl:for-each select="tokenize(dc:language, ';')">
@@ -45,11 +46,14 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      <!-- hard code collection and ownership note -->
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">University at Buffalo</xsl:with-param>
+        <xsl:with-param name="owner">University at Buffalo</xsl:with-param>    <!-- holding institution is University at Buffalo for project -->
       </xsl:call-template>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
