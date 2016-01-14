@@ -48,7 +48,6 @@
             </xsl:call-template>
           </xsl:element>
         </xsl:element>
-        <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
