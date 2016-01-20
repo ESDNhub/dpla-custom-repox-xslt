@@ -281,6 +281,9 @@
             <sc>massena central school yearbooks collection</sc>
             <sc>materials related to the gallery's 1913 inaugural year</sc>
             <sc>maureen o'sullivan cushing collection of maria college albany ny</sc>
+	    <sc>maverick sunday concerts programs</sc>
+	    <sc>maverick festival collection</sc>
+	    <sc>maverick musicians portraits</sc>
             <sc>mcbride street campus</sc>
             <sc>mcgraw villiage history</sc>
             <sc>memorial art gallery artifacts and memorabilia</sc>
