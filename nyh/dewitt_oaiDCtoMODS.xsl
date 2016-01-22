@@ -41,7 +41,16 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">DeWitt Community Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">DeWitt Community Library</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
@@ -58,12 +67,5 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:source" mode="p16694coll13">
-    <xsl:variable name="quote_delim" select="tokenize(., ';')"/>
-    <xsl:if test="normalize-space($quote_delim[3]) != ''">
-      <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
-    </xsl:if>
-    <form><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></form>
-  </xsl:template>
 </xsl:stylesheet>
 

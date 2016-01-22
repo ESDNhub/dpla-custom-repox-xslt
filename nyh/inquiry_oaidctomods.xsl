@@ -17,14 +17,15 @@
 
       <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
 
-      <xsl:if
-        test="
-          (normalize-space(dc:date) != '' and lower-case(normalize-space(dc:date)) != 'unknown')
-          or (normalize-space(dc:publisher) != '' and lower-case(normalize-space(dc:publisher)) != 'unknown')">
-        <originInfo>
-          <xsl:apply-templates select="dc:date" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher"/>
-        </originInfo>
+      <xsl:if test="dc:date != '' or dc:publisher != ''">
+        <xsl:element name="originInfo">
+          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
+            <xsl:apply-templates select="dc:date" mode="esdn"/>
+          </xsl:if>
+          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
+            <xsl:apply-templates select="dc:publisher"/>
+          </xsl:if>
+        </xsl:element>
       </xsl:if>
 
       <xsl:apply-templates select="dc:description"/>
@@ -43,13 +44,23 @@
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+     
       <xsl:apply-templates select="dc:language" mode="inquiry"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-
-
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+
+      <!-- hard code collection and ownership note -->
+
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Center for Inquiry
+            Libraries</xsl:element>
+        </xsl:element>
+      </xsl:element>
+
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
@@ -71,9 +82,20 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
   <xsl:template match="dc:language" mode="inquiry">
-    <xsl:element name="language">
-      <xsl:element name="languageTerm">eng</xsl:element>
-    </xsl:element>
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>eng</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
+  
 </xsl:stylesheet>

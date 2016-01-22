@@ -37,32 +37,24 @@
       <xsl:apply-templates select="dc:source"/>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-
-      <xsl:if test="exists(dc:language)">
-        <xsl:element name="language">
-          <xsl:for-each select="dc:language">
-            <xsl:variable name="langlist" select="tokenize(., ';')"/>
-            <xsl:for-each select="$langlist">
-              <xsl:if test="normalize-space(.)!=''">
-                <xsl:element name="languageTerm">
-                  <xsl:call-template name="iso6393-codes">
-                    <xsl:with-param name="lval"><xsl:value-of select="lower-case(normalize-space(.))"/>
-                    </xsl:with-param>
-                  </xsl:call-template>
-                </xsl:element>
-              </xsl:if>
-            </xsl:for-each>
-          </xsl:for-each>
-        </xsl:element>
-      </xsl:if>
-
+      <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Fulton-Montgomery Community College</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Capital District Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Fulton-Montgomery Community College</xsl:with-param>
       </xsl:call-template>

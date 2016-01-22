@@ -70,7 +70,7 @@
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
-  <!-- collection-specific templates start here -->
+  <!-- collection-specific templates -->
   
   <xsl:template match="dc:source">
     <xsl:for-each select=".">
@@ -81,5 +81,4 @@
     </xsl:for-each>
   </xsl:template>
   
-  <!-- collection-specific templates -->  
 </xsl:stylesheet>

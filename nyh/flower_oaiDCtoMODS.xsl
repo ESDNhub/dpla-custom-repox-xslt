@@ -24,6 +24,17 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="flower"/>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Watertown Flower Memorial Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Watertown Flower Memorial Library</xsl:with-param>
       </xsl:call-template>
@@ -41,6 +52,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
+  
   <xsl:template match="dc:type" mode="flower">
     <xsl:variable name="typelist" select="tokenize(., ';')"/>
     <xsl:element name="typeOfResource">
