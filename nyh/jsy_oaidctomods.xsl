@@ -24,13 +24,16 @@
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:creator"/>
       
-      <xsl:if test="count(dc:date[lower-case(normalize-space(./text()))!='unknown']) > 0 or
-        count(dc:publisher[lower-case(normalize-space(./text()))!='unknown']) > 0">
-          <originInfo>
-            <xsl:apply-templates select="dc:date[lower-case(normalize-space(./text()))!='unknown']" mode="esdn"/>
-            <xsl:apply-templates select="dc:publisher[lower-case(normalize-space(./text()))!='unknown']"/>
-          </originInfo>
-        </xsl:if>
+      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
+        <originInfo>
+          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
+            <xsl:apply-templates select="dc:date" mode="esdn"/>
+          </xsl:if>
+          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
+            <xsl:apply-templates select="dc:publisher"/>
+          </xsl:if>
+        </originInfo>
+      </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       <xsl:element name="physicalDescription">
@@ -38,8 +41,7 @@
           <xsl:value-of select="dc:source"/>
         </xsl:element>
       </xsl:element>
-      
-      <!-- templates we override get a mode attribute with the setSpec of the collection -->
+     
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
         <xsl:element name="language">
           <xsl:element name="languageTerm">
@@ -51,10 +53,19 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Geneva Public Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Rochester Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Geneva Public Library</xsl:with-param>
       </xsl:call-template>
