@@ -9,7 +9,7 @@
       
       <!-- Broome uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator" mode="p261501coll8"/>
+        <xsl:apply-templates select="dc:creator" mode="broome"/>
       </xsl:if>
       
       <xsl:if test="normalize-space(dc:date[1]) != ''">      
@@ -27,7 +27,7 @@
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="p261501coll8"/>
+          <xsl:apply-templates select="dc:source" mode="broome"/>
         </physicalDescription>
       </xsl:if>
       
@@ -39,7 +39,17 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Broome County Public Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">South Central Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Broome County Public Library</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
@@ -56,7 +66,7 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:creator" mode="p261501coll8">
+  <xsl:template match="dc:creator" mode="broome">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue,';')">
       <xsl:if test="normalize-space(.)!='' and normalize-space(.) != '(?)'">
@@ -70,7 +80,7 @@
     </xsl:for-each>      
   </xsl:template>
   
-  <xsl:template match="dc:source" mode="p261501coll8">
+  <xsl:template match="dc:source" mode="broome">
     <xsl:if test="contains(., 'Negative')">
       <form><xsl:value-of select="tokenize(., ';')[1]"/></form>
     </xsl:if>

@@ -32,7 +32,6 @@
         </originInfo>
       </xsl:if>
 
-
       <xsl:apply-templates select="dc:description"/>
 
       <!-- Format and extent info are in dc:source. -->
@@ -48,10 +47,12 @@
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language"/>
+      <xsl:apply-templates select="dc:language" mode="buffhist"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
+
+      <!-- account for coordinates from WNYLRC collections -->
 
       <xsl:if test="exists(dc:coverage)">
         <xsl:choose>
@@ -95,6 +96,17 @@
       </xsl:if>
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">The Buffalo History Museum</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
@@ -116,4 +128,20 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dc:language" mode="buffhist">
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>eng</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>

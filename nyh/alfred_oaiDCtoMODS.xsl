@@ -8,6 +8,7 @@
       <xsl:apply-templates select="dc:title"/>
       
       <!-- Alfred uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator" mode="alfred"/>
       </xsl:if>
@@ -32,7 +33,6 @@
         </physicalDescription>
       </xsl:if>
       
-      <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:language"/>
@@ -41,7 +41,17 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Alfred University</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">South Central Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Alfred University</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>

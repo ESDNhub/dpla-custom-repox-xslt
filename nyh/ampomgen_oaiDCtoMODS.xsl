@@ -9,7 +9,7 @@
       
       <!-- AmPomGen uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator" mode="p16694coll35"/>
+        <xsl:apply-templates select="dc:creator" mode="ampomgen"/>
       </xsl:if>
       
       <xsl:if test="exists(dc:date)">
@@ -27,7 +27,7 @@
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="p16694coll35"/>
+          <xsl:apply-templates select="dc:source" mode="ampomgen"/>
         </physicalDescription>
       </xsl:if>
       
@@ -39,7 +39,17 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">American Pomeroy Historic Genealogical Association</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">American Pomeroy Historic Genealogical Association</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
@@ -56,7 +66,7 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:creator" mode="p16694coll35">
+  <xsl:template match="dc:creator" mode="ampomgen">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue,';')">
       <xsl:if test="normalize-space(.)!='' and normalize-space(.) != '(?)'">
@@ -70,7 +80,7 @@
     </xsl:for-each>      
   </xsl:template>
   
-  <xsl:template match="dc:source" mode="p16694coll35">
+  <xsl:template match="dc:source" mode="ampomgen">
     <xsl:variable name="commaed" select="replace(., ';', ',')"/>
     <xsl:variable name="quote_delim" select="tokenize($commaed, ',')"/> 
     <xsl:variable name="capitalized" select="concat(upper-case(substring($quote_delim[3], 2, 1)), substring($quote_delim[3], 3))"/>
