@@ -44,16 +44,25 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <!-- Check for 'unknown' in dc:coverage. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:coverage)) != 'unknown'">
         <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       </xsl:if>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Lourdes Hospital - Daughters of Charity</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">South Central Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Lourdes Hospital - Daughters of Charity</xsl:with-param>
       </xsl:call-template>
-
     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
@@ -68,15 +77,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
-  
-  <xsl:template match="dc:source" mode="tomphist">
-    <xsl:if test="contains(., 'Negative')">
-      <form><xsl:value-of select="tokenize(., ';')[1]"/></form>
-    </xsl:if>
-    <xsl:if test="contains(., 'inches')">
-      <extent><xsl:value-of select="."/></extent>
-    </xsl:if>
-  </xsl:template>
   
 </xsl:stylesheet>
 

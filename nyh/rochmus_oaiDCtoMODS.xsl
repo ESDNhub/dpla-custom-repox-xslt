@@ -39,9 +39,19 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <xsl:apply-templates select="dc:coverage" mode="rochmus"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Rochester Museum &amp; Science Center</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
        <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Rochester Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
          <xsl:with-param name="owner">Rochester Museum &amp; Science Center</xsl:with-param>
        </xsl:call-template>
@@ -63,7 +73,9 @@
     <xsl:element name="form">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
-  </xsl:template>   
+  </xsl:template> 
+
+  <!-- remove [pictured in] from term as required --> 
   
   <xsl:template match="dc:coverage" mode="rochmus">
     <xsl:for-each select="tokenize(., ';')">

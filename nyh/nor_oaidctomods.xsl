@@ -22,16 +22,26 @@
 
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
-      <xsl:apply-templates select="dc:source" mode="nor"/>
+      <xsl:apply-templates select="dc:source" mode="northville"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Northville Public Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Capital District Library Council</xsl:with-param>
       </xsl:call-template>
@@ -54,7 +64,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
-  <xsl:template match="dc:source" mode="nor">
+  <xsl:template match="dc:source" mode="northville">
     <xsl:variable name="src_list" select="tokenize(., ';')"/>
     <xsl:element name="physicalDescription">
       <xsl:element name="extent">

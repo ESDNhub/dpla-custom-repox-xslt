@@ -7,9 +7,9 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       
-      <!-- Geneva uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      <!-- Liverpool uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator" mode="livpub01"/>
+        <xsl:apply-templates select="dc:creator" mode="liverpool"/>
       </xsl:if>
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
@@ -25,13 +25,13 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <!-- Liverpool dumps what should  be in dc:format in dc:source, so get it
+      <!-- Liverpool dumps format and extent info in dc:source, attempt to parse 
         from there -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="livpub01"/>
+          <xsl:apply-templates select="dc:source" mode="liverpool"/>
         </physicalDescription>
       </xsl:if>
       
@@ -41,10 +41,19 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
-
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <!-- hard code ownership note -->
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Liverpool Public Library</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Liverpool Public Library</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
@@ -61,7 +70,7 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:creator" mode="livpub01">
+  <xsl:template match="dc:creator" mode="liverpool">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue,';')">
       <xsl:if test="normalize-space(.)!='' and normalize-space(.) != '(?)'">
@@ -75,7 +84,7 @@
     </xsl:for-each>      
   </xsl:template>
   
-  <xsl:template match="dc:source" mode="livpub01">
+  <xsl:template match="dc:source" mode="liverpool">
     <xsl:for-each select=".">
       <xsl:variable name="sourcevalue" select="."/>
       <xsl:if test="normalize-space($sourcevalue) != ''">

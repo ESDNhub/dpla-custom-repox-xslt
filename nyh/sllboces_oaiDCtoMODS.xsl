@@ -22,7 +22,6 @@
         </originInfo>
       </xsl:if>
       
-      
       <xsl:apply-templates select="dc:description"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
@@ -31,12 +30,22 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:language" mode="sllboces"/>
 
-
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <!-- Check for existence first, since just jamming in a value -->
       <xsl:if test="normalize-space(dc:type) !=''">
         <xsl:apply-templates select="dc:type" mode="sllboces"/>
       </xsl:if>
+      
+      <!-- hard code collection and ownership note -->
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">St. Lawrence-Lewis School Library System Collection</xsl:element>
+        </xsl:element>
+      </xsl:element>
+      
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">St. Lawrence-Lewis School Library System</xsl:with-param>
       </xsl:call-template>
@@ -56,7 +65,7 @@
   <!-- collection-specific templates start here -->
   <xsl:template match="dc:type" mode="sllboces">
     <xsl:element name="typeOfResource">
-      <xsl:text>Text</xsl:text>
+      <xsl:text>text</xsl:text>
     </xsl:element>
   </xsl:template>
   
