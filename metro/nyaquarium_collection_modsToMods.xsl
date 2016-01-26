@@ -160,7 +160,7 @@
         </xsl:copy>
     </xsl:template>    
     
-    <!-- add AAT -->
+    <!-- add AAT for DPLA genre property -->
     
     <xsl:template match="mods:genre">
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">

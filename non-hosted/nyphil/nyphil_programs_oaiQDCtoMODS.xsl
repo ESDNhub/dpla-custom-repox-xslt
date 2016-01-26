@@ -82,6 +82,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
   <xsl:template match="dcterms:temporal">
     <xsl:if test="normalize-space(lower-case(.))!='unknown'">
       <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
@@ -125,6 +126,8 @@
       <xsl:element name="identifier"><xsl:value-of select="normalize-space(.)"/></xsl:element>
     </xsl:if>
   </xsl:template>
+  
+  <!-- AAT Genre term  --> 
   
   <xsl:template match="dc:genre">
     <xsl:if test="normalize-space(.)!=''">

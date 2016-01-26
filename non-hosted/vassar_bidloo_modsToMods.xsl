@@ -165,6 +165,8 @@
       </xsl:for-each>
     </xsl:template>
   
+  <!-- add AAT for DPLA genre property -->
+  
   <xsl:template match="mods:genre">
     <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
       <xsl:attribute name="authority">aat</xsl:attribute>

@@ -81,6 +81,7 @@
     </xsl:template>
 
     <!-- suppress the element whose value we use above -->
+    
     <xsl:template match="mods:originInfo[exists(./mods:dateCreated[@point='end'])]"/>
 
     <xsl:template match="mods:abstract">
@@ -126,8 +127,9 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
-
-    <!-- add AAT -->
+    
+    <!-- add AAT for DPLA genre property -->
+    
     <xsl:template match="mods:genre">
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">aat</xsl:attribute>
@@ -139,6 +141,8 @@
         <xsl:apply-templates select="./mods:place"/>
     </xsl:template>
 
+    <!-- take from place/place term for DPLA Place property -->
+    
     <xsl:template match="mods:place">
         <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">

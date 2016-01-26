@@ -48,7 +48,7 @@
       <!-- hard code ownership note -->
       
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">The Culinary Institute of America</xsl:with-param></xsl:call-template>
-      <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>  <!-- collection info coming from here -->
+      <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>  <!-- collection info here -->
       
      </mods>
   </xsl:template>
@@ -63,6 +63,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
   <xsl:template match="dcterms:created" mode="culinary">
     <xsl:call-template name="date-to-mods">
       <xsl:with-param name="dateval">

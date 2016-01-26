@@ -78,6 +78,7 @@
   <xsl:include href="utilities.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
   <xsl:template match="dc:creator" mode="nysl">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue, ';')">
