@@ -39,7 +39,10 @@
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
 
-      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:if test="lower-case(normalize-space(dc:coverage)) != 'unknown'">
+        <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      </xsl:if>
+      
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code collection ownership note -->
