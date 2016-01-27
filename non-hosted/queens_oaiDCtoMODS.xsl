@@ -37,6 +37,8 @@
         </xsl:if>
       </xsl:element>
       
+      <!-- Build link and thumbnail preview -->
+      
       <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="url">
           <xsl:attribute name="usage">primary display</xsl:attribute>
@@ -117,8 +119,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Wiliam Cahill Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Wiliam Cahill Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -127,8 +128,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Wiliam Murray Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Wiliam Murray Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -137,8 +137,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-A. Noble Chapman Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-A. Noble Chapman Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -147,8 +146,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Arthur Murray Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Arthur Murray Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -157,8 +155,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Arthur Greene Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Arthur Greene Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -167,8 +164,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Eugene Nichols Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Eugene Nichols Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -177,8 +173,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Good Citizenship Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Good Citizenship Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -187,8 +182,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Soldiers Sailors Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Soldiers Sailors Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -197,8 +191,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-South Reformed Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-South Reformed Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -207,8 +200,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Jacob Wieners Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Jacob Wieners Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -217,8 +209,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Anders Goldfarb Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Anders Goldfarb Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -227,8 +218,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Councilwoman Julia Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Councilwoman Julia Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -237,8 +227,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Hal Fullerton Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Hal Fullerton Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -247,8 +236,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-James Henry Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-James Henry Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -257,8 +245,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-John Willis Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-John Willis Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -267,8 +254,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Josiah Case Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Josiah Case Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -277,8 +263,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Oratorio Society Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Oratorio Society Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -287,8 +272,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Public Service Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Public Service Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -297,8 +281,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Ralph Solecki Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Ralph Solecki Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -307,8 +290,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-New York Tax Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-New York Tax Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -317,8 +299,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Sister Sonia Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Sister Sonia Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -327,8 +308,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-William Erwin Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-William Erwin Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -337,8 +317,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-J. William Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-J. William Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -347,8 +326,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Rogers Waters Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Rogers Waters Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -357,8 +335,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Queens Museum Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Queens Museum Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -367,8 +344,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Borough President Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Borough President Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -377,8 +353,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Aurora Gareiss Papers</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Aurora Gareiss Papers</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -387,8 +362,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Irene Devan Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Irene Devan Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -397,8 +371,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Eugene Armbruster Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Eugene Armbruster Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -407,8 +380,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Joseph Burt Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Joseph Burt Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -417,8 +389,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-Erwin Ma Photograph</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-Erwin Ma Photograph</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -427,8 +398,7 @@
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
                     <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens
-                            Borough Public Library-William Rugen Photographs</xsl:element>
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Queens Borough Public Library-William Rugen Photographs</xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
