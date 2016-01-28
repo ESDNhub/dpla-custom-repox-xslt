@@ -12,10 +12,6 @@
   xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
-  <xsl:template match="/">
-    <xsl:apply-templates select="//oai_dc:dc[./dc:relation='Sand Pumpings']"/>
-  </xsl:template>
-  
   <xsl:template match="text()|@*"/>
   <xsl:template match="oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
@@ -31,11 +27,15 @@
         <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
       
-      <xsl:if test="normalize-space(dc:date) != '' or exists(dc:publisher[./text()!='Olean Public Library'])">
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
+          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
             <xsl:apply-templates select="dc:date" mode="esdn"/>
-            <xsl:apply-templates select="dc:publisher[./text()!='Olean Public Library']"/>         
-         </originInfo>
+          </xsl:if>
+          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
+            <xsl:apply-templates select="dc:publisher"/>
+          </xsl:if>
+        </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
@@ -59,7 +59,7 @@
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
-      <!-- hard code collection and ownership note -->
+      <!-- hard code collection note -->
       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
@@ -69,10 +69,25 @@
         </xsl:element>
       </xsl:element>
       
-      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">Olean Public Library</xsl:with-param>
+      <!-- create correct ownership note -->
+      
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
-     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
+      <xsl:call-template name="owner-note">
+        <xsl:with-param name="owner">
+          <xsl:choose>
+            <xsl:when test="contains(lower-case(dc:relation), 'sand pumpings')">Olean Public Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:relation), 'historic paintings')"
+              >James Prendergast Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:relation), 'history of the village')"
+              >Lakewood Memorial Library</xsl:when>
+            <xsl:otherwise>Chautauqua-Cattaraugus Library System</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates select="dc:relation" mode="esdn"/>
+    </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
