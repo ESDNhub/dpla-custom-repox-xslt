@@ -45,11 +45,11 @@
       <xsl:apply-templates select="dcterms:spatial" mode="culinary"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      
       <!-- hard code ownership note -->
       
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">The Culinary Institute of America</xsl:with-param></xsl:call-template>
       <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>  <!-- collection info here -->
-      
      </mods>
   </xsl:template>
   

@@ -18,6 +18,8 @@
   
   <xsl:template match="text()|@*"/>
   
+  <!-- Filter out records not available on site based on value of edm:Preview -->
+  
   <xsl:template match="oai_dc:dc">
     <xsl:if test="./edm:Preview[not(contains(., 'NotAvailable'))]">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
@@ -56,7 +58,7 @@
           </xsl:element>
         </xsl:element>
         
-        <!-- ownership note -->
+        <!-- Get ownership value from dc:creator field -->
         
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner"><xsl:value-of select="normalize-space(dc:creator)"/></xsl:with-param>

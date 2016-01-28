@@ -14,6 +14,8 @@
   <xsl:output indent="yes"/>
 
   <xsl:template match="text() | @*"/>
+  
+  <!-- filter out Target records based on title value -->
 
   <xsl:template match="/">
     <xsl:apply-templates
@@ -34,7 +36,7 @@
         </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dcterms:tableOfContents"/>
+      <xsl:apply-templates select="dcterms:tableOfContents"/>  <!-- to Description -->
 
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:apply-templates select="dcterms:extent"/>
@@ -56,7 +58,7 @@
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
-      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">text</xsl:element>
+      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">text</xsl:element> <!-- all text -->
       <xsl:apply-templates select="dc:rights"/>
 
       <xsl:if test="exists(dc:language)">
@@ -135,6 +137,8 @@
     </xsl:element>
   </xsl:template>
 
+  <!-- Cleanup contributor values -->
+  
   <xsl:template match="dc:contributor" mode="fordham">
     <xsl:variable name="contributorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($contributorvalue, ';')">
@@ -158,6 +162,8 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
+  
+  <!-- Cleanup creator values -->
 
   <xsl:template match="dc:creator" mode="fordham">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
@@ -173,7 +179,7 @@
                 <xsl:value-of select="normalize-space(.)"/>
               </xsl:otherwise>
             </xsl:choose>
-            <!--contributor-->
+            <!--creator-->
           </namePart>
           <role>
             <roleTerm>creator</roleTerm>

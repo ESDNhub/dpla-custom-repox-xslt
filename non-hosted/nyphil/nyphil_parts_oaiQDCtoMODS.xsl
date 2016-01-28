@@ -18,6 +18,8 @@
   
   <xsl:template match="text()|@*"/>
   
+  <!-- Filter out records not available on site based on value of edm:Preview -->
+  
   <xsl:template match="oai_dc:dc">
     <xsl:if test="./edm:Preview[not(contains(., 'NotAvailable'))]">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
@@ -47,7 +49,7 @@
         <xsl:apply-templates select="edm:isShownAt"/>
         <xsl:apply-templates select="edm:Preview"/>
         
-        <!-- hard code collection -->
+        <!-- hard code collection note -->
         
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="type">host</xsl:attribute>
@@ -57,7 +59,8 @@
           </xsl:element>
         </xsl:element>
         
-        <!-- ownership -->
+        <!-- get ownership value from dataProvider -->
+        
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner"><xsl:value-of select="normalize-space(edm:dataProvider)"/></xsl:with-param>
         </xsl:call-template>

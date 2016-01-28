@@ -13,6 +13,9 @@
       <xsl:element name="physicalDescription">
         <xsl:apply-templates select="dc:format"/>
       </xsl:element>
+      
+      <!-- preview and link back in separate dc:identifier elements -->
+      
       <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="url">
           <xsl:attribute name="usage">primary display</xsl:attribute>
@@ -26,6 +29,7 @@
          <xsl:value-of select="normalize-space(dc:identifier[2])"/>
          </xsl:element>
       </xsl:element>
+      
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:creator"/>
       <xsl:apply-templates select="dc:contributor"/>
@@ -62,9 +66,11 @@
     </xsl:element>
   </xsl:template>
   
+  <!-- dc:relation to Description -->
+  
   <xsl:template match="dc:relation" mode="harrison">
     <xsl:if test="normalize-space(.)!=''">
-      <note type="content"><xsl:value-of select="normalize-space(.)"/></note> <!--description-->
+      <note type="content"><xsl:value-of select="normalize-space(.)"/></note> 
     </xsl:if>
   </xsl:template>
   
@@ -73,14 +79,13 @@
     <xsl:if test="normalize-space(.)!=''">
       <xsl:choose>
         <xsl:when test="contains(.,'http')"> 
-          <relatedItem><location><url><xsl:value-of select="normalize-space(.)"/></url></location></relatedItem> <!--relation-->
+          <relatedItem><location><url><xsl:value-of select="normalize-space(.)"/></url></location></relatedItem> <!--dc:source to relatedItem/location/url when value contains link-->
         </xsl:when>
         <xsl:otherwise>
-          <relatedItem><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--relation-->
+          <relatedItem><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--dc:source to relatedItem/titleInfo/title-->
         </xsl:otherwise>
       </xsl:choose>
-    </xsl:if>
-    
+    </xsl:if>  
   </xsl:template>
 
   <!-- ESDN utility templates -->

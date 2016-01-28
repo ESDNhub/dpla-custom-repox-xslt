@@ -51,14 +51,13 @@
     <xsl:for-each select="tokenize($formatvalue,';')">
       <xsl:if test="normalize-space(.)!=''">
         <xsl:choose>
-          <!-- check to see if there are any numbers in the format value -->
+          <!-- check to see if there are any numbers in the format value, put in extent -->
           <xsl:when test='matches(.,"\d+")'>
             <extent>
               <xsl:value-of select="normalize-space(.)"/>
             </extent>
-            <!--extent-->
           </xsl:when>
-          <!-- put it in <form> -->
+          <!-- otherwise, put it in form -->
           <xsl:otherwise>
             <form>
               <xsl:value-of select="normalize-space(.)"/>
@@ -68,6 +67,8 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
+  
+  <!-- Thumbnail preview, link back to record on JDC Archives site -->
   
   <xsl:template match="dc:identifier" mode="jdc">
     <xsl:if test="(contains(., 'jdc'))">
