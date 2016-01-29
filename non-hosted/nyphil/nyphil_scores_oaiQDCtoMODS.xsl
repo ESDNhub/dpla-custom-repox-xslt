@@ -41,7 +41,6 @@
         </xsl:element>
         
         <xsl:apply-templates select="dc:genre"/>
-        <xsl:apply-templates select="dc:identifier"/>
         <xsl:apply-templates select="dc:rights"/>
         
         <xsl:for-each select="dcterms:subject">
