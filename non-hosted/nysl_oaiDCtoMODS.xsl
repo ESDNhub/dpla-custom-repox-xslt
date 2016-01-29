@@ -50,8 +50,7 @@
 
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      
-      
+          
       <!-- hard code ownership and collection note -->
       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
@@ -124,6 +123,8 @@
       <!--title-->
     </xsl:if>
   </xsl:template>
+  
+  <!-- Create thumbnail preview link and link to object in NYSL catalog -->
 
   <xsl:template match="dc:identifier" mode="nysl">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
@@ -148,6 +149,8 @@
       <xsl:otherwise/>
     </xsl:choose>
   </xsl:template>
+  
+  <!-- Not currently calling this template for NYSL -->
 
   <xsl:template match="dc:subject" mode="nysl">
     <xsl:for-each select="tokenize(., ';')">
