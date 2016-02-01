@@ -14,7 +14,7 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:creator" mode="moma"/>
       <originInfo>
-        <xsl:apply-templates select="dc:date" mode="esdn"/>
+        <xsl:apply-templates select="dc:date"/>
       </originInfo>
       <physicalDescription>
         <xsl:apply-templates select="dc:format" mode="moma"/>
@@ -78,8 +78,9 @@
   
   <xsl:template match="dc:identifier" mode="moma">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
-    <xsl:for-each select="tokenize($idvalue,';')">
-      <xsl:if test="(contains(., 'moma'))">
+    <xsl:if test="normalize-space(.)!='' and not(contains(.,'waystation'))">
+     <xsl:choose>
+      <xsl:when test="(contains(., 'moma'))">
         <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
           <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="usage">primary display</xsl:attribute>
@@ -87,8 +88,12 @@
             <xsl:value-of select="normalize-space(.)"/>
           </xsl:element>
         </xsl:element>
-      </xsl:if>
-    </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+          <identifier><xsl:value-of select="normalize-space(.)"/></identifier> 
+      </xsl:otherwise>
+    </xsl:choose>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
