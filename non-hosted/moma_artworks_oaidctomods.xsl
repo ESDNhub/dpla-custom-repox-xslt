@@ -116,7 +116,7 @@
     <xsl:template match="dc:date" mode="moma">
       <xsl:variable name="dateval" select="normalize-space(.)"/>
       <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-        <xsl:analyze-string select="$dateval" regex="\(([^)]+),\s*[^\d]+\)">
+        <xsl:analyze-string select="$dateval" regex="\(([^)]+)\)">
           <xsl:matching-substring>  
             <xsl:value-of select="regex-group(1)"/>
           </xsl:matching-substring>
