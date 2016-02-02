@@ -10,17 +10,26 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
       version="3.4">
+      
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:creator" mode="moma"/>
-      <originInfo>
-        <xsl:apply-templates select="dc:date"/>
-      </originInfo>
+      
+      <xsl:if test="normalize-space(dc:date) != ''">
+        <originInfo>
+          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown' or 'n.d.'">
+            <xsl:apply-templates select="dc:date"/>
+          </xsl:if>
+        </originInfo>
+      </xsl:if>
+      
       <physicalDescription>
         <xsl:apply-templates select="dc:format" mode="moma"/>
       </physicalDescription>
       <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:source" mode="moma"/>
       <xsl:apply-templates select="dc:identifier" mode="moma"/>
+      
       <!-- hard code ownership note -->
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">MOMA-Museum of Modern Art</xsl:with-param>
@@ -38,6 +47,12 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- Collection specific templates -->
+  
+  <xsl:template match="dc:source" mode="moma">
+    <xsl:if test="normalize-space(.)!=''">
+      <note type="content"><xsl:value-of select="normalize-space(.)"/></note> <!--description-->
+    </xsl:if>
+  </xsl:template>
   
   <xsl:template match="dc:creator" mode="moma">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
