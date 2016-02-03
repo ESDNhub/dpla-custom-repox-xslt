@@ -109,6 +109,8 @@
     </xsl:for-each>
   </xsl:template>
     
+    <!-- get collection from name from value in dc:relation -->
+    
  <xsl:template match="dc:relation[1]" mode="queens">
    <xsl:variable name="relationvalue" select="normalize-space(.)"/>
    <xsl:for-each select="$relationvalue">
@@ -330,7 +332,7 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="contains(., 'Fair') or contains(.,'bookends')">
+            <xsl:when test="contains(., 'Fair') or contains(.,'bookends') or contains(.,'candles')">
                 <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
                     <xsl:attribute name="type">host</xsl:attribute>
                     <xsl:attribute name="displayLabel">Collection</xsl:attribute>
