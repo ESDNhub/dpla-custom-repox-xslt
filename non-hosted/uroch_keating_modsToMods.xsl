@@ -23,10 +23,16 @@
           <xsl:attribute name="version">3.4</xsl:attribute>
           <xsl:apply-templates select="@*|node()"/>
             
-            <!-- hard code ownership note -->
+            <!-- hard code collection ownership note -->
             <xsl:call-template name="owner-note">
               <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>    
+            
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">Kenneth B. Keating (1900-1975) was a lawyer, a congressman (Republican, 40th New York District) from 1947 to 1959, a senator from New York State from 1959 to 1965, an associate justice of the New York Court of Appeals from 1966 to 1969, an ambassador to India from 1969 to 1972, and an ambassador to Israel from 1973 to 1975. Included in this collection are recorded interviews and written transcripts from Keating's television programs, Let's Look at Congress and Senator Keating Reports where Keating interviewed noted political figures.</xsl:element>
+            </xsl:element>         
         </xsl:copy>
     </xsl:template>
     
@@ -36,8 +42,8 @@
     <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
-  <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
-  <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
+    <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
+    <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
     
     <xsl:template match="mods:relatedItem[@type='series']">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">

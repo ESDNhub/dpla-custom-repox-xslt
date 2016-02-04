@@ -23,11 +23,16 @@
         <xsl:attribute name="version">3.4</xsl:attribute>
         <xsl:apply-templates select="@*|node()"/>
           
-          <!-- hard code ownership note -->
+          <!-- hard code collection description and ownership note -->
           
         <xsl:call-template name="owner-note">
             <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
-          </xsl:call-template>    
+          </xsl:call-template>
+          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="type">host</xsl:attribute>
+              <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+              <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The William Thomas Moncrieff Papers consists of letters written by Moncrieff. The principal correspondents are Robert William Elliston, James Winston, a business associate of Elliston's, and Charles Molloy Westmacott, proprietor and editor of The Age. The letters concern the writing and production of Moncrieff's plays, especially Giovanni in Ireland and an adaptation of Mozart's opera The Magic Flute, the selling of Moncrieff's copyrights to plays, publicity for the plays, Moncrieff's litigation with Joseph Glossop, his monetary troubles, and his relations with Elliston and Winston, the managers of Drury Lane.</xsl:element>
+          </xsl:element>
       </xsl:copy>
   </xsl:template>
   

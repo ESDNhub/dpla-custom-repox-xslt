@@ -20,12 +20,17 @@
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
             
-            <!-- hard code ownership note -->
+            <!-- hard code collection and ownership note -->
             
             <xsl:call-template name="owner-note">
-                <xsl:with-param name="owner">University of Rochester, River Campus
-                    Libraries</xsl:with-param>
+                <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>
+            
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Hayes-Coleman Family Papers includes correspondence, documents, diaries, physician's "visiting books," household accounts, photographs, and memorabilia of various members of the Hayes-Coleman family of Canandaigua, New York. They are primarily concerned with the Canandaigua area, but they include, either in the original or in transcript, diaries and letters relating to Frederick Maryland, Brooklyn New York, ranch life in Colorado, and the life of an art student in Paris in 1890. The digitized volumes includes two diaries from Augustus Graham Coleman.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 
