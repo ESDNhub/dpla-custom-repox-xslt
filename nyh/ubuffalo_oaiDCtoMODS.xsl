@@ -60,7 +60,38 @@
         </xsl:element>
       </xsl:if>
 
-      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:choose>
+        <xsl:when test="count(dc:coverage) = 1">
+          <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+        </xsl:when>
+        <xsl:when test="count(dc:coverage) = 2 and matches(dc:coverage[1], '\d+')">
+          <xsl:element name="subject">
+            <xsl:element name="cartographics">
+              <xsl:element name="coordinates">
+                <xsl:call-template name="coords_element-nyh">
+                  <xsl:with-param name="lat"><xsl:value-of select="dc:coverage[1]"/></xsl:with-param>
+                  <xsl:with-param name="long"><xsl:value-of select="dc:coverage[2]"/></xsl:with-param>
+                </xsl:call-template>          
+              </xsl:element>
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:when test="count(dc:coverage) = 0"/>
+        <xsl:otherwise>
+          <xsl:apply-templates select="dc:coverage[1]" mode="nyh"/>
+          <xsl:element name="subject">
+            <xsl:element name="cartographics">
+              <xsl:element name="coordinates">
+                <xsl:call-template name="coords_element-nyh">
+                  <xsl:with-param name="lat"><xsl:value-of select="dc:coverage[2]"/></xsl:with-param>
+                  <xsl:with-param name="long"><xsl:value-of select="dc:coverage[3]"/></xsl:with-param>
+                </xsl:call-template>          
+              </xsl:element>
+            </xsl:element>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+      
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code collection and ownership note -->
