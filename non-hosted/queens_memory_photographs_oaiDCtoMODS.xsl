@@ -50,8 +50,6 @@
         digitalarchive@queenslibrary.org with your contact information and a link to the relevant
         content.</xsl:element>
       
-      <xsl:apply-templates select="dc:rights"/>
-      
       <xsl:apply-templates select="dc:relation"/>
       
       <!-- Build link and thumbnail preview -->
