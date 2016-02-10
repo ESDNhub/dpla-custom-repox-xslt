@@ -12,7 +12,6 @@
       version="3.4">
       
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:creator" mode="moma"/>
       
       <xsl:if test="normalize-space(dc:date) != ''">
@@ -26,11 +25,13 @@
       <physicalDescription>
         <xsl:apply-templates select="dc:format" mode="moma"/>
       </physicalDescription>
-      <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:source" mode="moma"/>
+      <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="moma"/>
       
-      <!-- hard code ownership note -->
+      <!-- hard code rights and ownership note -->
+      
+      <xsl:element name="accessCondition">Requests to reproduce works of art from MoMA's collection should be addressed to Art Resource (artres.com) for North America or to Scala Group S.p.A. (scalarchives.com) for all other geographic locations.</xsl:element>
+      
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">MOMA-Museum of Modern Art</xsl:with-param>
       </xsl:call-template>
@@ -47,12 +48,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- Collection specific templates -->
-  
-  <xsl:template match="dc:source" mode="moma">
-    <xsl:if test="normalize-space(.)!=''">
-      <note type="content"><xsl:value-of select="normalize-space(.)"/></note> <!--description-->
-    </xsl:if>
-  </xsl:template>
   
   <xsl:template match="dc:creator" mode="moma">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
@@ -111,8 +106,8 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- strip enclosing parens if present, otherwise just pass through. Date field is
-    a huge mess. -->
+  <!-- strip enclosing parens if present, otherwise just pass through. -->
+  
     <xsl:template match="dc:date" mode="moma">
       <xsl:variable name="dateval" select="normalize-space(.)"/>
       <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
