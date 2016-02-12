@@ -37,7 +37,6 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
@@ -65,6 +64,7 @@
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Capital District Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Schenectady County Historical Society</xsl:with-param>
       </xsl:call-template>
+      <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
   </xsl:template>
   
