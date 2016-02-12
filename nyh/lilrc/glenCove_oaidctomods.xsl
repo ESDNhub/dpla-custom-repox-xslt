@@ -24,20 +24,27 @@
       <xsl:apply-templates select="dc:creator"/>
       <xsl:apply-templates select="dc:contributor"/>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
-          <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language" mode="easthampton"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
+        </physicalDescription>
+      </xsl:if>
       
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -48,7 +55,7 @@
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">East Hampton Library</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Glen Cove Public Library</xsl:element>
         </xsl:element>
       </xsl:element>
       
@@ -56,7 +63,7 @@
         <xsl:with-param name="council">Long Island Library Resources Council</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">East Hampton Library</xsl:with-param>
+        <xsl:with-param name="owner">Glen Cove Public Library</xsl:with-param>
       </xsl:call-template>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
@@ -74,21 +81,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
-  
-  <xsl:template match="dc:language" mode="easthampton">
-    <xsl:choose>
-      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
-        <xsl:element name="language">
-          <xsl:element name="languageTerm">
-            <xsl:text>eng</xsl:text>
-          </xsl:element>
-        </xsl:element>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="."/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
   
 </xsl:stylesheet>
 

@@ -21,7 +21,10 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
       <xsl:apply-templates select="dc:title"/>
       
-      <xsl:apply-templates select="dc:creator"/>
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+        <xsl:apply-templates select="dc:creator"/>
+      </xsl:if>
+      
       <xsl:apply-templates select="dc:contributor"/>
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
@@ -34,10 +37,15 @@
       <xsl:apply-templates select="dc:description"/>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language" mode="easthampton"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="jericho"/>
+        </physicalDescription>
+      </xsl:if>
       
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -48,7 +56,7 @@
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">East Hampton Library</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Jericho Public Library</xsl:element>
         </xsl:element>
       </xsl:element>
       
@@ -56,7 +64,7 @@
         <xsl:with-param name="council">Long Island Library Resources Council</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">East Hampton Library</xsl:with-param>
+        <xsl:with-param name="owner">Jericho Public Library</xsl:with-param>
       </xsl:call-template>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
@@ -75,19 +83,10 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:language" mode="easthampton">
-    <xsl:choose>
-      <xsl:when test="contains(normalize-space(lower-case(.)), 'english')">
-        <xsl:element name="language">
-          <xsl:element name="languageTerm">
-            <xsl:text>eng</xsl:text>
-          </xsl:element>
-        </xsl:element>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="."/>
-      </xsl:otherwise>
-    </xsl:choose>
+  <xsl:template match="dc:source" mode="freeport">
+    <xsl:if test="normalize-space(.) != ''">
+      <form><xsl:value-of select="normalize-space(.)"/></form>
+    </xsl:if>
   </xsl:template>
   
 </xsl:stylesheet>
