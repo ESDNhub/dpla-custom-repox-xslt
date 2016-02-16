@@ -25,7 +25,9 @@
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:contributor"/>
+      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+        <xsl:apply-templates select="dc:contributor"/>
+      </xsl:if>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>

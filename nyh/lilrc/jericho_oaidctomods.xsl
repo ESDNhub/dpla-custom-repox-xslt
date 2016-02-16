@@ -25,12 +25,14 @@
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:contributor"/>
+      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+        <xsl:apply-templates select="dc:contributor"/>
+      </xsl:if>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
-          <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
       

@@ -21,8 +21,13 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
       <xsl:apply-templates select="dc:title"/>
       
-      <xsl:apply-templates select="dc:creator"/>
-      <xsl:apply-templates select="dc:contributor"/>
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+        <xsl:apply-templates select="dc:creator"/>
+      </xsl:if>
+      
+      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+        <xsl:apply-templates select="dc:contributor"/>
+      </xsl:if>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>

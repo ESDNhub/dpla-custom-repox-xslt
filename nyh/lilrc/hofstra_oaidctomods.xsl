@@ -21,12 +21,14 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">
       <xsl:apply-templates select="dc:title"/>
       
-      <xsl:apply-templates select="dc:creator"/>
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+        <xsl:apply-templates select="dc:creator"/>
+      </xsl:if>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
-          <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
       
