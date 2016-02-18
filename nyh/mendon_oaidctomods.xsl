@@ -24,13 +24,12 @@
       <!--<xsl:apply-templates select="dc:contributor"/>-->
       <xsl:apply-templates select="dc:creator"/>
       
-      <xsl:if test="count(dc:date[lower-case(normalize-space(./text()))!='unknown']) > 0 or
-        count(dc:publisher[lower-case(normalize-space(./text()))!='unknown']) > 0">
-          <originInfo>
-            <xsl:apply-templates select="dc:date[lower-case(normalize-space(./text()))!='unknown']" mode="esdn"/>
-            <xsl:apply-templates select="dc:publisher[lower-case(normalize-space(./text()))!='unknown']"/>
-          </originInfo>
-        </xsl:if>
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
+        <originInfo>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+        </originInfo>
+      </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       <xsl:element name="physicalDescription">

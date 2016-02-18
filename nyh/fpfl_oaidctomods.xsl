@@ -12,8 +12,13 @@
       version="3.4">
       <xsl:apply-templates select="dc:title"/>
 
-      <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
-      <xsl:apply-templates select="dc:contributor[lower-case(./text()) != 'unknown']"/>
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+        <xsl:apply-templates select="dc:creator"/>
+      </xsl:if>
+      
+      <xsl:if test="lower-case(normalize-space(dc:contributor)) != 'unknown'">
+        <xsl:apply-templates select="dc:contributor"/>
+      </xsl:if>
 
       <xsl:if test="exists(dc:date[./@text != '9999'])">
         <xsl:element name="originInfo">

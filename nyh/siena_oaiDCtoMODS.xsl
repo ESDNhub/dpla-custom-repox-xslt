@@ -36,7 +36,7 @@
       
       <xsl:apply-templates select="dc:language"/>
       
-      <!-- siena stores format and extent info in dc:source. -->
+      <!-- nyh stores format and extent info in dc:source. -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">

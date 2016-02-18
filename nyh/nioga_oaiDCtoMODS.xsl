@@ -71,6 +71,9 @@
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Western New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
+      
+      <!-- library system, parse ownership institutions from dc:relation -->
+      
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">
           <xsl:choose>

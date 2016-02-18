@@ -59,6 +59,7 @@
       <xsl:value-of select="$typelist[1]"/>
     </xsl:element>
   </xsl:template>
+  
 </xsl:stylesheet>
 
 

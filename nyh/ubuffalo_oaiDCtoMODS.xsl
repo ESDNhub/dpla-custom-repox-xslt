@@ -41,7 +41,6 @@
         </xsl:element>
       </xsl:if>
 
-      <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
@@ -59,6 +58,8 @@
           </xsl:for-each>
         </xsl:element>
       </xsl:if>
+
+      <!-- parse coordinates for ubuffalo collection -->
 
       <xsl:choose>
         <xsl:when test="count(dc:coverage) = 1">
