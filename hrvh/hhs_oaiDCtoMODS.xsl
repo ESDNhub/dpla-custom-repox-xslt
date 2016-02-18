@@ -44,9 +44,6 @@
 
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
 
-
-
-
       <xsl:apply-templates select="dc:coverage" mode="hhs"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
 
@@ -83,6 +80,8 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
+  <!-- deal with assorted values in dc:coverage -->
   
   <xsl:template match="dc:coverage" mode="hhs">
     <xsl:variable name="coveragevalue" select="normalize-space(.)"/>

@@ -18,6 +18,9 @@
       <xsl:apply-templates select="dc:format" mode="hrvi"/>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
+      
+      <!-- coordinates for HRVI in dc:coverage -->
+      
       <xsl:choose>
         <xsl:when test="count(dc:coverage) = 1">
           <xsl:apply-templates select="dc:coverage" mode="esdn"/>
@@ -52,7 +55,6 @@
       
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       

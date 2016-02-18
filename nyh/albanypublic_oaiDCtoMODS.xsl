@@ -8,10 +8,8 @@
       
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
-      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
-      <xsl:apply-templates select="dc:format" mode="nyh"/> 
       
-      <!-- Albany used 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      <!-- Albany Public uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
@@ -29,13 +27,12 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <!-- Albany stores what would normally be in dc:format in dc:source, so get it
-        from there -->
+      <!-- NYH stores format and extent in dc:source -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source"/>
+          <xsl:apply-templates select="dc:source" mode="albanypublic"/>
         </physicalDescription>
       </xsl:if>
       
@@ -43,6 +40,8 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:apply-templates select="dc:format" mode="nyh"/> 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
@@ -72,7 +71,7 @@
   
   <!-- collection-specific templates -->
   
-  <xsl:template match="dc:source">
+  <xsl:template match="dc:source" mode="albanypublic">
     <xsl:for-each select=".">
       <xsl:variable name="sourcevalue" select="."/>
       <xsl:if test="normalize-space($sourcevalue) != ''">

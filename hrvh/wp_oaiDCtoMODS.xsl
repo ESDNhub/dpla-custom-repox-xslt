@@ -24,7 +24,6 @@
         </originInfo>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="wp"/>
@@ -50,6 +49,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Woodstock Public Library District</xsl:with-param>
       </xsl:call-template>
+      <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
   </xsl:template>
   
