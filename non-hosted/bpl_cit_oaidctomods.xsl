@@ -16,7 +16,7 @@
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date"/>
+          <xsl:apply-templates select="dc:date" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
       </xsl:if>
@@ -32,7 +32,7 @@
       
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:coverage"/>
-      <xsl:apply-templates select="dc:type"/> 
+      <xsl:apply-templates select="dc:type" mode="bpl"/>
 
       <!-- hard code CiT note on BPL request -->
 
@@ -48,7 +48,7 @@
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library, Brooklyn Collection</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library-Brooklyn Collection</xsl:element>
         </xsl:element>
       </xsl:element>
 
@@ -90,17 +90,43 @@
     <xsl:element name="form"><xsl:value-of select="."/></xsl:element>
   </xsl:template>
   
+  <xsl:template match="dc:type" mode="bpl">
+    <xsl:variable name="typevalue" select="normalize-space(.)"/>
+    <xsl:if test="normalize-space(.)!=''">
+      <xsl:choose>
+        <xsl:when test="(contains(., 'still image'))">
+          <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+  
   <!-- add link back, thumbnail, additional identifiers -->
 
   <xsl:template match="dc:identifier" mode="bpl">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
     <xsl:if test="normalize-space(.)!='' and not(contains(.,'waystation'))">
       <xsl:choose>
-        <xsl:when test="(contains(., 'bpl'))">
+        <xsl:when test="(contains(., 'record'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="usage">primary display</xsl:attribute>
               <xsl:attribute name="access">object in context</xsl:attribute>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:when test="(contains(., 'articles'))">
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="access">preview</xsl:attribute>
               <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
           </xsl:element>
