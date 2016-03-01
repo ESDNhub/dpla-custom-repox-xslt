@@ -22,7 +22,6 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
-            <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">In Copyright - Educational Use Permitted.  For all uses please credit Hostos Community College Archives/The City University of New York, Arts and Culture Collection. For information about non-educational use, please see: http://commons.hostos.cuny.edu/library/policies-and-procedures/</xsl:element>
         </xsl:copy>
     </xsl:template>
 
