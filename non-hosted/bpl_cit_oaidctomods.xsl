@@ -41,7 +41,7 @@
       
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:coverage"/>
-      <xsl:apply-templates select="dc:type" mode="bpl"/>
+      <xsl:apply-templates select="dc:type" mode="esdn"/>
 
       <!-- hard code collection and ownership note -->
       
@@ -103,45 +103,6 @@
          </xsl:otherwise>
        </xsl:choose>
      </xsl:if>
-  </xsl:template>
-  
-  <!-- Parse type and genre values from dc:type, map to AAT term if possible -->
-  
-  <xsl:template match="dc:type" mode="bpl">
-    <xsl:variable name="typevalue" select="normalize-space(.)"/>
-    <xsl:if test="normalize-space(.)!=''">
-      <xsl:choose>
-        <xsl:when test="(contains(., 'still image'))">
-          <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(.)"/>
-          </xsl:element>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:choose>
-            <xsl:when test="(contains(., 'Digital'))">
-               <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3"><xsl:attribute name="authority">aat</xsl:attribute>digital images</xsl:element>
-            </xsl:when>
-            <xsl:when test="(contains(., 'Snapshots'))">
-              <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="authority">aat</xsl:attribute>
-                <xsl:value-of select="normalize-space(lower-case(.))"/>
-              </xsl:element>
-            </xsl:when>
-            <xsl:when test="(contains(., 'Postcards'))">
-              <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="authority">aat</xsl:attribute>
-                <xsl:value-of select="normalize-space(lower-case(.))"/>
-              </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-                <xsl:value-of select="normalize-space(.)"/>
-              </xsl:element>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:if>
   </xsl:template>
   
   <!-- add link back, thumbnail, additional identifiers -->
