@@ -22,17 +22,13 @@
         <xsl:apply-templates select="dc:contributor" mode="nysl"/>
       </xsl:if>
 
-      <xsl:if test="dc:publisher != '' and dc:date != ''" >
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-            <xsl:apply-templates select="dc:publisher"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date"/>
-          </xsl:if>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
-
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:language" mode="nysl"/>
 
