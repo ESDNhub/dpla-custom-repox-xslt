@@ -17,7 +17,7 @@
       <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown' or 'n.d.'">
-            <xsl:apply-templates select="dc:date" mode="moma"/>
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
         </originInfo>
       </xsl:if>
@@ -105,21 +105,5 @@
     </xsl:choose>
     </xsl:if>
   </xsl:template>
-
-  <!-- strip enclosing parens if present, otherwise just pass through. -->
-  
-    <xsl:template match="dc:date" mode="moma">
-      <xsl:variable name="dateval" select="normalize-space(.)"/>
-      <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-        <xsl:analyze-string select="$dateval" regex="\(([^)]+)\)">
-          <xsl:matching-substring>  
-            <xsl:value-of select="regex-group(1)"/>
-          </xsl:matching-substring>
-          <xsl:non-matching-substring>
-            <xsl:value-of select="$dateval"/>
-          </xsl:non-matching-substring>
-        </xsl:analyze-string>
-      </xsl:element>
-    </xsl:template>
 
 </xsl:stylesheet>
