@@ -31,7 +31,7 @@
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
