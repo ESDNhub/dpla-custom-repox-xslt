@@ -36,13 +36,13 @@
   
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:relatedItem[exists(./@xlink:href)]"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:location"/>
   
   <!-- hard code collection info -->
+  
   <xsl:template match="mods:relatedItem">
     <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
       <xsl:attribute name="type">host</xsl:attribute>
@@ -67,6 +67,12 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
+  
+  <xsl:template match="mods:physicalDescription/internetMediaType">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
     
     <xsl:template match="mods:note">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">

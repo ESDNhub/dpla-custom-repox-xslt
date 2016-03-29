@@ -33,7 +33,6 @@
     
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:relatedItem/@type" />
-    <xsl:template match="mods:internetMediaType" />
     <xsl:template match="mods:digitalOrigin" />
     <xsl:template match="mods:location" />
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
@@ -61,6 +60,12 @@
             </xsl:choose>
         </xsl:element>
    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
     
     <xsl:template match="mods:dateCreated">
         <xsl:call-template name="date-to-mods">

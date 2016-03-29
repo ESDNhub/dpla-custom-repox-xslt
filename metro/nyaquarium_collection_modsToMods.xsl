@@ -17,7 +17,6 @@
     
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     
@@ -43,6 +42,12 @@
             <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">Wildlife Conservation Society</xsl:with-param>
             </xsl:call-template>    
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     

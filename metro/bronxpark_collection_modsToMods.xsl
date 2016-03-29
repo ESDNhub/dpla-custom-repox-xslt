@@ -17,7 +17,6 @@
     
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:relatedItem/@displayLabel"/>
     
@@ -38,6 +37,12 @@
           <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
           <xsl:attribute name="version">3.4</xsl:attribute>
           <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     

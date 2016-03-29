@@ -25,7 +25,6 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:place"/>
@@ -38,6 +37,12 @@
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>

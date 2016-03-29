@@ -35,7 +35,6 @@
     <xsl:template match="mods:identifier[@type='local']"/>
     
     <xsl:template match="mods:accessCondition/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:relatedItem/@xlink:href"/>
     <xsl:template match="mods:digitalOrigin"/>
@@ -52,6 +51,12 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library-Fulton Street Trade Cards</xsl:element>
             </xsl:element>
         </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
   
     <xsl:template match="mods:dateIssued">

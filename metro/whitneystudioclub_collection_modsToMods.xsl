@@ -20,7 +20,6 @@
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>
     <xsl:template match="mods:relatedItem/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:relatedItem/@displayLabel"/>
     <xsl:template match="mods:note[@displayLabel]"/>
@@ -153,6 +152,12 @@
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
 
     <xsl:template match="mods:extent">
