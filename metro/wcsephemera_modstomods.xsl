@@ -47,6 +47,13 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
+    
+    <xsl:template match="mods:note">
+        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">content</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="mods:identifier">
         <xsl:if test=".[@type='uri']">

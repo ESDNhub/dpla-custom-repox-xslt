@@ -23,6 +23,7 @@
         </originInfo>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
+      <xsl:apply-templates select="dc:source" mode="queens_memory"/>
       
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:if test="exists(dc:format[2])">
@@ -96,6 +97,13 @@
   <xsl:include href="oaidctomods_base.xsl"/>
   
   <!-- collection-specific templates -->
+  
+  <xsl:template match="dc:source" mode="queens_memory">
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
   
 </xsl:stylesheet>
 
