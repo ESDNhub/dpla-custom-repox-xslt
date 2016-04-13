@@ -22,7 +22,13 @@
       
       <xsl:apply-templates select="dc:title[1]"/>
       <xsl:apply-templates select="dc:creator"/>
-      <xsl:apply-templates select="dc:date"/>
+      
+      <xsl:if test="dc:date != ''">
+        <originInfo>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+        </originInfo>
+      </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="nysa"/>
       <xsl:if test="normalize-space(dc:language/text())!=''">
