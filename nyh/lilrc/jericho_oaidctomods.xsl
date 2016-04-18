@@ -43,6 +43,7 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="jericho"/>
@@ -85,7 +86,7 @@
   
   <!-- collection-specific templates start here --> 
   
-  <xsl:template match="dc:source" mode="freeport">
+  <xsl:template match="dc:source" mode="jericho">
     <xsl:if test="normalize-space(.) != ''">
       <form><xsl:value-of select="normalize-space(.)"/></form>
     </xsl:if>
