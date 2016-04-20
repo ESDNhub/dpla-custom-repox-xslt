@@ -31,8 +31,7 @@
       
       <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">content</xsl:attribute>
-        Collected through the Our Streets Our Stories community heritage
-        project, funded by the John S. and James L. Knight Foundation.
+        Collected through the Our Streets, Our Stories community heritage project, part of the Culture in Transit grant from the John S. and James L. Knight Foundation's Knight News Challenge.
       </xsl:element>
       
       <xsl:apply-templates select="dc:rights"/>
