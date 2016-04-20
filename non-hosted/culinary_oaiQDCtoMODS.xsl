@@ -31,7 +31,7 @@
       
       <xsl:apply-templates select="dc:description"/>   
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language" mode="esdn"/>
+      <xsl:apply-templates select="dc:language" mode="culinary"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dcterms:extent" mode="culinary"/>
       <xsl:for-each select="dc:subject">
@@ -63,6 +63,26 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:language" mode="culinary">
+    <xsl:variable name="langlist" select="tokenize(normalize-space(lower-case(.)), ';')"/>
+    <xsl:if test="count($langlist) > 0">
+      <xsl:element name="language">
+        <xsl:for-each select="$langlist">
+          <xsl:choose>
+            <xsl:when test="normalize-space(lower-case(.)) = 'english'">
+              <xsl:element name="languageTerm">eng</xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:element name="languageTerm">
+                <xsl:value-of select="."/>
+              </xsl:element>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:for-each>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
   
   <xsl:template match="dcterms:created" mode="culinary">
     <xsl:call-template name="date-to-mods">
