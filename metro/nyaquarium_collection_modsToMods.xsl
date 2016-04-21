@@ -30,6 +30,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">WCS Library-New York Aquarium Postcards</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The New York Aquarium is the oldest continually operating aquarium in the United States, having opened in Castle Garden in Battery Park, Manhattan in 1896. Since 1957, it has been located on the boardwalk in Coney Island, Brooklyn. The Aquarium has a long history as a beloved New York City attraction, and the 75 postcards on display here show off the sights that have dazzled its viewers over the years.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <!-- hard code ownership note -->

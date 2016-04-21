@@ -49,6 +49,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Whitney Museum Library-Whitney Studio Club and Galleries, 1907-1930</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Whitney Studio Club and Galleries Collection, a project funded through the generous support of the Leon Levy Foundation, brings together 998 of the Whitney Museum’s earliest documents. It includes archival records, photographs, checklists, and catalogs from exhibitions organized by Gertrude Vanderbilt Whitney and Juliana Force—respectively, founder and first director of the Whitney Museum of American Art.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:dateCreated">

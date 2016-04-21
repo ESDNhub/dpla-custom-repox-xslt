@@ -30,6 +30,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">WCS and NYBG Libraries-Bronx Park Postcards</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This digital collection brings together postcards held by the Wildlife Conservation Society Library (which houses the archives of the Bronx Zoo) and The New York Botanical Garden’s LuEsther T. Mertz Library. These 454 postcards, which range in date from 1905 to the 1980s, depict Bronx Park's natural beauty and highlight the buildings, landscapes, and inhabitants of the two iconic institutions located on this land.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:mods">

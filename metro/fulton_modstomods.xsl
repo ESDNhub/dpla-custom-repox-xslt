@@ -51,6 +51,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library-Fulton Street Trade Cards</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Fulton Street Trade Card Collection consists of 245 late 19th and early 20th century illustrated trade cards, all emanating from businesses in Brooklyn's historic commercial thoroughfare. The cards combine humor, bright and elegant graphic design and typography to promote a wide variety of wares and services.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">

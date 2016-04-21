@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This collection consists of 177 hand drawn and printed posters from the Student Struggle for Soviet Jewry Records (SSSJ) held by Yeshiva University Archives. SSSJ was a national, grass-roots student organization founded in 1964 to oppose the persecution of Soviet Jews and promote their right to emigrate freely from the Soviet Union.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 

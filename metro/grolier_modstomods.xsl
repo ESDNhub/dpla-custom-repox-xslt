@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Grolier Club Library’s French Book Arts Trade Card Collection consists of 57 late 19th and early 20th century business cards of French booksellers, print sellers, stationers, and other professionals involved with the book and printing arts.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 

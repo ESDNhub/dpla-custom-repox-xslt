@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This digital collection includes 112 items from the Wildlife Conservation Society Archives’ extensive collection of publications and printed ephemera created by WCS, which began in 1895 as the New York Zoological Society. Within this digital collection are materials related to exhibits and events at WCS’s Bronx Zoo and New York Aquarium and souvenirs from the New York Aquarium. Materials date from 1911 to 1992, with the bulk dating from the 1950s through the 1980s.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
     

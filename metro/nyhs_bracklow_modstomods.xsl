@@ -29,6 +29,11 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">New-York Historical Society</xsl:with-param>
       </xsl:call-template>
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This collection of over 2,000 photographic negatives, featuring the work of photographer Robert L. Bracklow, depicts buildings and street views in New York City and vicinity in the late nineteenth and early twentieth centuries.</xsl:element>
+      </xsl:element>
     </xsl:copy>
   </xsl:template>
 

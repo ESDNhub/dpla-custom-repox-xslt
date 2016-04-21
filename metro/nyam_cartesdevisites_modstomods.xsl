@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Carte de Visite Collection consists of 223 late 19th and early 20th century photographs of national and international figures in medicine and public health. Many are from the New York area.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 

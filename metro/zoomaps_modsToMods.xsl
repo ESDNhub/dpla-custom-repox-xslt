@@ -48,6 +48,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">WCS Library-New York Aquarium Postcards</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Bronx Zoo opened on November 8, 1899. Over the course of its history, the Zoo's shape and appearance have undergone major changes as exhibits have come and gone. Brought about by such factors as technological developments in zoo design and exhibit creation, advances in understanding about animals and their care, and cultural shifts, these changes are reflected in the 19 maps on display here.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">

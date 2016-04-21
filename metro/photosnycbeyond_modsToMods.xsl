@@ -47,6 +47,11 @@
                 <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New-York Historical Society-Photographs of New York City and Beyond</xsl:element>
             </xsl:element>
         </xsl:element>
+        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">host</xsl:attribute>
+            <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+            <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This collection includes over 16,000 photographic prints and negatives depicting New York City in the late nineteenth and early twentieth centuries.The extensive photograph collections at the New-York Historical Society are particularly strong in portraits and documentary images of New York-area buildings and street scenes from 1839 to 1945, although contemporary photography continues to be collected.</xsl:element>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">

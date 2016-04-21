@@ -51,6 +51,11 @@
         <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Brooklyn Public Library-Brooklyn Sheet Music Covers Collection</xsl:element>
       </xsl:element>
     </xsl:element>
+    <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">host</xsl:attribute>
+      <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+      <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Brooklyn Sheet Music Covers Collection consists of 102 pieces of sheet music from 1869 to 1987, primarily for voice and piano, all celebrating or emanating from the borough of Brooklyn. Contents include marches written in honor of a local person or business, pieces celebrating the whole or a part of the borough, songs from shows and movies set in or about Brooklyn, and pieces from Brooklyn's early 20th-century Yiddish-language theater.</xsl:element>
+    </xsl:element>
   </xsl:template>
   
     <xsl:template match="mods:dateIssued">

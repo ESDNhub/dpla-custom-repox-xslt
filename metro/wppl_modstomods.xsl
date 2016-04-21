@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The White Plains Collection is comprised of materials relevant to the history of White Plains, New York. This digital collection contains 322 items including photographs and documents spanning the late 19th to late 20th centuries. They document civic life, street scenes, and the dramatic change in the character of White Plains through suburban development and urban renewal. Also included are items from Community History Day, when people brought in materials related to their families, churches, personal interests, or work and added them to the collection.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 

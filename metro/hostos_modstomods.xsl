@@ -22,6 +22,11 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">host</xsl:attribute>
+                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">The Hostos Center for the Arts &amp; Culture Collection includes 101 promotional cards featuring original artwork that documents musical performances, gallery exhibitions and art installations that have taken place at Hostos Community College. The cards illustrate the incredible variety of artists and performers who have come together at this dynamic South Bronx venue.</xsl:element>
+            </xsl:element>
         </xsl:copy>
     </xsl:template>
 
