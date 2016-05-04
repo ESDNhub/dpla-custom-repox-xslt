@@ -37,6 +37,7 @@
       <xsl:apply-templates select="dc:description"/>
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language">
           <xsl:for-each select="dc:language">
@@ -49,6 +50,7 @@
           </xsl:for-each>
         </xsl:element>
       </xsl:if>
+      
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
