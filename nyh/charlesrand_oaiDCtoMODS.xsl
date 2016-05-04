@@ -76,12 +76,11 @@
             <xsl:when test="contains(lower-case(dc:rights), 'buffalo history')">The Buffalo History Museum</xsl:when>
             <xsl:when test="contains(lower-case(dc:rights), 'niagara county')"
               >Niagara County Historical Society</xsl:when>
-            <xsl:when test="contains(lower-case(dc:rights), 'museum of science')"
+            <xsl:when test="contains(lower-case(dc:rights), 'please contact holding institution')"
               >Buffalo Museum of Science</xsl:when>
             <xsl:when test="contains(lower-case(dc:rights), 'roosevelt')">Theodore Roosevelt Inaugural Site</xsl:when>
             <xsl:when test="contains(lower-case(dc:rights), 'castellani')">Castellani Art Museum</xsl:when>
-            <xsl:when test="contains(lower-case(dc:rights), 'buffalo state')">Buffalo State College</xsl:when>
-            <xsl:otherwise>Charles Rand Penney Trail</xsl:otherwise>
+            <xsl:otherwise>Buffalo State College</xsl:otherwise>
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
