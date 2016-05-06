@@ -14,12 +14,8 @@
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-            <xsl:apply-templates select="dc:publisher"/>
-          </xsl:if>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
       
@@ -34,11 +30,12 @@
         </physicalDescription>
       </xsl:if>
       
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
+      
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
