@@ -37,7 +37,7 @@
         (scalarchives.com) for all other geographic locations.</xsl:element>
 
       <xsl:call-template name="owner-note">
-        <xsl:with-param name="owner">MOMA-Museum of Modern Art</xsl:with-param>
+        <xsl:with-param name="owner">The Museum of Modern Art (MoMA)</xsl:with-param>
       </xsl:call-template>
     </mods>
   </xsl:template>
