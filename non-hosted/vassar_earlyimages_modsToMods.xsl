@@ -112,7 +112,6 @@
   
   <xsl:template match="mods:accessCondition/@type"/>
   <xsl:template match="mods:originInfo/mods:dateIssued" />
-  <xsl:template match="mods:internetMediaType" />
   <xsl:template match="mods:location" />
   <xsl:template match="mods:dateOther"/>
   <xsl:template match="mods:publisher"/>
@@ -122,6 +121,12 @@
   <xsl:template match="mods:subject/mods:geographic"/>
   <xsl:template match="mods:subject/mods:hierarchicalGeographic/mods:continent"/>
   <xsl:template match="mods:form/@authority"/>
+  
+  <xsl:template match="mods:physicalDescription/internetMediaType">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
   
     <xsl:template match="mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">

@@ -39,11 +39,16 @@
     <xsl:template match="mods:form/@authority"/>
     <xsl:template match="mods:physicalDescription/mods:form[@authority='marcform']"/>
     <xsl:template match="mods:languageTerm/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
     <xsl:template match="mods:identifier[@type='job']"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
     
     <!-- collection info -->
     

@@ -39,11 +39,16 @@
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:languageTerm/@type"/>
     <xsl:template match="mods:relatedItem/@type"/>
-    <xsl:template match="mods:internetMediaType"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
     <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
+    
+    <xsl:template match="mods:physicalDescription/internetMediaType">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
     
     <xsl:template match="mods:relatedItem[@type='series']">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
