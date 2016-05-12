@@ -56,14 +56,14 @@
   <xsl:template match="dc:creator" mode="moma">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue, ',')">
-      <xsl:if test="normalize-space(.) != '' and normalize-space(.) != '(?)'">
+      <xsl:if test="normalize-space(.) != ''">
         <name>
           <namePart>
             <xsl:value-of select="normalize-space(.)"/>
             <!--creator-->
           </namePart>
           <role>
-            <roleTerm>creator</roleTerm>
+            <roleTerm>Creator</roleTerm>
           </role>
         </name>
       </xsl:if>
