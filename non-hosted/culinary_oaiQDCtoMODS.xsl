@@ -29,11 +29,17 @@
         </originInfo>
       </xsl:if>
       
+      <xsl:if test="dc:format != '' or dcterms:extent != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dcterms:extent" mode="culinary"/>
+          <xsl:apply-templates select="dc:format" mode="culinary"/>
+        </physicalDescription>
+      </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>   
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="culinary"/>
       <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dcterms:extent" mode="culinary"/>
       <xsl:for-each select="dc:subject">
         <xsl:if test="normalize-space(lower-case(.))!='unknown'">
           <xsl:apply-templates select="."/>
@@ -64,6 +70,10 @@
   
   <!-- collection-specific templates start here --> 
   
+  <xsl:template match="dc:format" mode="culinary">
+    <internetMediaType><xsl:value-of select="."/></internetMediaType>
+  </xsl:template>
+  
   <xsl:template match="dc:language" mode="culinary">
     <xsl:variable name="langlist" select="tokenize(normalize-space(lower-case(.)), ';')"/>
     <xsl:if test="count($langlist) > 0">
@@ -92,10 +102,12 @@
     </xsl:call-template>
   </xsl:template>
   
+  <xsl:template match="dc:format" mode="culinary">
+    <internetMediaType><xsl:value-of select="normalize-space(.)"/></internetMediaType>
+  </xsl:template>
+  
   <xsl:template match="dcterms:extent" mode="culinary">
-    <xsl:element name="physicalDescription">
-      <xsl:element name="extent"><xsl:value-of select="normalize-space(.)"/></xsl:element>
-    </xsl:element>
+      <extent><xsl:value-of select="normalize-space(.)"/></extent>
   </xsl:template>
 
   <xsl:template match="dcterms:isPartOf" mode="culinary">
