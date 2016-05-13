@@ -26,7 +26,9 @@
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="aiha"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
       
@@ -78,10 +80,6 @@
         </name> 
       </xsl:if>
     </xsl:for-each>      
-  </xsl:template>
-  
-  <xsl:template match="dc:source" mode="aiha">
-    <form><xsl:value-of select="."/></form>
   </xsl:template>
   
 </xsl:stylesheet>
