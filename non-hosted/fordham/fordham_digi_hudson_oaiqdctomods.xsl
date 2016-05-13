@@ -23,15 +23,18 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
       version="3.4">
+      
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor" mode="fordham"/>
       <xsl:apply-templates select="dc:creator" mode="fordham"/>
+      
       <xsl:if test="exists(dcterms:created) or exists(dc:publisher)">
         <xsl:element name="originInfo">
           <xsl:apply-templates select="dcterms:created" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dcterms:tableOfContents"/>
 
@@ -51,6 +54,7 @@
           </xsl:element>
         </xsl:if>
       </xsl:if>
+      
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dcterms:spatial" mode="digi_hudson"/>
@@ -72,6 +76,7 @@
       </xsl:if>
 
       <!-- hard code ownership note -->
+      
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Fordham University</xsl:with-param>
       </xsl:call-template>
@@ -79,10 +84,12 @@
   </xsl:template>
 
   <!-- ESDN utility templates -->
+  
   <xsl:include href="esdn_templates.xsl"/>
   <xsl:include href="iso639x.xsl"/>
 
   <!-- dublin core field templates -->
+  
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
@@ -207,30 +214,23 @@
       <xsl:value-of select="$rights_txt"/>
     </xsl:element>
   </xsl:template>
-
+  
   <xsl:template match="dcterms:spatial" mode="digi_hudson">
     <xsl:for-each select="tokenize(., ';')">
-      <xsl:choose>
-        <xsl:when test="contains(., '--')">
-          <xsl:element name="subject">
-            <xsl:element name="geographic">
-              <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
+      <xsl:if test="normalize-space(.) != '' and not(contains(., 'unknown'))">
+        <xsl:choose>
+          <xsl:when test="(contains(., '--'))">
+            <xsl:element name="subject">
+              <xsl:element name="topic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
             </xsl:element>
-          </xsl:element>
-          <xsl:element name="subject">
-            <xsl:element name="topic">
-              <xsl:value-of select="normalize-space(substring-after(., '--'))"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="subject">
+              <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
             </xsl:element>
-          </xsl:element>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:element name="subject">
-            <xsl:element name="geographic">
-              <xsl:value-of select="normalize-space(substring-before(., '--'))"/>
-            </xsl:element>
-          </xsl:element>
-        </xsl:otherwise>
-      </xsl:choose>
+          </xsl:otherwise>          
+        </xsl:choose>
+      </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
