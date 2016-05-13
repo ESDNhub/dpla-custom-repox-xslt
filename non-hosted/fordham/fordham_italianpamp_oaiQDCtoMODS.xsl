@@ -104,12 +104,19 @@
   
   <xsl:template match="dcterms:spatial" mode="fordham">
     <xsl:for-each select="tokenize(., ';')">
-      <xsl:if test="normalize-space(.)!=''">
-        <xsl:if test="normalize-space(lower-case(.))!='unknown'">
-          <xsl:element name="subject">
-            <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
-          </xsl:element>
-        </xsl:if>
+      <xsl:if test="normalize-space(.) != '' and not(contains(., 'unknown'))">
+        <xsl:choose>
+          <xsl:when test="(contains(., '--'))">
+            <xsl:element name="subject">
+              <xsl:element name="topic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+            </xsl:element>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="subject">
+              <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+            </xsl:element>
+          </xsl:otherwise>          
+        </xsl:choose>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
