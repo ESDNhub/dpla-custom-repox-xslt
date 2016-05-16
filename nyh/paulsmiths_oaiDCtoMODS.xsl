@@ -12,13 +12,10 @@
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       
-      <xsl:if test="normalize-space(dc:date[1]) != '' or normalize-space(dc:publisher) != ''">      
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <!-- Check for 'unknown' in dc:date. Ignore it if present.-->
-          <xsl:if test="lower-case(normalize-space(dc:date[1])) != 'unknown'">
-            <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
-          </xsl:if>
-          <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
       
@@ -32,7 +29,6 @@
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
