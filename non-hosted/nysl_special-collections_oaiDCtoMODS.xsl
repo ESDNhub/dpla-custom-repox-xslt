@@ -22,17 +22,19 @@
         <xsl:apply-templates select="dc:contributor" mode="nysl"/>
       </xsl:if>
 
-      <xsl:if test="dc:publisher != '' and dc:date != ''" >
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-            <xsl:apply-templates select="dc:publisher"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date"/>
-          </xsl:if>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
-
+      
+    <xsl:if test="dc:relation != ''">
+      <physicalDescription>
+        <xsl:apply-templates select="dc:relation" mode="nysl"/>
+      </physicalDescription>
+    </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:language" mode="nysl"/>
 
@@ -77,6 +79,14 @@
   <xsl:include href="utilities.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dc:relation" mode="nysl">
+    <xsl:if test="normalize-space(.) != ''">
+      <extent>
+        <xsl:value-of select="normalize-space(.)"/>
+      </extent>
+    </xsl:if>
+  </xsl:template>
   
   <xsl:template match="dc:creator" mode="nysl">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
