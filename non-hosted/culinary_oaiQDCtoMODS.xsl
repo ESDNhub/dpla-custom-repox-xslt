@@ -71,7 +71,7 @@
   <!-- collection-specific templates start here --> 
   
   <xsl:template match="dc:format" mode="culinary">
-    <internetMediaType><xsl:value-of select="."/></internetMediaType>
+    <internetMediaType><xsl:value-of select="normalize-space(.)"/></internetMediaType>
   </xsl:template>
   
   <xsl:template match="dc:language" mode="culinary">
@@ -100,10 +100,6 @@
         <xsl:value-of select="normalize-space(.)"/>                    
       </xsl:with-param>
     </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="dc:format" mode="culinary">
-    <internetMediaType><xsl:value-of select="normalize-space(.)"/></internetMediaType>
   </xsl:template>
   
   <xsl:template match="dcterms:extent" mode="culinary">
