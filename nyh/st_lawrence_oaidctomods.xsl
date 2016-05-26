@@ -77,10 +77,8 @@
     <xsl:choose>
       <xsl:when test="contains(., ';')">
         <xsl:variable name="elmlist" select="tokenize(., ';')"/>
-        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
           <xsl:element name="form"><xsl:value-of select="normalize-space($elmlist[1])"/></xsl:element>
-          <xsl:element name="extent"><xsl:value-of select="normalize-space($elmlist[2])"/></xsl:element>
-        </xsl:element>
+          <xsl:element name="extent"><xsl:value-of select="normalize-space($elmlist[2])"/></xsl:element>       
       </xsl:when>
       <xsl:otherwise/>
     </xsl:choose>
