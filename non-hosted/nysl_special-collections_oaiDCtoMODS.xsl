@@ -202,7 +202,7 @@
               <xsl:element name="languageTerm">eng</xsl:element>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="."/>
+              <xsl:element name="languageTerm"><xsl:value-of select="."/></xsl:element>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
