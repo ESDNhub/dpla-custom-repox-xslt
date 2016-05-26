@@ -52,6 +52,14 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
+    
+    <xsl:template match="mods:dateIssued">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="encoding">w3cdtf</xsl:attribute>
+            <xsl:attribute name="keyDate">yes</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="mods:abstract">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
