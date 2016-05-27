@@ -156,7 +156,11 @@
           </xsl:element>
         </xsl:element>
       </xsl:when>
-      <xsl:otherwise/>
+      <xsl:otherwise>
+        <xsl:element name="identifier">
+          <xsl:value-of select="$idvalue"/>
+        </xsl:element>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   
