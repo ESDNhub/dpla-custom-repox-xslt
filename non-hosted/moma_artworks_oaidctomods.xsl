@@ -87,7 +87,6 @@
   </xsl:template>
 
   <xsl:template match="dc:identifier" mode="moma">
-    <xsl:variable name="idvalue" select="normalize-space(.)"/>
     <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystation'))">
       <xsl:choose>
         <xsl:when test="(contains(., 'moma'))">
@@ -95,6 +94,14 @@
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="usage">primary display</xsl:attribute>
               <xsl:attribute name="access">object in context</xsl:attribute>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:when test="(contains(., 'media'))">
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+              <xsl:attribute name="usage">preview</xsl:attribute>
               <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
           </xsl:element>
