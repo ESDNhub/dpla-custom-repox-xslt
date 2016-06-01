@@ -89,7 +89,7 @@
   <xsl:template match="dc:identifier" mode="moma">
     <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystation'))">
       <xsl:choose>
-        <xsl:when test="(contains(., 'moma'))">
+        <xsl:when test="(contains(., 'collection'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="usage">primary display</xsl:attribute>
