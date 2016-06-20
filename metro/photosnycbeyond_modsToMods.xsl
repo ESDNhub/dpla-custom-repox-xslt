@@ -36,6 +36,7 @@
     <xsl:template match="mods:digitalOrigin" />
     <xsl:template match="mods:location" />
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
+    <xsl:template match="mods:note" />
     
     <!-- hard code collection info -->
     
@@ -123,15 +124,6 @@
                     <xsl:value-of select="normalize-space(.)"/>
                 </xsl:with-param>
             </xsl:call-template>
-        </xsl:element>
-    </xsl:template>
-  
-  <xsl:template match="mods:note/@displayLabel"/>
-    <xsl:template match="mods:note[@displayLabel='Photographer Note']" />
-    <xsl:template match="mods:note">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
     

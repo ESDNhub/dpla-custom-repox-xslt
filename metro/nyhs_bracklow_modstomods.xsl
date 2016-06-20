@@ -29,11 +29,6 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">New-York Historical Society</xsl:with-param>
       </xsl:call-template>
-      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-        <xsl:attribute name="type">host</xsl:attribute>
-        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-        <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">This collection of over 2,000 photographic negatives, featuring the work of photographer Robert L. Bracklow, depicts buildings and street views in New York City and vicinity in the late nineteenth and early twentieth centuries.</xsl:element>
-      </xsl:element>
     </xsl:copy>
   </xsl:template>
 
@@ -41,7 +36,7 @@
   <xsl:template match="mods:accessCondition/@type"/>
   <xsl:template match="mods:digitalOrigin" />
   <xsl:template match="mods:location" />
-  <xsl:template match="mods:note[@type='ownership']"/>
+  <xsl:template match="mods:note" />
   
   <xsl:template match="mods:physicalDescription/internetMediaType">
     <xsl:copy>
@@ -101,14 +96,6 @@
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
-  </xsl:template>
-
-  <xsl:template match="mods:note/@displayLabel"/>
-  <xsl:template match="mods:note">
-    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-      <xsl:attribute name="type">content</xsl:attribute>
-      <xsl:value-of select="normalize-space(.)"/>
-    </xsl:element>
   </xsl:template>
 
   <!-- add AAT for DPLA genre property -->
