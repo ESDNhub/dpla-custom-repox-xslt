@@ -101,7 +101,7 @@
         <xsl:when test="(contains(., 'media'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-              <xsl:attribute name="usage">preview</xsl:attribute>
+              <xsl:attribute name="access">preview</xsl:attribute>
               <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
           </xsl:element>
