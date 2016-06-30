@@ -32,12 +32,6 @@
           <xsl:value-of select="normalize-space(dc:identifier)"/>
         </xsl:element>
       </xsl:element>
-      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-         <xsl:element name="url">
-         <xsl:attribute name="access">preview</xsl:attribute>
-         <xsl:value-of select="normalize-space(dc:identifier[2])"/>
-         </xsl:element>
-      </xsl:element>
 
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:language" mode="newschool"/>
