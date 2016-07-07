@@ -43,6 +43,7 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
     <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
+    <xsl:template match="mods:note"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -97,13 +98,6 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:note">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-    </xsl:template>
-
     <xsl:template match="mods:note[@type='dateuncontrolled']">
         <xsl:call-template name="date-to-mods">
             <xsl:with-param name="dateval">
@@ -120,8 +114,6 @@
             <xsl:value-of select="replace(.,'Interview', 'interviews')"/>
         </xsl:element>
     </xsl:template>
-
-    <xsl:template match="mods:note[@type='condition']"/>
     
     <xsl:template match="mods:identifier">
       <!-- we do this to workaround Islandora's assigning the default namesapce to
@@ -146,11 +138,12 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
+    
         <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-        </xsl:template>
+       </xsl:template>
     
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
