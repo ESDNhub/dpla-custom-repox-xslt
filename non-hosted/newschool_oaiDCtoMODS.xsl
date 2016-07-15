@@ -22,19 +22,10 @@
         <xsl:apply-templates select="dc:type" mode="newschool"/>
         <xsl:apply-templates select="dc:format" mode="newschool"/>
       </xsl:element>
-      
-      <!-- preview and link back in separate dc:identifier elements -->
-      
-      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-        <xsl:element name="url">
-          <xsl:attribute name="usage">primary display</xsl:attribute>
-          <xsl:attribute name="access">object in context</xsl:attribute>
-          <xsl:value-of select="normalize-space(dc:identifier)"/>
-        </xsl:element>
-      </xsl:element>
 
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:language" mode="newschool"/>
+      <xsl:apply-templates select="dc:identifier" mode="newschool"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -75,6 +66,30 @@
     <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:identifier" mode="newschool">
+    <xsl:variable name="idvalue" select="normalize-space(.)"/>
+    <xsl:choose>
+      <xsl:when test="starts-with($idvalue, 'http')">
+        <xsl:choose>
+          <xsl:when test="ends-with($idvalue, '.jpg')">
+            <location>
+              <url access="preview"><xsl:value-of select="$idvalue"/></url>
+            </location>
+          </xsl:when>
+          <xsl:otherwise>
+            <location>
+              <url usage="primary display" access="object in context">
+                <xsl:value-of select="$idvalue"/>
+              </url>
+            </location>
+            <!-- ref url-->
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ESDN utility templates -->
