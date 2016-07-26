@@ -12,7 +12,8 @@
       version="3.4">
 
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:creator"/>
+      
+      <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
 
       <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
@@ -25,6 +26,10 @@
       <physicalDescription>
         <xsl:apply-templates select="dc:format"/>
       </physicalDescription>
+      
+      <!-- hard code still image based on BHS request -->
+      
+      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">still image</xsl:element>
 
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="bhs"/>
@@ -66,9 +71,9 @@
 
   <xsl:template match="dc:identifier" mode="bhs">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
-    <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystation'))">
+    <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystaging'))">
       <xsl:choose>
-        <xsl:when test="(contains(., 'type'))">
+        <xsl:when test="(contains(., 'brooklynhistory'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="usage">primary display</xsl:attribute>
@@ -77,7 +82,7 @@
             </xsl:element>
           </xsl:element>
         </xsl:when>
-        <xsl:when test="(contains(., 'JPG'))">
+        <xsl:when test="(contains(., 'jpg'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="access">preview</xsl:attribute>
