@@ -71,7 +71,7 @@
 
   <xsl:template match="dc:identifier" mode="bhs">
     <xsl:variable name="idvalue" select="normalize-space(.)"/>
-    <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystaging'))">
+    <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystation'))">
       <xsl:choose>
         <xsl:when test="(contains(., 'brooklynhistory'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
