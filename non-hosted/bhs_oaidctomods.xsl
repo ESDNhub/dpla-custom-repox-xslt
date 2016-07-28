@@ -86,7 +86,8 @@
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="access">preview</xsl:attribute>
-              <xsl:value-of select="normalize-space(.)"/>
+              <xsl:value-of
+                select="concat('https://s3.amazonaws.com/pastperfectonline/images/museum_475/', .)"/>
             </xsl:element>
           </xsl:element>
         </xsl:when>
