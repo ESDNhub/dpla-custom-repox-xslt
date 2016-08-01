@@ -70,7 +70,6 @@
   </xsl:template>
 
   <xsl:template match="dc:identifier" mode="bhs">
-    <xsl:variable name="idvalue" select="normalize-space(.)"/>
     <xsl:if test="normalize-space(.) != '' and not(contains(., 'waystation'))">
       <xsl:choose>
         <xsl:when test="(contains(., 'brooklynhistory'))">
@@ -87,7 +86,7 @@
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="access">preview</xsl:attribute>
               <xsl:value-of
-                select="concat('https://s3.amazonaws.com/pastperfectonline/images/museum_475/', .)"/>
+                select="concat('https://s3.amazonaws.com/pastperfectonline/images/museum_475/', substring-before(., '\'), '/thumbs/', substring-after(.,'\'))"/>
             </xsl:element>
           </xsl:element>
         </xsl:when>
