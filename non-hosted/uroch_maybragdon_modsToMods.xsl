@@ -29,7 +29,7 @@
             <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="type">host</xsl:attribute>
                 <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">May Bragdon (1865-1947), oldest child of Katherine Shipherd and George Bragdon and sister of architect Claude Bragdon, lived and worked in Rochester, N.Y. The ten diaries she created 1893-1914 are animated by original photographs, theatre programs, fabric swatches and other ephemera, presenting an illustrated view of the life of a single working woman living in a transformational time. In addition to recording daily life and social, political and cultural events, her diaries depict the impact of the bicycle and the personal camera, her reflections on art and literature, and her travels. From 1889-1910, May worked in the office of architect, inventor and Rochester mayor (1904-07) James G. Cutler and his brother J. Warren Cutler. In 1910, she left Cutler's to work as office manager for her brother’s architectural practice. The diaries offer glimpses of these and other architects, including: Harvey Ellis, William H. Orchard, J. Con Hillman, James B. Arnold, and Henry W. Wilkinson. Artists including Gelett Burgess and M. Louise Stowell also appear in some of the volumes.</xsl:element>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">[To Add]</xsl:element>
             </xsl:element>
         </xsl:copy>
     </xsl:template>

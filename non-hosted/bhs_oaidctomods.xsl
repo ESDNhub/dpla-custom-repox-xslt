@@ -18,14 +18,16 @@
       <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
         </originInfo>
       </xsl:if>
-
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format"/>
-      </physicalDescription>
+      
+      <xsl:if test="normalize-space(dc:format) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:format"/>
+        </physicalDescription>
+      </xsl:if>
       
       <!-- hard code still image based on BHS request -->
       
