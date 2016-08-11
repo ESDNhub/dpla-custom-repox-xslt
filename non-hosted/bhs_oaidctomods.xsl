@@ -37,7 +37,7 @@
       <xsl:apply-templates select="dc:identifier" mode="bhs"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject"/>
-      <xsl:apply-templates select="dc:coverage"/>
+      <xsl:apply-templates select="dc:coverage" mode="bhs"/>
       <xsl:apply-templates select="dc:relation" mode="bhs"/>
 
       <!-- hard code ownership note -->
@@ -69,6 +69,17 @@
         </xsl:element>
       </xsl:element>
     </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:coverage" mode="bhs">
+    <xsl:variable name="coveragevalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($coveragevalue, ';')">
+    <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+      </xsl:element>
+    </xsl:element>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="dc:identifier" mode="bhs">
