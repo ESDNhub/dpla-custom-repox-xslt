@@ -17,7 +17,7 @@
       <xsl:apply-templates select="dc:creator"/>
       <xsl:apply-templates select="dc:contributor"/>
       <originInfo>
-        <xsl:apply-templates select="dc:date" mode="esdn"/>
+        <xsl:apply-templates select="dc:date"/>
         <xsl:apply-templates select="dc:publisher"/>
       </originInfo>
       <physicalDescription>
