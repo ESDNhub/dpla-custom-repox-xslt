@@ -6,43 +6,39 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="xs" version="2.0">
     <xsl:output indent="yes"/>
     <xsl:strip-space elements="*"/>
-
+       
     <xsl:template match="@*|node()">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        </xsl:copy>     
     </xsl:template>
 
     <xsl:template match="mods:mods">
+        <xsl:if test="normalize-space(mods:titleInfo/mods:title) != 'May Bragdon'">
         <xsl:copy>
             <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
                 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
-            
-            <!-- hard code collection and ownership note -->
+        
+            <!-- hard code ownership note -->
             
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
-            </xsl:call-template>
+            </xsl:call-template>       
             
-            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="type">host</xsl:attribute>
-                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">[To Add]</xsl:element>
-            </xsl:element>
-        </xsl:copy>
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">mixed material</xsl:element>
+            
+        </xsl:copy>   
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="mods:recordInfo"/>
-    <xsl:template match="mods:dateIssued"/>
-    <xsl:template match="mods:form/@authority"/>
     <xsl:template match="mods:physicalDescription/mods:form[@authority='marcform']"/>
-    <xsl:template match="mods:languageTerm/@type"/>
     <xsl:template match="mods:digitalOrigin"/>
-    <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
-    <xsl:template match="mods:identifier[@type='job']"/>
-    <xsl:template match="mods:dateCreated/@encoding"/>
+    <xsl:template match="mods:location"/>
+    <xsl:template match="mods:language/mods:languageTerm[@type='text']"/>
+    <xsl:template match="mods:typeOfResource[@collection='yes']"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -63,40 +59,31 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
-
-    <xsl:template match="mods:roleTerm">
-        <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
-            <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='author'">creator</xsl:when>
-                <xsl:otherwise>contributor</xsl:otherwise>
-            </xsl:choose>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template match="mods:originInfo[exists(mods:dateCreated[@point='start'])]">
-        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="point">start</xsl:attribute>
-                <xsl:attribute name="keyDate">yes</xsl:attribute>
-                <xsl:value-of select="./mods:dateCreated[@point='start']"/>
-            </xsl:element>
-            <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="point">end</xsl:attribute>
-                <!-- remember this pattern: take the value, but suppress the element -->
-                <xsl:value-of
-                    select="//mods:originInfo[exists(mods:dateCreated[@point='end'])]/mods:dateCreated"
-                />
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-
-    <!-- suppress the element whose value we use above -->
     
-    <xsl:template match="mods:originInfo[exists(./mods:dateCreated[@point='end'])]"/>
-
     <xsl:template match="mods:abstract">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>       
+         </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="mods:roleTerm">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="mods:originInfo/mods:dateCreated[@point='start']">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="keyDate">yes</xsl:attribute>
+            <xsl:attribute name="point">start</xsl:attribute>
+                <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="mods:originInfo/mods:dateCreated[@point='end']">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="point">end</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
@@ -107,15 +94,31 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
+    
+    <xsl:template match="mods:identifier[@type='local']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
 
     <xsl:template match="mods:identifier">
-        <!-- we do this to workaround Islandora's assigning the default namesapce to
-        this element by adding an empty @xmlns in the original. -->
+        <xsl:if test="starts-with(., 'http')">
         <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="usage">primary display</xsl:attribute>
                 <xsl:attribute name="access">object in context</xsl:attribute>
-                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:choose>
+                <xsl:when test="contains(lower-case(.), '524')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '1047')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '4673')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=7')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '3356')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '6104')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '7854')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=4')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '9149')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '12692')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '14209')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
+                <xsl:when test="contains(lower-case(.), '16177')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=9')"/></xsl:when>
+                </xsl:choose>
             </xsl:element>
         </xsl:element>
         <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
@@ -124,6 +127,7 @@
                 <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
             </xsl:element>
         </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="mods:extent">
@@ -131,49 +135,21 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
-
-    <xsl:template match="mods:typeOfResource">
+    
+    <xsl:template match="mods:genre">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
-    
-    <!-- add AAT for DPLA genre property -->
-    
-    <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template match="mods:originInfo[exists(./mods:place)]">
-        <xsl:apply-templates select="./mods:place"/>
-    </xsl:template>
-
-    <!-- take from place/place term for DPLA Place property -->
-    
-    <xsl:template match="mods:place">
-        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                <xsl:value-of select="./mods:placeTerm"/>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
 
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
-            <xsl:attribute name="type">code</xsl:attribute>
-            <xsl:attribute name="authority">iso639-3</xsl:attribute>
-            <xsl:call-template name="iso6393-codes">
-                <xsl:with-param name="lval">
-                    <xsl:value-of select="normalize-space(lower-case(.))"/>
-                </xsl:with-param>
-            </xsl:call-template>
+            <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
 
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
     <xsl:include href="iso639x.xsl"/>
+
 </xsl:stylesheet>

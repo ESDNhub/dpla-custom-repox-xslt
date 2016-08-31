@@ -44,7 +44,12 @@
   <xsl:template match="mods:digitalOrigin"/>
   <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
   <xsl:template match="mods:identifier[@type='job']"/>
-  <xsl:template match="mods:dateCreated/@encoding"/>
+    
+    <xsl:template match="mods:originInfo/mods:dateCreated">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -117,13 +122,10 @@
     </xsl:copy>
   </xsl:template>
     
-    <!-- add AAT for DPLA genre property -->
-    
     <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
   <xsl:template match="mods:languageTerm">

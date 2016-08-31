@@ -36,13 +36,10 @@
 
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:dateIssued"/>
-    <xsl:template match="mods:form/@authority"/>
     <xsl:template match="mods:physicalDescription/mods:form[@authority='marcform']"/>
-    <xsl:template match="mods:languageTerm/@type"/>
     <xsl:template match="mods:digitalOrigin"/>
-    <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
+    <xsl:template match="mods:location"/>
     <xsl:template match="mods:identifier[@type='job']"/>
-    <xsl:template match="mods:dateCreated/@encoding"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -73,26 +70,20 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:originInfo[exists(mods:dateCreated[@point='start'])]">
-        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="point">start</xsl:attribute>
-                <xsl:attribute name="keyDate">yes</xsl:attribute>
-                <xsl:value-of select="./mods:dateCreated[@point='start']"/>
-            </xsl:element>
-            <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="point">end</xsl:attribute>
-                <!-- remember this pattern: take the value, but suppress the element -->
-                <xsl:value-of
-                    select="//mods:originInfo[exists(mods:dateCreated[@point='end'])]/mods:dateCreated"
-                />
-            </xsl:element>
+    <xsl:template match="mods:originInfo/mods:dateCreated[@point='start']">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="keyDate">yes</xsl:attribute>
+            <xsl:attribute name="point">start</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
-
-    <!-- suppress the element whose value we use above -->
     
-    <xsl:template match="mods:originInfo[exists(./mods:dateCreated[@point='end'])]"/>
+    <xsl:template match="mods:originInfo/mods:dateCreated[@point='end']">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="point">end</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="mods:abstract">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
@@ -138,17 +129,10 @@
         </xsl:copy>
     </xsl:template>
     
-    <!-- add AAT for DPLA genre property -->
-    
     <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template match="mods:originInfo[exists(./mods:place)]">
-        <xsl:apply-templates select="./mods:place"/>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
 
     <!-- take from place/place term for DPLA Place property -->

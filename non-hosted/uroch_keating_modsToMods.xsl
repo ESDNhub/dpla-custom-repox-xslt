@@ -36,10 +36,6 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:accessCondition/@type"/>
-    <xsl:template match="mods:languageTerm/@type"/>
-    <xsl:template match="mods:relatedItem/@type"/>
-    <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
     <xsl:template match="mods:location[exists(./mods:shelfLocator)]"/>
@@ -52,14 +48,9 @@
     </xsl:template>
     
     <xsl:template match="mods:relatedItem[@type='series']">
-        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">series</xsl:attribute>
-            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:value-of select="normalize-space(.)"/>
-                </xsl:element>
-            </xsl:element>
-        </xsl:element>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:relatedItem[@type='host']">
@@ -84,11 +75,10 @@
     </xsl:template>
     
     <xsl:template match="mods:dateIssued">
-        <xsl:call-template name="date-to-mods">
-            <xsl:with-param name="dateval">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="keyDate">yes</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:abstract">
@@ -106,13 +96,10 @@
         </xsl:call-template>
     </xsl:template>
     
-    <!-- add AAT for DPLA genre property -->
-    
     <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="replace(.,'Interview', 'interviews')"/>
-        </xsl:element>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:identifier">
@@ -139,7 +126,7 @@
         </xsl:element>
     </xsl:template>
     
-        <xsl:template match="mods:typeOfResource">
+    <xsl:template match="mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
@@ -147,13 +134,7 @@
     
     <xsl:template match="mods:languageTerm">
         <xsl:copy>
-            <xsl:attribute name="type">code</xsl:attribute>
-            <xsl:attribute name="authority">iso639-3</xsl:attribute>
-            <xsl:call-template name="iso6393-codes">
-                <xsl:with-param name="lval">
-                    <xsl:value-of select="normalize-space(lower-case(.))"/>
-                </xsl:with-param>
-            </xsl:call-template>
+            <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     
