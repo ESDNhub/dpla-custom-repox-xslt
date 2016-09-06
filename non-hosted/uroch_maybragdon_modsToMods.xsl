@@ -103,24 +103,13 @@
 
     <xsl:template match="mods:identifier">
         <xsl:if test="starts-with(., 'http')">
-        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="usage">primary display</xsl:attribute>
-                <xsl:attribute name="access">object in context</xsl:attribute>
-                <xsl:choose>
-                <xsl:when test="contains(lower-case(.), '524')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '1047')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '4673')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=7')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '3356')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '6104')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '7854')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=4')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '9149')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '12692')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '14209')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=5')"/></xsl:when>
-                <xsl:when test="contains(lower-case(.), '16177')"><xsl:value-of select="concat(normalize-space(.), '?islandora_paged_content_page=9')"/></xsl:when>
-                </xsl:choose>
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:attribute name="usage">primary display</xsl:attribute>
+                    <xsl:attribute name="access">object in context</xsl:attribute>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </xsl:element>
             </xsl:element>
-        </xsl:element>
         <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="access">preview</xsl:attribute>
