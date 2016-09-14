@@ -129,21 +129,13 @@
     </xsl:if>
   </xsl:template>
   
-  <!-- add AAT Genre term form of programs  --> 
-  
-  <xsl:template match="dc:genre">
-    <xsl:if test="normalize-space(.)!=''">
-      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-        <xsl:attribute name="authority">aat</xsl:attribute>
-        <xsl:choose>
-          <xsl:when test="normalize-space(lower-case(.))='programs'">programs (documents)</xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:element>
-    </xsl:if>
-  </xsl:template>
+    <xsl:template match="dc:genre">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:if>
+    </xsl:template>
   
   <xsl:template match="dcterms:subject">
     <xsl:variable name="subjectvalue" select="normalize-space(.)"/>
