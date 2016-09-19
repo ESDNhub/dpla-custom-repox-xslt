@@ -30,11 +30,19 @@
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="moma"/>
 
-      <!-- hard code rights and ownership note -->
+      <!-- hard code rights, collection and ownership note -->
 
       <xsl:element name="accessCondition">Requests to reproduce works of art from MoMA's collection
         should be addressed to Art Resource (artres.com) for North America or to Scala Group S.p.A.
         (scalarchives.com) for all other geographic locations.</xsl:element>
+      
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">host</xsl:attribute>
+        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">The Museum of Modern Art (MoMA)-Artworks</xsl:element>
+        </xsl:element>
+      </xsl:element>
 
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">The Museum of Modern Art (MoMA)</xsl:with-param>
