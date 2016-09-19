@@ -17,7 +17,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:mods">
+    <xsl:template match="//oai-pmh:record">
         <xsl:copy>
           <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
           <xsl:attribute name="version">3.4</xsl:attribute>
@@ -36,29 +36,29 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:digitalOrigin"/>
-    <xsl:template match="mods:subject[exists(./mods:cartographics)]"/>
-    <xsl:template match="mods:location"/>
-    <xsl:template match="mods:recordInfo"/>
-    <xsl:template match="mods:note"/>
+    <xsl:template match="//mods:digitalOrigin"/>
+    <xsl:template match="//mods:subject[exists(./mods:cartographics)]"/>
+    <xsl:template match="//mods:location"/>
+    <xsl:template match="//mods:recordInfo"/>
+    <xsl:template match="//mods:note"/>
     
     <!-- ignore dateIssued as getting duplicate dates in feed -->
     
-    <xsl:template match="mods:dateIssued"/>
+    <xsl:template match="//mods:dateIssued"/>
     
-    <xsl:template match="mods:physicalDescription/internetMediaType">
+    <xsl:template match="//mods:physicalDescription/internetMediaType">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:relatedItem[@type='series']">
+    <xsl:template match="//mods:relatedItem[@type='series']">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:relatedItem[@type='host']">
+    <xsl:template match="//mods:relatedItem[@type='host']">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">host</xsl:attribute>
             <xsl:attribute name="displayLabel">Collection</xsl:attribute>
@@ -68,9 +68,9 @@
         </xsl:element>
     </xsl:template>
   
-    <xsl:template match="mods:affiliation"/>
+    <xsl:template match="//mods:affiliation"/>
     
-    <xsl:template match="mods:roleTerm">
+    <xsl:template match="//mods:roleTerm">
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>
                 <xsl:when test="normalize-space(lower-case(.))='interviewer'">creator</xsl:when>
@@ -79,21 +79,21 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:dateCreated">
+    <xsl:template match="//mods:dateCreated">
         <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="keyDate">yes</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:abstract">
+    <xsl:template match="//mods:abstract">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:note[@type='dateuncontrolled']">
+    <xsl:template match="//mods:note[@type='dateuncontrolled']">
         <xsl:call-template name="date-to-mods">
             <xsl:with-param name="dateval">
                 <xsl:value-of select="normalize-space(.)"/>
@@ -101,13 +101,13 @@
         </xsl:call-template>
     </xsl:template>
     
-    <xsl:template match="mods:genre">
+    <xsl:template match="//mods:genre">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:identifier">
+    <xsl:template match="//mods:identifier">
       <!-- we do this to workaround Islandora's assigning the default namesapce to
           this element by adding an empty @xmlns in the original. -->
       <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
@@ -117,27 +117,31 @@
               <xsl:value-of select="normalize-space(.)"/>
           </xsl:element>
       </xsl:element>
-      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-              <xsl:attribute name="access">preview</xsl:attribute>
-              <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
-          </xsl:element>
-      </xsl:element>
+        <xsl:variable name="id_str" select="translate(tokenize(../../../oai-pmh:header/oai-pmh:identifier, ':')[last()], '_', ':')"/>
+        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="access">preview</xsl:attribute>
+                <xsl:value-of select="concat('https://rclinddc.lib.rochester.edu/islandora/', normalize-space($id_str), '/datastream/TN/view')"/>
+            </xsl:element>
+        </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:extent">
+    <xsl:template match="//oai-pmh:identifier">
+    </xsl:template>
+    
+    <xsl:template match="//mods:extent">
         <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:typeOfResource">
+    <xsl:template match="//mods:typeOfResource">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
        </xsl:template>
     
-    <xsl:template match="mods:languageTerm">
+    <xsl:template match="//mods:languageTerm">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
