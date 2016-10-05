@@ -109,11 +109,10 @@
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
         </xsl:element>
-        <xsl:variable name="id_str" select="translate(tokenize(../../../oai-pmh:header/oai-pmh:identifier, ':')[last()], '_', ':')"/>
         <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="access">preview</xsl:attribute>
-                <xsl:value-of select="concat('https://rclinddc.lib.rochester.edu/islandora/', normalize-space($id_str), '/datastream/TN/view')"/>
+                <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
             </xsl:element>
         </xsl:element>
     </xsl:template>
