@@ -25,7 +25,7 @@
             <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
                 <xsl:attribute name="type">host</xsl:attribute>
                 <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">To Add</xsl:element>
+                <xsl:element name="abstract" namespace="http://www.loc.gov/mods/v3">These broadsides and pamphlets, originally owned by the Italian Cardinal Carlo Luigi Morichini (1805-1879), offer a window into the activities of the Catholic Church during the period of Italian Unification. As part of a larger collection of 1600 items, this subset of 93 items contains a large amount of unpublished printed matter, including institutional circulars, broadsides, by-laws, and annual reports from charitable organizations, especially church-run hospitals and shelters, and is particularly rich in provenance markings including handwritten dedications and marginalia.</xsl:element>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
