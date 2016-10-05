@@ -70,7 +70,7 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:originInfo/mods:dateCreated[@point='start']">
+    <xsl:template match="mods:originInfo/mods:dateCreated[@qualifier='begin']">
         <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="keyDate">yes</xsl:attribute>
             <xsl:attribute name="point">start</xsl:attribute>
@@ -78,7 +78,7 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:originInfo/mods:dateCreated[@point='end']">
+    <xsl:template match="mods:originInfo/mods:dateCreated[@qualifier='end']">
         <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="point">end</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
