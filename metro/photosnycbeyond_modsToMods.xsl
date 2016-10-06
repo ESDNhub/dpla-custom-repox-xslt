@@ -37,6 +37,7 @@
     <xsl:template match="mods:location" />
     <xsl:template match="mods:physicalDescription/mods:note[@type='condition']"/>
     <xsl:template match="mods:note" />
+    <xsl:template match="mods:recordInfo"/>
     
     <!-- hard code collection info -->
     
