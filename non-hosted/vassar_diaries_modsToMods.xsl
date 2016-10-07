@@ -129,6 +129,8 @@
   <xsl:template match="mods:location[@displayLabel]"/>
   <xsl:template match="mods:recordInfo"/>
   <xsl:template match="mods:relatedItem[@type='constituent']"/>
+  <xsl:template match="mods:genre[@authority]"/>
+  <xsl:template match="mods:subject[@altRepGroup]"/>
 
   <xsl:template match="mods:name[mods:role/mods:roleTerm!='creator']"/>
  
