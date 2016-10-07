@@ -25,14 +25,7 @@
         <xsl:apply-templates select="dc:format" mode="bpl"/>
       </physicalDescription>
       
-      <xsl:apply-templates select="dc:description"/>
-      
-      <!-- hard code CiT note on BPL request -->
-      
-      <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-        <xsl:attribute name="type">content</xsl:attribute>
-        Collected through the Our Streets, Our Stories community heritage project, part of the Culture in Transit grant from the John S. and James L. Knight Foundation's Knight News Challenge.
-      </xsl:element>
+      <xsl:apply-templates select="dc:description" mode="bpl"/>
       
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:language"/>
@@ -68,7 +61,14 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- Collection specific templates -->
-
+  
+  <xsl:template match="dc:description" mode="bpl">
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:value-of select="concat(normalize-space(.), ' Collected through the Our Streets, Our Stories community heritage project, a part of the Culture in Transit grant from the John S. and James L. Knight Foundations Knight News Challenge')"/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="dc:creator" mode="bpl">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue,';')">
