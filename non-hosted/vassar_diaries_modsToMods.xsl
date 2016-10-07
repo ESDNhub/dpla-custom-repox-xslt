@@ -126,7 +126,10 @@
   <xsl:template match="mods:subject/mods:topic"/>
   <xsl:template match="mods:subject/mods:geographic"/>
   <xsl:template match="mods:subject[mods:hierarchicalGeographic/mods:continent]"/>
-  
+  <xsl:template match="mods:location[@displayLabel]"/>
+  <xsl:template match="mods:recordInfo"/>
+  <xsl:template match="mods:relatedItem[@type='constituent']"/>
+
   <xsl:template match="mods:name[mods:role/mods:roleTerm!='creator']"/>
  
   
@@ -161,6 +164,14 @@
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
   </xsl:template>
+  
+  <xsl:template match="mods:tableOfContents">
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
+  
 
   <xsl:template match="mods:typeOfResource">
     <xsl:variable name="typelist" select="tokenize(., ',')"/>
