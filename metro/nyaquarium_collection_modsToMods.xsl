@@ -170,13 +170,10 @@
         </xsl:copy>
     </xsl:template>    
     
-    <!-- add AAT for DPLA genre property -->
-    
     <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
     <!-- ESDN utility templates -->
