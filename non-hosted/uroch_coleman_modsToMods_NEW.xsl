@@ -40,6 +40,7 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:location"/>
     <xsl:template match="mods:identifier[@type='job']"/>
+    <xsl:template match="mods:originInfo/mods:place"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -133,16 +134,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-    </xsl:template>
-
-    <!-- take from place/place term for DPLA Place property -->
-    
-    <xsl:template match="mods:place">
-        <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                <xsl:value-of select="./mods:placeTerm"/>
-            </xsl:element>
-        </xsl:element>
     </xsl:template>
 
     <xsl:template match="mods:languageTerm">

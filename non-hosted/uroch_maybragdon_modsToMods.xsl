@@ -45,7 +45,7 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
-    
+       
     <!-- collection info -->
     
     <xsl:template match="mods:relatedItem">
