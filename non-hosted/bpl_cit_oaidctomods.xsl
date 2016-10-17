@@ -79,7 +79,7 @@
             <!--creator-->
           </namePart>
           <role>
-            <roleTerm>creator</roleTerm>
+            <roleTerm>Creator</roleTerm>
           </role>
         </name>
       </xsl:if>
