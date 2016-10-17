@@ -98,7 +98,7 @@
             <!--creator-->
           </namePart>
           <role>
-            <roleTerm>creator</roleTerm>
+            <roleTerm>Creator</roleTerm>
           </role>
         </name>
       </xsl:if>
@@ -115,7 +115,7 @@
             <!--contributor-->
           </namePart>
           <role>
-            <roleTerm>contributor</roleTerm>
+            <roleTerm>Contributor</roleTerm>
           </role>
         </name>
       </xsl:for-each>
