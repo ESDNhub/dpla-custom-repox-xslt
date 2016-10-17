@@ -131,8 +131,15 @@
   <xsl:template match="mods:relatedItem[@type='constituent']"/>
   <xsl:template match="mods:genre[@authority]"/>
   <xsl:template match="mods:subject[@altRepGroup]"/>
-
-  <xsl:template match="mods:name[mods:role/mods:roleTerm!='creator']"/>
+  
+  <xsl:template match="mods:roleTerm">
+    <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
+      <xsl:choose>
+        <xsl:when test="normalize-space(lower-case(.))='creator'">Creator</xsl:when>
+        <xsl:otherwise>Contributor</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
  
   
   <xsl:template match="mods:dateCreated[./@point='start']">
