@@ -42,7 +42,6 @@
           <xsl:apply-templates select="dc:format"/>  
         </xsl:element>
         
-        <xsl:apply-templates select="dc:genre"/>
         <xsl:apply-templates select="dc:rights"/>
         
         <xsl:for-each select="dcterms:subject">
@@ -129,14 +128,6 @@
     </xsl:if>
   </xsl:template>
   
-    <xsl:template match="dc:genre">
-      <xsl:if test="normalize-space(.)!=''">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-      </xsl:if>
-    </xsl:template>
-  
   <xsl:template match="dcterms:subject">
     <xsl:variable name="subjectvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($subjectvalue,';')">
@@ -181,7 +172,7 @@
           <namePart>
             <xsl:value-of select="normalize-space(.)"/> <!--creator-->
           </namePart>
-          <role><roleTerm>creator</roleTerm></role>
+          <role><roleTerm>Creator</roleTerm></role>
         </name> 
       </xsl:if>
     </xsl:for-each>      

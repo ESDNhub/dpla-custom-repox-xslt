@@ -99,7 +99,7 @@
           <namePart>
             <xsl:value-of select="normalize-space(.)"/> <!--contributor-->
           </namePart>
-          <role><roleTerm>contributor</roleTerm></role>
+          <role><roleTerm>Contributor</roleTerm></role>
         </name>
       </xsl:if>
     </xsl:for-each>      
