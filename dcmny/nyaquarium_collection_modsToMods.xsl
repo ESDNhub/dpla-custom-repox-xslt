@@ -70,7 +70,7 @@
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">
-        <xsl:copy>contributor</xsl:copy>
+        <xsl:copy>Contributor</xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:dateIssued">

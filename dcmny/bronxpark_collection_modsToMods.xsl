@@ -71,8 +71,8 @@
     <xsl:template match="mods:roleTerm">
         <xsl:copy>
             <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='photographer'">creator</xsl:when>
-                <xsl:otherwise>contributor</xsl:otherwise>
+                <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
+                <xsl:otherwise>Contributor</xsl:otherwise>
             </xsl:choose>
         </xsl:copy>
     </xsl:template>
