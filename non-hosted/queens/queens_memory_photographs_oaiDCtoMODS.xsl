@@ -19,7 +19,7 @@
       <xsl:if test="exists(dc:publisher) or exists(dc:date)">
         <originInfo>
           <xsl:apply-templates select="dc:publisher"/>
-          <xsl:apply-templates select="dc:date"/>
+          <xsl:apply-templates select="dc:date[1]"/>
         </originInfo>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
