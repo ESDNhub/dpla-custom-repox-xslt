@@ -55,6 +55,9 @@
       <!-- hard code ownership note -->
       
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">The Culinary Institute of America</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
+      </xsl:call-template>
       <xsl:apply-templates select="dcterms:isPartOf" mode="culinary"/>  <!-- collection info here -->
      </mods>
   </xsl:template>

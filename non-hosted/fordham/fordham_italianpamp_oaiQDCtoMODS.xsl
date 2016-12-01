@@ -88,6 +88,9 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Fordham University</xsl:with-param>
       </xsl:call-template>
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
+      </xsl:call-template>
     </mods>
     
   </xsl:template>

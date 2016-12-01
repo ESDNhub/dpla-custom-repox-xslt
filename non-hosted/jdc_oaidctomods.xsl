@@ -5,7 +5,7 @@
   xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
 
-  <xsl:template match="text()|@*"/>
+  <xsl:template match="text() | @*"/>
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
@@ -27,19 +27,23 @@
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:identifier" mode="jdc"/>
-      
+
       <!-- hard code collection and ownership note -->
-      
+
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">American Jewish Joint Distribution Committee Archives</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">American Jewish Joint
+            Distribution Committee Archives</xsl:element>
         </xsl:element>
       </xsl:element>
 
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">American Jewish Joint Distribution Committee Archives</xsl:with-param>
+      </xsl:call-template>
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
       </xsl:call-template>
     </mods>
   </xsl:template>
@@ -48,11 +52,11 @@
 
   <xsl:template match="dc:format" mode="jdc">
     <xsl:variable name="formatvalue" select="normalize-space(.)"/>
-    <xsl:for-each select="tokenize($formatvalue,';')">
-      <xsl:if test="normalize-space(.)!=''">
+    <xsl:for-each select="tokenize($formatvalue, ';')">
+      <xsl:if test="normalize-space(.) != ''">
         <xsl:choose>
           <!-- check to see if there are any numbers in the format value, put in extent -->
-          <xsl:when test='matches(.,"\d+")'>
+          <xsl:when test='matches(., "\d+")'>
             <extent>
               <xsl:value-of select="normalize-space(.)"/>
             </extent>
@@ -67,9 +71,9 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
-  
+
   <!-- Thumbnail preview, link back to record on JDC Archives site -->
-  
+
   <xsl:template match="dc:identifier" mode="jdc">
     <xsl:if test="(contains(., 'jdc'))">
       <xsl:choose>

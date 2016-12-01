@@ -79,6 +79,10 @@
         <xsl:with-param name="owner">Queens Borough Public Library</xsl:with-param>
       </xsl:call-template>
       
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
+      </xsl:call-template>
+      
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
