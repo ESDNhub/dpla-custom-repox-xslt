@@ -17,10 +17,11 @@
       <xsl:if test="exists(dc:publisher) or exists(dc:date)">
         <originInfo>
           <xsl:apply-templates select="dc:publisher"/>
-          <xsl:apply-templates select="dc:date" mode="queens"/>
+          <xsl:apply-templates select="dc:date[1]" mode="queens"/>
         </originInfo>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
+      <xsl:apply-templates select="dc:source" mode="myBaryo"/>
       
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:if test="exists(dc:format[2])">
@@ -116,6 +117,14 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
+  
+  <xsl:template match="dc:source" mode="myBaryo">
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
+  
   
 </xsl:stylesheet>
 
