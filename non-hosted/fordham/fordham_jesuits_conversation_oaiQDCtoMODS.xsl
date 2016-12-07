@@ -36,45 +36,19 @@
         </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dcterms:tableOfContents"/>  <!-- to Description -->
 
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:apply-templates select="dcterms:extent"/>
       </xsl:element>
 
-      <xsl:if test="exists(dcterms:isPartOf) or exists(dcterms:isFormatOf)">
-        <xsl:if test="exists(dcterms:isPartOf)">
-          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-            <xsl:apply-templates select="dcterms:isPartOf"/>
-          </xsl:element>
-        </xsl:if>
-        <xsl:if test="exists(dcterms:isFormatOf)">
-          <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-            <xsl:apply-templates select="dcterms:isFormatOf"/>
-          </xsl:element>
-        </xsl:if>
-      </xsl:if>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier[2]" mode="esdn"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
-      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">text</xsl:element> <!-- all text -->
+      <xsl:apply-templates select="dc:type[2]" mode="fordham"/>
       <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
 
-      <xsl:if test="exists(dc:language)">
-        <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
-          <xsl:for-each select="tokenize(dc:language, ';')">
-            <xsl:element name="languageTerm">
-              <xsl:call-template name="iso6393-codes">
-                <xsl:with-param name="lval">
-                  <xsl:value-of select="."/>
-                </xsl:with-param>
-              </xsl:call-template>
-            </xsl:element>
-          </xsl:for-each>
-        </xsl:element>
-      </xsl:if>
-      
       <!-- hard code collection and ownership note -->
       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
@@ -122,29 +96,6 @@
         </xsl:choose>
       </xsl:if>
     </xsl:for-each>
-  </xsl:template>
-
-  <xsl:template match="dcterms:tableOfContents">
-    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-      <xsl:attribute name="type">content</xsl:attribute>
-      <xsl:value-of select="normalize-space(.)"/>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="dcterms:isFormatOf">
-    <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-      <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:element>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="dcterms:isPartOf">
-    <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-      <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:element>
-    </xsl:element>
   </xsl:template>
 
   <!-- Cleanup contributor values -->
@@ -201,6 +152,12 @@
 
   <xsl:template match="dcterms:extent">
     <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:type" mode="fordham">
+    <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
   </xsl:template>
