@@ -54,7 +54,7 @@
           </xsl:element>
         </xsl:if>
       </xsl:if>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="fordham"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
@@ -203,6 +203,42 @@
     <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:identifier" mode="fordham">
+    <xsl:variable name="idvalue" select="normalize-space(.)"/>
+    <xsl:if test="normalize-space(.)!=''">
+      <xsl:choose>
+        <xsl:when test="contains(.,'cdm')"> 
+          <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url">
+              <xsl:attribute name="usage">primary display</xsl:attribute>
+              <xsl:attribute name="access">object in context</xsl:attribute>
+              <xsl:value-of select="$idvalue"/>
+            </xsl:element>
+          </xsl:element>
+          <!-- ref url-->
+          <!-- process identifier into CONTENTdm 6.5 thumbnail urls -->
+          <xsl:variable name="contentdmroot" select="substring-before($idvalue, '/cdm/ref/')"/>
+          <xsl:variable name="recordinfo"
+            select="substring-after($idvalue, '/cdm/ref/collection/')"/>
+          <xsl:variable name="alias" select="substring-before($recordinfo, '/id/')"/>
+          <xsl:variable name="pointer" select="substring-after($recordinfo, '/id/')"/>
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url">
+              <xsl:attribute name="access">preview</xsl:attribute>
+              <xsl:value-of
+                select="concat($contentdmroot, '/utils/getthumbnail/collection/', $alias, '/id/', $pointer)"
+              />
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <identifier><xsl:value-of select="normalize-space(.)"/></identifier>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>  
   </xsl:template>
 
 </xsl:stylesheet>

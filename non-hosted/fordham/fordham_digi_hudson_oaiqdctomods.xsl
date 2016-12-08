@@ -28,9 +28,9 @@
       <xsl:apply-templates select="dc:contributor" mode="fordham"/>
       <xsl:apply-templates select="dc:creator" mode="fordham"/>
       
-      <xsl:if test="exists(dcterms:created) or exists(dc:publisher)">
+      <xsl:if test="exists(dc:date) or exists(dc:publisher)">
         <xsl:element name="originInfo">
-          <xsl:apply-templates select="dcterms:created" mode="esdn"/>
+          <xsl:apply-templates select="dc:date"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       </xsl:if>
@@ -55,11 +55,12 @@
         </xsl:if>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="fordham"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dcterms:spatial" mode="digi_hudson"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:rights"/>
 
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
@@ -135,10 +136,10 @@
                 <xsl:value-of select="normalize-space(.)"/>
               </xsl:otherwise>
             </xsl:choose>
-            <!--contributor-->
+            <!--Contributor-->
           </namePart>
           <role>
-            <roleTerm>contributor</roleTerm>
+            <roleTerm>Contributor</roleTerm>
           </role>
         </name>
       </xsl:if>
@@ -159,10 +160,10 @@
                 <xsl:value-of select="normalize-space(.)"/>
               </xsl:otherwise>
             </xsl:choose>
-            <!--contributor-->
+            <!--Creator-->
           </namePart>
           <role>
-            <roleTerm>creator</roleTerm>
+            <roleTerm>Creator</roleTerm>
           </role>
         </name>
       </xsl:if>
@@ -173,22 +174,6 @@
     <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="dcterms:accessRights">
-    <xsl:call-template name="access_cond_element">
-      <xsl:with-param name="rights_txt">
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-
-  <xsl:template match="dcterms:rightsHolder">
-    <xsl:call-template name="access_cond_element">
-      <xsl:with-param name="rights_txt">
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:with-param>
-    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="dcterms:temporal">
@@ -210,13 +195,6 @@
       </xsl:element>
     </xsl:for-each>
   </xsl:template>
-
-  <xsl:template name="access_cond_element">
-    <xsl:param name="rights_txt"/>
-    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-      <xsl:value-of select="$rights_txt"/>
-    </xsl:element>
-  </xsl:template>
   
   <xsl:template match="dcterms:spatial" mode="digi_hudson">
     <xsl:for-each select="tokenize(., ';')">
@@ -235,6 +213,42 @@
         </xsl:choose>
       </xsl:if>
     </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template match="dc:identifier" mode="fordham">
+    <xsl:variable name="idvalue" select="normalize-space(.)"/>
+    <xsl:if test="normalize-space(.)!=''">
+      <xsl:choose>
+        <xsl:when test="contains(.,'cdm')"> 
+          <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url">
+              <xsl:attribute name="usage">primary display</xsl:attribute>
+              <xsl:attribute name="access">object in context</xsl:attribute>
+              <xsl:value-of select="$idvalue"/>
+            </xsl:element>
+          </xsl:element>
+          <!-- ref url-->
+          <!-- process identifier into CONTENTdm 6.5 thumbnail urls -->
+          <xsl:variable name="contentdmroot" select="substring-before($idvalue, '/cdm/ref/')"/>
+          <xsl:variable name="recordinfo"
+            select="substring-after($idvalue, '/cdm/ref/collection/')"/>
+          <xsl:variable name="alias" select="substring-before($recordinfo, '/id/')"/>
+          <xsl:variable name="pointer" select="substring-after($recordinfo, '/id/')"/>
+          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="url">
+              <xsl:attribute name="access">preview</xsl:attribute>
+              <xsl:value-of
+                select="concat($contentdmroot, '/utils/getthumbnail/collection/', $alias, '/id/', $pointer)"
+              />
+            </xsl:element>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <identifier><xsl:value-of select="normalize-space(.)"/></identifier>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>  
   </xsl:template>
 
 </xsl:stylesheet>

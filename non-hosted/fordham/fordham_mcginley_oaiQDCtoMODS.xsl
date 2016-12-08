@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
-      <xsl:apply-templates select="dc:type[2]" mode="fordham"/>
+      <xsl:apply-templates select="dc:type" mode="fordham"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       
@@ -158,9 +158,11 @@
   </xsl:template>
   
   <xsl:template match="dc:type" mode="fordham">
-    <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
-      <xsl:value-of select="normalize-space(.)"/>
-    </xsl:element>
+    <xsl:if test="contains(.,'Moving image')">
+      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
   
   <xsl:template match="dc:identifier" mode="fordham">
