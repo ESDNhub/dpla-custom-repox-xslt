@@ -47,7 +47,6 @@
   <xsl:template match="mods:language/mods:languageTerm[@type='text']"/>
   <xsl:template match="mods:digitalOrigin"/>
   <xsl:template match="mods:location"/>
-  <xsl:template match="mods:identifier[@type='job']"/>
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm[@type='text']"/>
     
     <!-- ignore dateIssued as getting duplicate dates in feed -->
