@@ -7,15 +7,13 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">      
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <!-- Check for 'unknown' in dc:date. Ignore it if present.-->
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-          </xsl:if>
-          <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn" />
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
@@ -23,7 +21,7 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
-      <xsl:apply-templates select="dc:type" mode="flower"/>
+      <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -35,7 +33,8 @@
         </xsl:element>
       </xsl:element>
       
-      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Northern New York Library Network</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Watertown Flower Memorial Library</xsl:with-param>
       </xsl:call-template>
     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
@@ -43,7 +42,7 @@
   
   <!-- ESDN utility templates -->
   <xsl:include href="nyh_templates.xsl"/>
-<xsl:include href="esdn_templates.xsl"/>
+  <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
@@ -52,13 +51,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
-  
-  <xsl:template match="dc:type" mode="flower">
-    <xsl:variable name="typelist" select="tokenize(., ';')"/>
-    <xsl:element name="typeOfResource">
-      <xsl:value-of select="$typelist[1]"/>
-    </xsl:element>
-  </xsl:template>
   
 </xsl:stylesheet>
 
