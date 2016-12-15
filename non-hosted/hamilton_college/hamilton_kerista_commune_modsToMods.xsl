@@ -38,9 +38,65 @@
                   <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Hamilton College-Kerista Commune Ephemera</xsl:element>
               </xsl:element>
           </xsl:element>
+          
+          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:country">
+              <xsl:if test="normalize-space(.)!=''">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:attribute name="authority">tgn</xsl:attribute>
+                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
+          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:state">
+              <xsl:if test="normalize-space(.)!=''">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:attribute name="authority">tgn</xsl:attribute>
+                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
+          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:county">
+              <xsl:if test="normalize-space(.)!=''">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:attribute name="authority">tgn</xsl:attribute>
+                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
+          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:city">
+              <xsl:if test="normalize-space(.)!=''">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:attribute name="authority">tgn</xsl:attribute>
+                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
+          <xsl:for-each select="mods:subject[@authority='lcsh']/mods:topic">
+              <xsl:if test="normalize-space(.)!=''">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:attribute name="authority">lcsh</xsl:attribute>
+                      <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
       </xsl:copy>
   </xsl:template>
-  
+    
   <xsl:template match="mods:recordInfo"/>
   <xsl:template match="mods:physicalDescription/mods:form[@authority='gmd']"/>
   <xsl:template match="mods:physicalDescription/mods:form[@authority='RDA carrier terms']"/>
@@ -48,17 +104,11 @@
   <xsl:template match="mods:digitalOrigin"/>
   <xsl:template match="mods:location"/>
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm[@type='text']"/>
-    
-    <!-- ignore dateIssued as getting duplicate dates in feed -->
-    
-    <xsl:template match="mods:dateIssued"/>
-    
-    <xsl:template match="mods:dateCreated">
-        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="keyDate">yes</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-    </xsl:template>
+  <xsl:template match="mods:accessCondition[@type='restriction on access']"/>
+  <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]"/>
+  <xsl:template match="mods:subject[not(@authority='lcsh')]/mods:topic"/>
+  <xsl:template match="mods:subject[@authority='lcsh']/mods:topic"/>
+  <xsl:template match="mods:subject[@authority='tgn']"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
@@ -100,8 +150,14 @@
           <xsl:value-of select="normalize-space(.)"/>
       </xsl:element>
   </xsl:template>
+    
+    <xsl:template match="mods:identifier[@type='local']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
 
-  <xsl:template match="mods:identifier">
+  <xsl:template match="mods:identifier[not(@type='local')]">
     <!-- we do this to workaround Islandora's assigning the default namesapce to
         this element by adding an empty @xmlns in the original. -->
     <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
@@ -132,6 +188,12 @@
   </xsl:template>
     
     <xsl:template match="mods:genre">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:accessCondition[@type='use and reproduction'][1]">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
