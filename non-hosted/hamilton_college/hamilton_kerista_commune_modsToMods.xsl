@@ -104,16 +104,25 @@
   <xsl:template match="mods:digitalOrigin"/>
   <xsl:template match="mods:location"/>
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm[@type='text']"/>
+  <xsl:template match="mods:originInfo/mods:place/mods:placeTerm"/>
   <xsl:template match="mods:accessCondition[@type='restriction on access']"/>
   <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]"/>
   <xsl:template match="mods:subject[not(@authority='lcsh')]/mods:topic"/>
   <xsl:template match="mods:subject[@authority='lcsh']/mods:topic"/>
   <xsl:template match="mods:subject[@authority='tgn']"/>
+  <xsl:template match="mods:titleInfo/mods:nonSort"/>
+  <xsl:template match="mods:titleInfo/mods:titleSort"/>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:originInfo[@displayLabel='reproduction']/mods:publisher">
+            <xsl:element name="publisher" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:value-of select="normalize-space(.)"/>        
+            </xsl:element>   
     </xsl:template>
     
     <xsl:template match="mods:relatedItem">
@@ -129,12 +138,10 @@
     </xsl:template>
 
   <xsl:template match="mods:name/mods:namePart">
-      <xsl:element name="name" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="namePart" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element>
         <xsl:element name="role" namespace="http://www.loc.gov/mods/v3"> 
             <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">Creator</xsl:element>
-        </xsl:element>
-      </xsl:element>
+        </xsl:element>    
   </xsl:template>
   
   <xsl:template match="mods:abstract">
