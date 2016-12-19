@@ -54,12 +54,6 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:dateCreated">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
-
     <xsl:template match="mods:abstract">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
@@ -148,6 +142,12 @@
         <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="authority">aat</xsl:attribute>
             <xsl:value-of select="lower-case(normalize-space(.))"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="mods:dateIssued">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+            <xsl:apply-templates select="@*|node()"/>
         </xsl:element>
     </xsl:template>
     
