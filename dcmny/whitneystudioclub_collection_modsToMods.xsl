@@ -78,15 +78,13 @@
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">
-        <xsl:if test="normalize-space(.)!=''">
             <xsl:copy>
                 <xsl:choose>
                     <xsl:when test="normalize-space(lower-case(.))='author'">Creator</xsl:when>
                     <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
                     <xsl:otherwise>Contributor</xsl:otherwise>
                 </xsl:choose>
-            </xsl:copy>
-        </xsl:if>
+            </xsl:copy>  
     </xsl:template>
 
     <xsl:template match="mods:dateIssued">
