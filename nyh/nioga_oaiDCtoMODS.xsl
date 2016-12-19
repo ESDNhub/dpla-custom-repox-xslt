@@ -77,14 +77,12 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">
           <xsl:choose>
-            <xsl:when test="contains(lower-case(dc:relation), 'polster photographs')">Lockport
-              Public Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:relation), 'polster photographs')">Lockport Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:relation), 'early records of the sacarissa')"
               >Lewiston Public Library</xsl:when>
             <xsl:when test="contains(lower-case(dc:relation), 'state reservation at niagara')"
               >Niagara Falls Public Library</xsl:when>
-            <xsl:when test="contains(lower-case(dc:relation), 'daredevils of niagara')">Niagara
-              Falls Public Library</xsl:when>
+            <xsl:when test="contains(lower-case(dc:relation), 'daredevils of niagara')">Niagara Falls Public Library</xsl:when>
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>

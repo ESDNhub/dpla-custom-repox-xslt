@@ -52,8 +52,7 @@
       </xsl:element>
       
       <xsl:call-template name="intermediate-provider">
-        <xsl:with-param name="council">Southeastern New York Library Resources
-          Council</xsl:with-param>
+        <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="owner-note">

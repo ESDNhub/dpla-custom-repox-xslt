@@ -29,7 +29,7 @@
             <xsl:with-param name="owner">Hamilton College</xsl:with-param>
           </xsl:call-template>
           <xsl:call-template name="intermediate-provider">
-              <xsl:with-param name="council">Central New York Library Resource Council</xsl:with-param>
+              <xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param>
           </xsl:call-template>
           <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="type">host</xsl:attribute>
