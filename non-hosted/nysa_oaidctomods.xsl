@@ -54,10 +54,7 @@
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner">New York State Archives</xsl:with-param>
         </xsl:call-template>
-      <xsl:call-template name="intermediate-provider">
-        <xsl:with-param name="council">State Agency</xsl:with-param>
-      </xsl:call-template>
-      
+
       <!-- collection info -->
       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">

@@ -61,9 +61,6 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">New York State Library</xsl:with-param>
       </xsl:call-template>
-      <xsl:call-template name="intermediate-provider">
-        <xsl:with-param name="council">State Agency</xsl:with-param>
-      </xsl:call-template>
 
     </mods>
   </xsl:template>
