@@ -113,7 +113,6 @@
       </xsl:copy>
   </xsl:template>
   
-  <xsl:template match="mods:accessCondition/@type"/>
   <xsl:template match="mods:originInfo/mods:dateIssued" />
   <xsl:template match="mods:location" />
   <xsl:template match="mods:dateOther"/>
@@ -124,6 +123,12 @@
   <xsl:template match="mods:subject/mods:geographic"/>
   <xsl:template match="mods:subject/mods:hierarchicalGeographic/mods:continent"/>
   <xsl:template match="mods:form/@authority"/>
+  
+  <xsl:template match="mods:accessCondition[@type='use and reproduction']">
+    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
   
   <xsl:template match="mods:physicalDescription/internetMediaType">
     <xsl:copy>

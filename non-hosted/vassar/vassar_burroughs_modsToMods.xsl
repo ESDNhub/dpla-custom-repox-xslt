@@ -120,6 +120,11 @@
   <xsl:template match="mods:subject"/>
   <xsl:template match="mods:place"/>
   
+  <xsl:template match="mods:accessCondition[@type='use and reproduction']">
+    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
   
   <xsl:template match="mods:dateCreated[./@point='start']">
     <xsl:copy>

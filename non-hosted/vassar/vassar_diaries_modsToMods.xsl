@@ -116,8 +116,7 @@
       </xsl:for-each>
     </xsl:copy>
   </xsl:template>
-  
-  <xsl:template match="mods:accessCondition/@type"/>
+
   <xsl:template match="mods:dateOther"/>
   <xsl:template match="mods:publisher"/>
   <xsl:template match="mods:identifier[@type='local']"/>
@@ -135,6 +134,12 @@
   <xsl:template match="mods:genre[@authority]"/>
   <xsl:template match="mods:subject[@altRepGroup]"/>
   <xsl:template match="mods:subject/mods:name[@type='personal']/mods:affiliation"/>
+  
+  <xsl:template match="mods:accessCondition[@type='use and reproduction']">
+    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
   
   <xsl:template match="mods:roleTerm">
     <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
