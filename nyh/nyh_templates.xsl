@@ -69,6 +69,8 @@
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
+    
+  <!-- Map NYH Physical Format terms to MODS Genre with AAT attribute -->
   
   <xsl:template match="dc:format" mode="nyh">
       <xsl:variable name="genres">
@@ -169,7 +171,11 @@
                           <xsl:value-of select="normalize-space(lower-case(.))"/>
                       </xsl:element>
                   </xsl:when>
-                  <xsl:otherwise/>
+                  <xsl:otherwise>
+                      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(lower-case(.))"/>
+                      </xsl:element>
+                  </xsl:otherwise>
               </xsl:choose>
           </xsl:if>
       </xsl:for-each>
