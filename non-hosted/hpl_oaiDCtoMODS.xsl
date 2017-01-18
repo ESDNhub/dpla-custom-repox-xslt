@@ -5,14 +5,20 @@
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
-      <originInfo>
-        <xsl:apply-templates select="dc:publisher"/>
-        <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
-      </originInfo>
+      
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
+        <originInfo>
+          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+        </originInfo>
+      </xsl:if>
       <xsl:apply-templates select="dc:description"/>
-      <xsl:element name="physicalDescription">
-        <xsl:apply-templates select="dc:format"/>
-      </xsl:element>
+     
+      <xsl:if test="dc:format != ''">
+        <xsl:element name="physicalDescription">
+          <xsl:apply-templates select="dc:format"/>
+        </xsl:element>
+      </xsl:if>
       
       <!-- preview and link back in separate dc:identifier elements -->
       
