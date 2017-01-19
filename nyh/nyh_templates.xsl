@@ -171,11 +171,7 @@
                           <xsl:value-of select="normalize-space(lower-case(.))"/>
                       </xsl:element>
                   </xsl:when>
-                  <xsl:otherwise>
-                      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(lower-case(.))"/>
-                      </xsl:element>
-                  </xsl:otherwise>
+                  <xsl:otherwise/>
               </xsl:choose>
           </xsl:if>
       </xsl:for-each>
