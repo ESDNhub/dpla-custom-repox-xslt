@@ -32,8 +32,6 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="mods:identifier[@type = 'local']"/>
-
     <xsl:template match="mods:accessCondition/@type"/>
     <xsl:template match="mods:relatedItem[exists(@displayLabel)]"/>
     <xsl:template match="mods:relatedItem/@xlink:href"/>
@@ -102,6 +100,12 @@
     </xsl:template>
 
     <xsl:template match="mods:note[@type = 'condition']"/>
+    
+    <xsl:template match="mods:identifier[@type='local']">
+        <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="mods:identifier">
         <xsl:if test=".[@type = 'uri']">

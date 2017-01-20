@@ -112,7 +112,11 @@
     </xsl:if>
   </xsl:template>
     
-    <xsl:template match="mods:identifier[@type='local']"/>
+    <xsl:template match="mods:identifier[@type='local']">
+        <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+    </xsl:template>
     
     <xsl:template match="mods:note[@type='dateuncontrolled'][not(exists(./mods:originInfo))]">
         <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">

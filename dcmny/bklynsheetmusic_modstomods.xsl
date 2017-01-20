@@ -135,6 +135,12 @@
      </xsl:if>
   </xsl:template>
   
+  <xsl:template match="mods:identifier[@type='local']">
+    <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="identifier">
     <xsl:if test=".[@type='uri']">
       <!-- we do this to workaround Islandora's assigning the default namesapce to

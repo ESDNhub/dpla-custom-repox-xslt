@@ -53,9 +53,9 @@
   </xsl:template>
   
   <xsl:template match="mods:identifier[@type='local']">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
+    <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
   </xsl:template>
   
     <xsl:template match="mods:accessCondition/@type"/>
