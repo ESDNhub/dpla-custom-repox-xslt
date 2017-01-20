@@ -57,7 +57,7 @@
       
       <xsl:apply-templates select="dc:identifier" mode="fordham"/>
       <xsl:apply-templates select="dcterms:alternative" mode="esdn"/>
-      <xsl:apply-templates select="dcterms:spatial" mode="digi_hudson"/>
+      <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
@@ -81,6 +81,7 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Fordham University. Libraries</xsl:with-param>
       </xsl:call-template>
+      
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
       </xsl:call-template>
@@ -196,7 +197,7 @@
     </xsl:for-each>
   </xsl:template>
   
-  <xsl:template match="dcterms:spatial" mode="digi_hudson">
+  <xsl:template match="dcterms:spatial" mode="fordham">
     <xsl:for-each select="tokenize(., ';')">
       <xsl:if test="normalize-space(.) != '' and not(contains(., 'unknown'))">
         <xsl:choose>
