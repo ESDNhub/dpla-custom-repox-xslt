@@ -272,7 +272,7 @@
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <!-- too many values, just dump contents -->
+                <!-- put all in form -->
                 <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"
                     exclude-result-prefixes="#all">
                     <xsl:value-of select="."/>
@@ -282,8 +282,7 @@
     </xsl:template>
 
     <xsl:template match="dc:type" mode="esdn">
-        <!-- we override this template to provide a more complete typeOfResource element
-      more closely conforming to the standard -->
+        <!-- we override this template to provide a more complete typeOfResource element -->
         <!-- always tokenize, since we sometimes get single values with a delimiter -->
         <xsl:for-each select="tokenize(., ';')">
             <!-- check for empty element -->
@@ -344,7 +343,6 @@
                             <xsl:text>sound recording</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <!-- bletcherous hack for one particular institution -->
                     <xsl:when test="contains($dc-type, 'text') or contains($dc-type, 'document')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
@@ -359,28 +357,8 @@
                         </xsl:element>      
                     </xsl:otherwise>
                 </xsl:choose>
-                <!--                <xsl:call-template name="mods-genre" >
-                    <xsl:with-param name="dc_type" select="$dc-type" />
-                </xsl:call-template>
--->
             </xsl:if>
         </xsl:for-each>
-    </xsl:template>
-
-    <xsl:template name="mods-genre">
-        <xsl:param name="dc_type"/>
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3"
-            exclude-result-prefixes="#all">
-            <xsl:attribute name="type">dct</xsl:attribute>
-            <xsl:choose>
-                <xsl:when test="$dc_type = lower-case('Dataset')">dataset</xsl:when>
-                <xsl:when test="starts-with($dc_type, lower-case('Image'))">image</xsl:when>
-                <xsl:when test="$dc_type = lower-case('InteractiveResource')">interactive
-                    resource</xsl:when>
-                <xsl:when test="$dc_type = lower-case('Service')">service</xsl:when>
-                <xsl:otherwise/>
-            </xsl:choose>
-        </xsl:element>
     </xsl:template>
 
     <xsl:template match="dc:identifier" mode="esdn">
@@ -419,9 +397,6 @@
             <xsl:for-each select="tokenize($languagevalue, ';')">
                 <xsl:if test="normalize-space(.) != ''">
                     <xsl:element name="languageTerm">
-                        <!--                      <xsl:attribute name="type">code</xsl:attribute>
-                      <xsl:attribute name="authority">iso639-3</xsl:attribute>
--->
                         <xsl:value-of select="normalize-space(lower-case(.))"/>
                     </xsl:element>
                 </xsl:if>
@@ -443,10 +418,10 @@
                         </xsl:call-template>
                     </topic>
                 </subject>
-                <!--subject-->
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template name="owner-note">
         <xsl:param name="owner"/>
         <xsl:element name="note">

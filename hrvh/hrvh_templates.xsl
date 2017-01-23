@@ -5,9 +5,7 @@
     exclude-result-prefixes="xs"
     version="2.0">
     <xsl:template match="dc:subject" mode="hrvh">
-        <!-- HRVH has a number of cross-collection local topics
-      that should not be output. Check normalized lowercase strings
-      against this list and don't write if found. -->
+        <!-- HRVH has a number of cross-collection local topics they want ignored -->
         <xsl:variable name="ignored_topics">
             <topic>african americans</topic>
             <topic>agriculture</topic>
@@ -45,9 +43,7 @@
         </xsl:for-each>
     </xsl:template>
     
-    <!-- HRVH are inconsistent wrt to number of delimited items in format string.
-    Sometimes there are 1, sometimes 2, sometimes 3. Get token count and output
-    based on that. -->
+    <!-- HRVH want to split dc:format into Format and Extent fields, are inconsistent regarding number of delimited items in format string. Get token count and output based on that. -->
     <xsl:template match="dc:format" mode="hrvh">
         <xsl:variable name="tokens" select="tokenize(., ';')"/>
         <xsl:variable name="tct" select="count($tokens)"/>
@@ -55,9 +51,7 @@
             <physicalDescription>
                 <xsl:choose>
                     <xsl:when test="$tct = 3">
-                        <!-- put the delimiter back when constructing the value.
-            concat nicely takes variable number of args, so no need to
-            create hideous nested calls. -->
+                        <!-- put the delimiter back when constructing the value. -->
                         <form><xsl:value-of select="concat(normalize-space($tokens[1]), '; ', normalize-space($tokens[2]))"></xsl:value-of></form>
                         <extent><xsl:value-of select="normalize-space($tokens[3])"/></extent>
                     </xsl:when>
