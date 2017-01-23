@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
   
-  <!-- This stylesheet processes standard dublin core fields from standard oai_dc OAI feeds.
-       -->
+  <!-- This stylesheet processes standard dublin core fields from standard oai_dc OAI feeds. -->
   
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
       
@@ -79,7 +78,7 @@
         <xsl:variable name="relationvalue" select="normalize-space(.)"/>
           <xsl:if test="normalize-space(.)!=''">
             <xsl:choose>
-              <xsl:when test="contains(.,'http')"> 
+              <xsl:when test="starts-with(.,'http')"> 
                 <relatedItem><location><url><xsl:value-of select="normalize-space(.)"/></url></location></relatedItem> <!--relation-->
               </xsl:when>
               <xsl:otherwise>
@@ -117,17 +116,9 @@
         </xsl:template>
       
       <xsl:template match="dc:rights">
-        <xsl:variable name="rightsvalue" select="normalize-space(.)"/>
-         <xsl:choose>
-           <xsl:when test="matches(normalize-space(.),'^Public domain\.$') or matches(normalize-space(.),'^Public Domain$') or matches(normalize-space(.),'^Public Domain\.$')">
-              <accessCondition>Public domain</accessCondition> <!--rights-->
-           </xsl:when>
-           <xsl:otherwise>
              <xsl:if test="normalize-space(.)!=''">
                <accessCondition><xsl:value-of select="normalize-space(.)"/></accessCondition> <!--rights-->
              </xsl:if>     
-           </xsl:otherwise>
-         </xsl:choose>
       </xsl:template>
       
         <xsl:template match="dc:subject">
