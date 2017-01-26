@@ -17,7 +17,7 @@
       <xsl:if test="dc:date != 'unknown' or dc:publisher != 'unknown'">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date"/>
           </xsl:if>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>

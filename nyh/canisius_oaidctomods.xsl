@@ -26,7 +26,7 @@
       
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date" mode="esdn"/>
+          <xsl:apply-templates select="dc:date"/>
           <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
       </xsl:if>
