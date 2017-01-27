@@ -363,7 +363,8 @@
 
     <xsl:template match="dc:identifier" mode="esdn">
         <xsl:variable name="idvalue" select="normalize-space(.)"/>
-        <xsl:if test="starts-with($idvalue, 'http')">
+        <xsl:choose>
+        <xsl:when test="starts-with($idvalue, 'http')">
             <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
             <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
                 <xsl:element name="url">
@@ -388,7 +389,11 @@
                 </xsl:element>
             </xsl:element>
             <!-- end CONTENTdm thumbnail url processing -->
-        </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:element name="identifier"><xsl:value-of select="$idvalue"/></xsl:element>
+        </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="dc:language" mode="esdn">
