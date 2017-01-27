@@ -167,7 +167,18 @@
                           <xsl:value-of select="normalize-space(lower-case(.))"/>
                       </xsl:element>
                   </xsl:when>
-                  <xsl:otherwise/>
+                  <xsl:when test="contains(., 'image/') or contains(., 'video/') or contains(.,'audio/') or contains(., 'application/')">
+                      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:element name="internetMediaType" namespace="http://www.loc.gov/mods/v3">
+                              <xsl:value-of select="normalize-space(lower-case(.))"/>
+                          </xsl:element>
+                      </xsl:element>
+                  </xsl:when>
+                  <xsl:otherwise>
+                      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(lower-case(.))"/>             
+                      </xsl:element>
+                  </xsl:otherwise>
               </xsl:choose>
           </xsl:if>
       </xsl:for-each>
