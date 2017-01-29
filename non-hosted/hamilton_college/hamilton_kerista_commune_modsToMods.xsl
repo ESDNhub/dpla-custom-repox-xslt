@@ -94,6 +94,16 @@
               </xsl:if>
           </xsl:for-each>
           
+          <xsl:for-each select="mods:subject[not(@authority='lcsh')]/mods:topic">
+              <xsl:if test="normalize-space(.) = 'communal societies'">
+                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
+                          <xsl:value-of select="normalize-space(.)"/>
+                      </xsl:element>
+                  </xsl:element>
+              </xsl:if>
+          </xsl:for-each>
+          
       </xsl:copy>
   </xsl:template>
     
@@ -105,6 +115,7 @@
   <xsl:template match="mods:location"/>
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm[@type='text']"/>
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm"/>
+  <xsl:template match="mods:originInfo/mods:publisher"/>
   <xsl:template match="mods:accessCondition[@type='restriction on access']"/>
   <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]"/>
   <xsl:template match="mods:subject[not(@authority='lcsh')]/mods:topic"/>
@@ -117,12 +128,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-    </xsl:template>
-    
-    <xsl:template match="mods:originInfo[@displayLabel='reproduction']/mods:publisher">
-            <xsl:element name="publisher" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:value-of select="normalize-space(.)"/>        
-            </xsl:element>   
     </xsl:template>
     
     <xsl:template match="mods:relatedItem">
@@ -140,7 +145,7 @@
   <xsl:template match="mods:name/mods:namePart">
         <xsl:element name="namePart" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element>
         <xsl:element name="role" namespace="http://www.loc.gov/mods/v3"> 
-            <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">Creator</xsl:element>
+            <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">Contributor</xsl:element>
         </xsl:element>    
   </xsl:template>
   
@@ -200,10 +205,23 @@
         </xsl:copy>
     </xsl:template>
     
+    <xsl:template match="mods:physicalDescription/mods:form[@authority='marccategory']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
     <xsl:template match="mods:accessCondition[@type='use and reproduction'][1]">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]">
+        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">local rights statements</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
     </xsl:template>
     
   <xsl:template match="mods:languageTerm">
