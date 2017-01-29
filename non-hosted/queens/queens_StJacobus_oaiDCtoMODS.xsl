@@ -22,6 +22,7 @@
       </xsl:if>
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:source" mode="jacobus"/>
+      <xsl:apply-templates select="dc:identifier" mode="identifier"/>
       
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:if test="exists(dc:format[2])">
