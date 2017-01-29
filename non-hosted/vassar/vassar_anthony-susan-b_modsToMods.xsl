@@ -140,7 +140,8 @@
   </xsl:template>
   
   <xsl:template match="mods:identifier">
-      <xsl:if test="starts-with(., 'http')">
+    <xsl:choose>
+      <xsl:when test="starts-with(., 'http')">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
               <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
                   <xsl:attribute name="usage">primary display</xsl:attribute>
@@ -154,7 +155,11 @@
                   <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
               </xsl:element>
           </xsl:element>
-      </xsl:if>
+      </xsl:when>
+    <xsl:otherwise>
+      <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+    </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template match="mods:note"/>  

@@ -119,7 +119,6 @@
 
   <xsl:template match="mods:dateOther"/>
   <xsl:template match="mods:publisher"/>
-  <xsl:template match="mods:identifier[@type='local']"/>
   <xsl:template match="mods:note"/>
   <xsl:template match="mods:subject[@authority='local']"/>
   <xsl:template match="mods:roleTerm/@authority"/>
@@ -159,21 +158,26 @@
   </xsl:template>
   
   <xsl:template match="mods:identifier">
-      <xsl:if test="starts-with(., 'http')">
-          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-              <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                  <xsl:attribute name="usage">primary display</xsl:attribute>
-                  <xsl:attribute name="access">object in context</xsl:attribute>
-                  <xsl:value-of select="normalize-space(.)"/>
-              </xsl:element>
+    <xsl:choose>
+      <xsl:when test="starts-with(., 'http')">
+        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="usage">primary display</xsl:attribute>
+            <xsl:attribute name="access">object in context</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
           </xsl:element>
-          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-              <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                  <xsl:attribute name="access">preview</xsl:attribute>
-                  <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
-              </xsl:element>
+        </xsl:element>
+        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="access">preview</xsl:attribute>
+            <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
           </xsl:element>
-      </xsl:if>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template match="mods:abstract">
