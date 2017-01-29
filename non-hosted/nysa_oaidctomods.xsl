@@ -99,7 +99,9 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
-      <xsl:otherwise/>
+      <xsl:otherwise>
+        <identifier><xsl:value-of select="normalize-space(.)"/></identifier>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 

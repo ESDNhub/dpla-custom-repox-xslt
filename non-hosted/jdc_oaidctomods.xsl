@@ -75,26 +75,33 @@
   <!-- Thumbnail preview, link back to record on JDC Archives site -->
 
   <xsl:template match="dc:identifier" mode="jdc">
-    <xsl:if test="(contains(., 'jdc'))">
-      <xsl:choose>
-        <xsl:when test="(contains(., '.jpg'))">
-          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-              <xsl:attribute name="access">preview</xsl:attribute>
-              <xsl:value-of select="normalize-space(.)"/>
+    <xsl:if test="not(contains(., 'waystation'))">
+    <xsl:choose>
+      <xsl:when test="contains(., 'jdc')">
+        <xsl:choose>
+          <xsl:when test="contains(., '.jpg')">
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+              <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="access">preview</xsl:attribute>
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:element>
             </xsl:element>
-          </xsl:element>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-              <xsl:attribute name="usage">primary display</xsl:attribute>
-              <xsl:attribute name="access">object in context</xsl:attribute>
-              <xsl:value-of select="normalize-space(.)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+              <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="usage">primary display</xsl:attribute>
+                <xsl:attribute name="access">object in context</xsl:attribute>
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:element>
             </xsl:element>
-          </xsl:element>
-        </xsl:otherwise>
-      </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <identifier><xsl:value-of select="normalize-space(.)"/></identifier>
+      </xsl:otherwise>
+    </xsl:choose>
     </xsl:if>
   </xsl:template>
 
