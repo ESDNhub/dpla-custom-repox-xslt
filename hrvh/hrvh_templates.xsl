@@ -47,7 +47,8 @@
     <xsl:template match="dc:format" mode="hrvh">
         <xsl:variable name="tokens" select="tokenize(., ';')"/>
         <xsl:variable name="tct" select="count($tokens)"/>
-        <xsl:if test="$tct > 1">
+        <xsl:choose>
+        <xsl:when test="$tct > 1">
             <physicalDescription>
                 <xsl:choose>
                     <xsl:when test="$tct = 3">
@@ -59,9 +60,26 @@
                         <form><xsl:value-of select="normalize-space($tokens[1])"></xsl:value-of></form>
                         <extent><xsl:value-of select="normalize-space($tokens[2])"/></extent>
                     </xsl:when>
-                    <xsl:otherwise/>
-                </xsl:choose>    
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(lower-case(.))"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </physicalDescription>
-        </xsl:if>
+        </xsl:when>
+        <xsl:when test="contains(., 'image/') or contains(., 'video/') or contains(.,'audio/') or contains(., 'application/')">
+            <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3"> 
+                <xsl:element name="internetMediaType" namespace="http://www.loc.gov/mods/v3">
+                  <xsl:value-of select="normalize-space(lower-case(.))"/>
+             </xsl:element>
+            </xsl:element>
+        </xsl:when>
+             <xsl:otherwise>
+                  <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                      <xsl:value-of select="normalize-space(lower-case(.))"/>             
+                  </xsl:element>
+                  </xsl:element>
+              </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
