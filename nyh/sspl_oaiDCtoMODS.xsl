@@ -10,6 +10,7 @@
       <!-- Saratoga Springs uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
       <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
         <xsl:apply-templates select="dc:creator" mode="sspl"/>
+        <xsl:apply-templates select="dc:contributor"/>
       </xsl:if>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
