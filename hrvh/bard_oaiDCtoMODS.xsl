@@ -19,15 +19,16 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      
-      <xsl:apply-templates select="dc:format" mode="hrvh"/>
-      
+
+      <physicalDescription>
+         <xsl:apply-templates select="dc:format" mode="bard"/>
+      </physicalDescription>
+            
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-
 
       <xsl:apply-templates select="dc:coverage[normalize-space(lower-case(./text()))!='unknown']"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -44,8 +45,7 @@
       <xsl:call-template name="intermediate-provider">
         <xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param>
       </xsl:call-template>
-      <xsl:call-template name="owner-note"><xsl:with-param
-                                               name="owner">Bard College. Bard College Archives</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Bard College. Bard College Archives</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
@@ -62,4 +62,25 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
+  
+  <xsl:template match="dc:format" mode="bard">
+    <xsl:choose>
+      <xsl:when test="contains(., 'image/') or contains(., 'video/') or contains(., 'audio/') or contains(., 'application/')">
+          <xsl:element name="internetMediaType" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(lower-case(.))"/>
+          </xsl:element>       
+      </xsl:when>
+      <xsl:when test="contains(., ';')">
+        <xsl:variable name="elmlist" select="tokenize(., ';')"/>
+          <xsl:element name="form"><xsl:value-of select="normalize-space($elmlist[1])"/></xsl:element>
+          <xsl:element name="extent"><xsl:value-of select="normalize-space($elmlist[2])"/></xsl:element> 
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(lower-case(.))"/>
+        </xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>
