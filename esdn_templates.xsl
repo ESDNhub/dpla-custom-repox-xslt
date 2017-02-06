@@ -7,15 +7,27 @@
     xmlns:oai_qdc="http://worldcat.org/xmlschemas/qdc-1.0/" version="2.0">
 
     <xsl:template match="dc:relation" mode="esdn">
-        <xsl:if test="normalize-space(.)!=''">
+      <xsl:variable name="relationvalue" select="normalize-space(.)"/>
+      <xsl:choose>
+        <xsl:when test="starts-with($relationvalue, 'http')">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
                     <xsl:value-of select="normalize-space(.)"/>
                  </xsl:element>
             </xsl:element>
         </xsl:element>
-        </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
 
     <xsl:template match="dc:coverage" mode="esdn">
@@ -350,10 +362,8 @@
                         </xsl:element>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-                            <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
                                 <xsl:value-of select="normalize-space(.)"/>
-                            </xsl:element>
                         </xsl:element>      
                     </xsl:otherwise>
                 </xsl:choose>
