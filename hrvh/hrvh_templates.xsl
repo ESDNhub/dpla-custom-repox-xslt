@@ -46,7 +46,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- Update form/IMT mapping IN PROGRESS -->
+    <!-- Update general Form/IMT mapping for HRVH IN PROGRESS -->
     
     <xsl:template match="dc:format" mode="hrvh">
         <xsl:choose>

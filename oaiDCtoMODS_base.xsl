@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
   
-  <!-- This stylesheet processes standard dublin core fields from standard oai_dc OAI feeds. -->
+  <!-- This stylesheet processes standard Dublin Core fields from standard oai_dc OAI feeds. -->
   
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
       
@@ -72,7 +72,6 @@
             <publisher><xsl:value-of select="normalize-space(.)"/></publisher> <!--publisher-->
             </xsl:if>
         </xsl:template>
-      
       
       <xsl:template match="dc:relation">
         <xsl:variable name="relationvalue" select="normalize-space(.)"/>

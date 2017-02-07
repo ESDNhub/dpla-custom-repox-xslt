@@ -66,7 +66,7 @@
         </xsl:if>
     </xsl:template>
     
-  <!-- Map NYH Physical Format terms to MODS Genre with AAT attribute -->
+  <!-- Map NYH Physical Format terms to MODS Genre or IMT based on format value -->
   
   <xsl:template match="dc:format" mode="nyh">
       <xsl:variable name="genres">

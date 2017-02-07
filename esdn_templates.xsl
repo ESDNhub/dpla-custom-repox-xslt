@@ -8,6 +8,7 @@
 
     <xsl:template match="dc:relation" mode="esdn">
       <xsl:variable name="relationvalue" select="normalize-space(.)"/>
+      <xsl:if test="normalize-space(.)!=''">
       <xsl:choose>
         <xsl:when test="starts-with($relationvalue, 'http')">
         <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
@@ -28,6 +29,7 @@
             </xsl:element>
         </xsl:otherwise>
       </xsl:choose>
+      </xsl:if>
     </xsl:template>
 
     <xsl:template match="dc:coverage" mode="esdn">
@@ -227,6 +229,7 @@
     </xsl:template>
 
     <!-- determine qualifier attribute for date element. -->
+    
     <xsl:template name="datequal">
         <xsl:param name="dateval"/>
         <xsl:choose>
@@ -247,6 +250,7 @@
     </xsl:template>
 
     <!-- strip superfluous characters from date once it's been qualified -->
+    
     <xsl:template name="clean-date">
         <xsl:param name="dateval"/>
         <xsl:value-of select="replace($dateval, '[^0-9\-/]', '')"/>
@@ -294,7 +298,6 @@
     </xsl:template>
 
     <xsl:template match="dc:type" mode="esdn">
-        <!-- we override this template to provide a more complete typeOfResource element -->
         <!-- always tokenize, since we sometimes get single values with a delimiter -->
         <xsl:for-each select="tokenize(., ';')">
             <!-- check for empty element -->
