@@ -21,7 +21,7 @@
       <xsl:apply-templates select="dc:description"/>
 
       <physicalDescription>
-         <xsl:apply-templates select="dc:format" mode="bard"/>
+         <xsl:apply-templates select="dc:format" mode="hrvh"/>
       </physicalDescription>
             
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
@@ -62,25 +62,5 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
-  
-  <xsl:template match="dc:format" mode="bard">
-    <xsl:choose>
-      <xsl:when test="contains(., 'image/') or contains(., 'video/') or contains(., 'audio/') or contains(., 'application/')">
-          <xsl:element name="internetMediaType" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(lower-case(.))"/>
-          </xsl:element>       
-      </xsl:when>
-      <xsl:when test="contains(., ';')">
-        <xsl:variable name="elmlist" select="tokenize(., ';')"/>
-          <xsl:element name="form"><xsl:value-of select="normalize-space($elmlist[1])"/></xsl:element>
-          <xsl:element name="extent"><xsl:value-of select="normalize-space($elmlist[2])"/></xsl:element> 
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
   
 </xsl:stylesheet>

@@ -30,12 +30,6 @@
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-      <xsl:apply-templates select="dc:format[1]" mode="hrmm"/>
-      
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:apply-templates select="dc:format[2]" mode="hrmm"/>
-        <xsl:apply-templates select="dc:format[3]" mode="hrmm"/>
-      </xsl:element>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -76,41 +70,5 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
-  
-  <!-- grab genre, form, extent from multiple dc:format fields in record -->
-  
-  <xsl:template match="dc:format[1]" mode="hrmm">
-    <xsl:variable name="formvalue" select="normalize-space(.)"/>
-    <xsl:for-each select="tokenize($formvalue, ';')">
-      <xsl:if test="normalize-space(.) != ''">
-        <xsl:element name="genre">
-          <xsl:attribute name="authority">aat</xsl:attribute>
-          <xsl:value-of select="normalize-space(lower-case(.))"/>
-        </xsl:element>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
-  
-  <xsl:template match="dc:format[2]" mode="hrmm">
-    <xsl:for-each select=".">
-      <xsl:variable name="sourcevalue" select="."/>
-      <xsl:if test="normalize-space($sourcevalue) != ''">
-        <form>
-          <xsl:value-of select="$sourcevalue"/>
-        </form>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
-  
-  <xsl:template match="dc:format[3]" mode="hrmm">
-    <xsl:for-each select=".">
-      <xsl:variable name="sourcevalue" select="."/>
-      <xsl:if test="normalize-space($sourcevalue) != ''">
-        <extent>
-          <xsl:value-of select="$sourcevalue"/>
-        </extent>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
   
 </xsl:stylesheet>

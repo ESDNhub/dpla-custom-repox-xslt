@@ -27,7 +27,10 @@
       
       <xsl:apply-templates select="dc:description"/>
       
+      <physicalDescription>
+        <xsl:apply-templates select="dc:source[1]" mode="fdr"/>
         <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      </physicalDescription>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
@@ -66,4 +69,9 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
+  
+  <xsl:template match="dc:source" mode="fdr">
+    <form><xsl:value-of select="normalize-space(.)"/></form>
+  </xsl:template>
+    
 </xsl:stylesheet>

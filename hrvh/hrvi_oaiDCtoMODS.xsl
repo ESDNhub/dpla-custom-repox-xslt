@@ -15,7 +15,11 @@
         </xsl:element>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:format" mode="hrvi"/>
+      
+      <physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      </physicalDescription>
+      
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       
@@ -91,19 +95,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
-
-  <xsl:template match="dc:format" mode="hrvi">
-    <xsl:choose>
-      <xsl:when test="contains(., ';')">
-        <xsl:variable name="elmlist" select="tokenize(., ';')"/>
-        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="form"><xsl:value-of select="normalize-space($elmlist[1])"/></xsl:element>
-          <xsl:element name="extent"><xsl:value-of select="normalize-space($elmlist[2])"/></xsl:element>
-        </xsl:element>
-      </xsl:when>
-      <xsl:otherwise/>
-    </xsl:choose>
-  </xsl:template>
 
 </xsl:stylesheet>
 

@@ -30,7 +30,11 @@
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-      <xsl:apply-templates select="dc:format" mode="hrvh"/>      
+      
+      <physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/> 
+      </physicalDescription>
+      
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       

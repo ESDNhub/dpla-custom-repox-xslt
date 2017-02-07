@@ -26,13 +26,15 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <!-- <xsl:apply-templates select="dc:source" mode="wilderstein"/> -->
-      
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      
+      <physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      </physicalDescription>
 
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -64,13 +66,5 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
-  <xsl:template match="dc:source" mode="wilderstein">
-    <xsl:for-each select=".">
-      <xsl:variable name="sourcevalue" select="."/>
-      <xsl:if test="normalize-space($sourcevalue) != ''">
-        <form><xsl:value-of select="$sourcevalue"/></form>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
   
 </xsl:stylesheet>

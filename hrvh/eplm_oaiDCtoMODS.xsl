@@ -25,7 +25,10 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      
+      <physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      </physicalDescription>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>

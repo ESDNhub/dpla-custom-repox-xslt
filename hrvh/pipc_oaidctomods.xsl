@@ -7,12 +7,28 @@
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
 
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:creator"/>
+      
+      <!-- HRVH uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
+      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+        <xsl:apply-templates select="dc:creator"/>
+      </xsl:if>
+      
+      <xsl:if test="dc:publisher != '' or dc:date != ''">
+        <originInfo>
+          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+        </originInfo>
+      </xsl:if>
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-      <xsl:apply-templates select="dc:format" mode="hrvh"/>      
+      
+      <physicalDescription>
+      <xsl:apply-templates select="dc:format" mode="hrvh"/>  
+      </physicalDescription>
+      
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
      

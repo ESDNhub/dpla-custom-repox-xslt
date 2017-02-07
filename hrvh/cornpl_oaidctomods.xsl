@@ -12,7 +12,11 @@
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
-      <xsl:apply-templates select="dc:format" mode="hrvh"/>      
+      
+      <physicalDescription>
+        <xsl:apply-templates select="dc:format" mode="hrvh"/>
+      </physicalDescription>
+      
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:if test="exists(dc:publisher)">
         <xsl:element name="originInfo">
