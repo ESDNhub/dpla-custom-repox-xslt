@@ -15,7 +15,7 @@
                <xsl:element name="name">
               <xsl:element name="namePart"><xsl:value-of select="."/></xsl:element>
               <xsl:element name="role">
-              <xsl:element name="roleTerm">creator</xsl:element>
+              <xsl:element name="roleTerm">Creator</xsl:element>
               </xsl:element>
                </xsl:element>
             </xsl:for-each>
