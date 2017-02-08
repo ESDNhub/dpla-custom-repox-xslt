@@ -39,39 +39,6 @@
               </xsl:element>
           </xsl:element>
           
-          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:country">
-              <xsl:if test="normalize-space(.)!=''">
-                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-                      <xsl:attribute name="authority">tgn</xsl:attribute>
-                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(.)"/>
-                      </xsl:element>
-                  </xsl:element>
-              </xsl:if>
-          </xsl:for-each>
-          
-          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:state">
-              <xsl:if test="normalize-space(.)!=''">
-                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-                      <xsl:attribute name="authority">tgn</xsl:attribute>
-                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(.)"/>
-                      </xsl:element>
-                  </xsl:element>
-              </xsl:if>
-          </xsl:for-each>
-          
-          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:county">
-              <xsl:if test="normalize-space(.)!=''">
-                  <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-                      <xsl:attribute name="authority">tgn</xsl:attribute>
-                      <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(.)"/>
-                      </xsl:element>
-                  </xsl:element>
-              </xsl:if>
-          </xsl:for-each>
-          
           <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:city">
               <xsl:if test="normalize-space(.)!=''">
                   <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
