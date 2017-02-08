@@ -3,6 +3,13 @@
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   <xsl:template match="text()|@*"/>
+  
+  <!-- Trying to filter out page-level records from feed based on presence of field -->
+  
+  <xsl:template match="/">
+    <xsl:apply-templates select="//oai_dc:dc[exists(./dc:coverage)]"/>
+  </xsl:template>
+  
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
@@ -31,7 +38,7 @@
       <xsl:apply-templates select="dc:language" mode="sllboces"/>
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
-      <!-- Check for existence first, since just jamming in a value -->
+
       <xsl:if test="normalize-space(dc:type) !=''">
         <xsl:apply-templates select="dc:type" mode="sllboces"/>
       </xsl:if>
