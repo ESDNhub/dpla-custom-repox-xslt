@@ -47,6 +47,7 @@
             <xsl:choose>
                 <xsl:when test="normalize-space(lower-case(.))='author'">Creator</xsl:when>
                 <xsl:when test="normalize-space(lower-case(.))='inscriber'">Creator</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='illustrator'">Creator</xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="normalize-space(.)"/>
                 </xsl:otherwise>

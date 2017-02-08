@@ -45,6 +45,7 @@
         <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
             <xsl:choose>
                 <xsl:when test="normalize-space(lower-case(.))='sculptor'">Creator</xsl:when>
+                <xsl:when test="normalize-space(lower-case(.))='photographer'">Creator</xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="normalize-space(.)"/>
                 </xsl:otherwise>

@@ -42,9 +42,12 @@
     </xsl:template>
     
     <xsl:template match="mods:roleTerm">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
+            <xsl:choose>
+                <xsl:when test="normalize-space(lower-case(.))='creator'">Creator</xsl:when>
+                <xsl:otherwise><xsl:value-of select="normalize-space(.)"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
