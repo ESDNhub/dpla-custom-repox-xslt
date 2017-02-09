@@ -179,14 +179,13 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition[@type='use and reproduction'][1]">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]">
         <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">local rights statements</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
