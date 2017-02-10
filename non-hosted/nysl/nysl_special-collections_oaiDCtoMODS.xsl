@@ -24,42 +24,43 @@
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']"/>
-          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:date[1][lower-case(./text()) != 'unknown']"/>
+          <xsl:apply-templates select="dc:publisher[lower-case(./text()) != 'unknown']"/>
         </originInfo>
       </xsl:if>
-      
-    <xsl:if test="dc:relation != ''">
-      <physicalDescription>
-        <xsl:apply-templates select="dc:relation" mode="nysl"/>
-      </physicalDescription>
-    </xsl:if>
-      
+
+      <xsl:if test="dc:relation != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:relation" mode="nysl"/>
+        </physicalDescription>
+      </xsl:if>
+
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:language" mode="nysl"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
-      
+
       <xsl:apply-templates select="dc:identifier" mode="nysl"/>
-      
+
       <!-- hard code rights statement for State Library -->
-      
+
       <xsl:element name="accessCondition">
         <xsl:text>This document or image is provided for education and research purposes. Rights may be reserved. Responsibility for securing permissions to distribute, publish, reproduce or use it in any way rests with the user. For additional information, see the New York State Library's Copyright and Use Statement, available at http://www.nysl.nysed.gov/scandocs/rights.htm.</xsl:text>
       </xsl:element>
-      
+
       <xsl:apply-templates select="dc:subject"/>
 
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-          
+
       <!-- hard code ownership and collection note -->
-      
+
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New York State Library-Special Collections</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New York State
+            Library-Special Collections</xsl:element>
         </xsl:element>
       </xsl:element>
 
@@ -79,7 +80,7 @@
   <xsl:include href="utilities.xsl"/>
 
   <!-- collection-specific templates start here -->
-  
+
   <xsl:template match="dc:relation" mode="nysl">
     <xsl:if test="normalize-space(.) != ''">
       <extent>
@@ -87,7 +88,7 @@
       </extent>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="dc:creator" mode="nysl">
     <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($creatorvalue, ';')">
@@ -133,7 +134,7 @@
       <!--title-->
     </xsl:if>
   </xsl:template>
-  
+
   <!-- Create thumbnail preview link and link to object in NYSL catalog -->
 
   <xsl:template match="dc:identifier" mode="nysl">
@@ -163,7 +164,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <!-- Not currently calling this template for NYSL -->
 
   <xsl:template match="dc:subject" mode="nysl">
@@ -171,9 +172,11 @@
       <xsl:variable name="subval">
         <xsl:choose>
           <xsl:when test="ends-with(., '.')">
-            <xsl:value-of select="substring(., 1, string-length(.)-1)"/>
+            <xsl:value-of select="substring(., 1, string-length(.) - 1)"/>
           </xsl:when>
-          <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+          <xsl:otherwise>
+            <xsl:value-of select="."/>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
       <xsl:if test="normalize-space($subval) != ''">
@@ -202,44 +205,61 @@
       <xsl:element name="language">
         <xsl:for-each select="$langlist">
           <xsl:choose>
-            <xsl:when test="normalize-space(lower-case(.)) = 'english'">
-              <xsl:element name="languageTerm">eng</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'en' or starts-with(normalize-space(lower-case(.)), 'eng')">
+              <languageTerm type="code" authority="iso639-2b">eng</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'german')">
-              <xsl:element name="languageTerm">ger</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'german' or starts-with(normalize-space(lower-case(.)), 'ger')">
+              <languageTerm type="code" authority="iso639-2b">ger</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'spanish')">
-              <xsl:element name="languageTerm">spa</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'spanish' or starts-with(normalize-space(lower-case(.)), 'spa')">
+              <languageTerm type="code" authority="iso639-2b">spa</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'italian')">
-              <xsl:element name="languageTerm">ita</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'italian' or starts-with(normalize-space(lower-case(.)), 'ita')">
+              <languageTerm type="code" authority="iso639-2b">ita</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'latin')">
-              <xsl:element name="languageTerm">lat</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'latin' or starts-with(normalize-space(lower-case(.)), 'lat')">
+              <languageTerm type="code" authority="iso639-2b">lat</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'french')">
-              <xsl:element name="languageTerm">fre</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'french' or starts-with(normalize-space(lower-case(.)), 'fre')">
+              <languageTerm type="code" authority="iso639-2b">fre</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'hebrew')">
-              <xsl:element name="languageTerm">heb</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'hebrew' or starts-with(normalize-space(lower-case(.)), 'heb')">
+              <languageTerm type="code" authority="iso639-2b">fre</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'greek')">
-              <xsl:element name="languageTerm">gre</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'greek' or starts-with(normalize-space(lower-case(.)), 'gree')">
+              <languageTerm type="code" authority="iso639-2b">gre</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'chinese')">
-              <xsl:element name="languageTerm">chi</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'chinese' or starts-with(normalize-space(lower-case(.)), 'chi')">
+              <languageTerm type="code" authority="iso639-2b">chi</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'arabic')">
-              <xsl:element name="languageTerm">ara</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'arabic' or starts-with(normalize-space(lower-case(.)), 'ara')">
+              <languageTerm type="code" authority="iso639-2b">ara</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'dutch')">
-              <xsl:element name="languageTerm">dut</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'dutch' or starts-with(normalize-space(lower-case(.)), 'dut')">
+              <languageTerm type="code" authority="iso639-2b">dut</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'russian')">
-              <xsl:element name="languageTerm">rus</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'russian' or starts-with(normalize-space(lower-case(.)), 'rus')">
+              <languageTerm type="code" authority="iso639-2b">rus</languageTerm>
             </xsl:when>
-            <xsl:when test="contains(., 'korean')">
-              <xsl:element name="languageTerm">kor</xsl:element>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'korean' or starts-with(normalize-space(lower-case(.)), 'kor')">
+              <languageTerm type="code" authority="iso639-2b">kor</languageTerm>
+            </xsl:when>
+            <xsl:when
+              test="normalize-space(lower-case(.)) = 'polish' or starts-with(normalize-space(lower-case(.)), 'pol')">
+              <languageTerm type="code" authority="iso639-2b">pol</languageTerm>
             </xsl:when>
             <xsl:otherwise>
               <xsl:element name="languageTerm">
@@ -251,4 +271,5 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
+
 </xsl:stylesheet>
