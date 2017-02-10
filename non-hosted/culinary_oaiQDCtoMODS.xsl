@@ -86,6 +86,18 @@
             <xsl:when test="normalize-space(lower-case(.)) = 'english'">
               <xsl:element name="languageTerm">eng</xsl:element>
             </xsl:when>
+            <xsl:when test="normalize-space(lower-case(.)) = 'french'">
+              <xsl:element name="languageTerm">fre</xsl:element>
+            </xsl:when>
+            <xsl:when test="normalize-space(lower-case(.)) = 'german'">
+              <xsl:element name="languageTerm">ger</xsl:element>
+            </xsl:when>
+            <xsl:when test="normalize-space(lower-case(.)) = 'spanish'">
+              <xsl:element name="languageTerm">spa</xsl:element>
+            </xsl:when>
+            <xsl:when test="normalize-space(lower-case(.)) = 'italian'">
+              <xsl:element name="languageTerm">ita</xsl:element>
+            </xsl:when>
             <xsl:otherwise>
               <xsl:element name="languageTerm">
                 <xsl:value-of select="."/>

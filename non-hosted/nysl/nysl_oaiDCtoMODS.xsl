@@ -192,6 +192,42 @@
             <xsl:when test="normalize-space(lower-case(.)) = 'english'">
               <xsl:element name="languageTerm">eng</xsl:element>
             </xsl:when>
+            <xsl:when test="contains(., 'german')">
+                <xsl:element name="languageTerm">ger</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'spanish')">
+              <xsl:element name="languageTerm">spa</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'italian')">
+              <xsl:element name="languageTerm">ita</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'latin')">
+              <xsl:element name="languageTerm">lat</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'french')">
+              <xsl:element name="languageTerm">fre</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'hebrew')">
+              <xsl:element name="languageTerm">heb</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'greek')">
+              <xsl:element name="languageTerm">gre</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'chinese')">
+              <xsl:element name="languageTerm">chi</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'arabic')">
+              <xsl:element name="languageTerm">ara</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'dutch')">
+              <xsl:element name="languageTerm">dut</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'russian')">
+              <xsl:element name="languageTerm">rus</xsl:element>
+            </xsl:when>
+            <xsl:when test="contains(., 'korean')">
+              <xsl:element name="languageTerm">kor</xsl:element>
+            </xsl:when>
             <xsl:otherwise>
               <xsl:element name="languageTerm">
                 <xsl:value-of select="."/>
@@ -202,4 +238,5 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
+  
 </xsl:stylesheet>

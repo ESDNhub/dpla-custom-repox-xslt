@@ -115,8 +115,19 @@
           </xsl:element>
         </xsl:element>
       </xsl:when>
+      <xsl:when test="contains(normalize-space(lower-case(.)), 'polish')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:text>pol</xsl:text>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="."/>
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:element>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

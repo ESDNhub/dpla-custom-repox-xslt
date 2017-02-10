@@ -38,18 +38,7 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       
-      <xsl:if test="exists(dc:language)">
-        <xsl:element name="language">
-          <xsl:for-each select="dc:language">
-            <xsl:element name="languageTerm">
-              <xsl:call-template name="iso6393-codes">
-                <xsl:with-param name="lval"><xsl:value-of select="lower-case(normalize-space(.))"/>
-                </xsl:with-param>
-              </xsl:call-template>
-            </xsl:element>
-          </xsl:for-each>
-        </xsl:element>
-      </xsl:if>
+      <xsl:apply-templates select="dc:language" mode="charlesrand"/>
       
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
@@ -102,6 +91,23 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:language" mode="charlesrand">
+    <xsl:choose>
+      <xsl:when test="contains(., 'English')">
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">eng</xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="language">
+          <xsl:element name="languageTerm">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
   
 </xsl:stylesheet>
 
