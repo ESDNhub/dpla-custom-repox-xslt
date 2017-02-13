@@ -109,9 +109,11 @@
 
         <xsl:template match="dc:language">
           <xsl:variable name="languagevalue" select="normalize-space(.)"/>
+          <xsl:for-each select="tokenize($languagevalue,';')">
             <xsl:if test="normalize-space(.)!=''">
             <language><languageTerm><xsl:value-of select="normalize-space(.)"/></languageTerm></language><!--language-->
             </xsl:if>
+          </xsl:for-each>
         </xsl:template>
       
       <xsl:template match="dc:rights">
