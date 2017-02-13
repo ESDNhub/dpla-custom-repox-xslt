@@ -322,28 +322,28 @@
                             <xsl:text>still image</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <xsl:when test="contains($dc-type, 'moving image')">
+                    <xsl:when test="contains($dc-type, 'moving image') or contains($dc-type, 'MovingImage')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
                             <xsl:text>moving image</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <xsl:when test="contains($dc-type, 'still image')">
+                    <xsl:when test="contains($dc-type, 'still image') or contains($dc-type, 'StillImage')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
                             <xsl:text>still image</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <xsl:when test="contains($dc-type, '/interactive.*resource/')">
+                    <xsl:when test="contains($dc-type, 'interactive resource') or contains($dc-type, 'InteractiveResource')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
                             <xsl:text>software, multimedia</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <xsl:when test="contains($dc-type, '/physical.*object/')">
+                    <xsl:when test="contains($dc-type, 'physical object') or contains($dc-type, 'PhysicalObject')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
-                            <xsl:text>three-dimensional object</xsl:text>
+                            <xsl:text>three dimensional object</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'service')">
