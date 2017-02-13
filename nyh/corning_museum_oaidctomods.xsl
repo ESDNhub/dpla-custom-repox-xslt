@@ -26,9 +26,12 @@
       
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
+      
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="corning"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter" select="';'"/>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
 
@@ -73,9 +76,5 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
-
-  <xsl:template match="dc:source" mode="corning">
-    <form><xsl:value-of select="normalize-space(.)"/></form>
-  </xsl:template>
 
 </xsl:stylesheet>
