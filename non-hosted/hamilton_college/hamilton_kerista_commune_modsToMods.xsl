@@ -39,12 +39,14 @@
               </xsl:element>
           </xsl:element>
           
-          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic/mods:city">
+          <!-- For DPLA, pass all geographic headings in one element for display/geocoding -->
+          
+          <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic">
               <xsl:if test="normalize-space(.)!=''">
                   <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
                       <xsl:attribute name="authority">tgn</xsl:attribute>
                       <xsl:element name="geographic" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(.)"/>
+                          <xsl:value-of select="mods:country/text()"/>--<xsl:value-of select="mods:state/text()"/>--<xsl:value-of select="mods:state/text()"/>--<xsl:value-of select="mods:city/text()"/>
                       </xsl:element>
                   </xsl:element>
               </xsl:if>
@@ -60,6 +62,8 @@
                   </xsl:element>
               </xsl:if>
           </xsl:for-each>
+          
+          <!-- Pass subject heading through that is not duplicated in LCSH headings -->
           
           <xsl:for-each select="mods:subject[not(@authority='lcsh')]/mods:topic">
               <xsl:if test="normalize-space(.) = 'communal societies'">
