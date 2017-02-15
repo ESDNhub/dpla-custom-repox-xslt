@@ -39,6 +39,12 @@
               </xsl:element>
           </xsl:element>
           
+          <!-- For DPLA, combine for display  -->
+          
+          <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="mods:accessCondition[@type='use and reproduction'][1]/text()"/><xsl:text> </xsl:text><xsl:value-of select="mods:accessCondition[@type='use and reproduction'][2]/text()"/>
+          </xsl:element>
+          
           <!-- For DPLA, pass all geographic headings in one element for display/geocoding -->
           
           <xsl:for-each select="mods:subject[@authority='tgn']/mods:hierarchicalGeographic">
@@ -68,10 +74,8 @@
           <xsl:for-each select="mods:subject[not(@authority='lcsh')]/mods:topic">
               <xsl:if test="normalize-space(.) = 'communal societies'">
                   <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
-                      <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:value-of select="normalize-space(.)"/>
-                      </xsl:element>
-                  </xsl:element>
+                      <xsl:element name="topic" namespace="http://www.loc.gov/mods/v3"><xsl:text>Communal societies</xsl:text></xsl:element>
+                  </xsl:element>        
               </xsl:if>
           </xsl:for-each>
           
@@ -88,6 +92,7 @@
   <xsl:template match="mods:originInfo/mods:place/mods:placeTerm"/>
   <xsl:template match="mods:originInfo/mods:publisher"/>
   <xsl:template match="mods:accessCondition[@type='restriction on access']"/>
+  <xsl:template match="mods:accessCondition[@type='use and reproduction'][1]"/>
   <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]"/>
   <xsl:template match="mods:subject[not(@authority='lcsh')]/mods:topic"/>
   <xsl:template match="mods:subject[@authority='lcsh']/mods:topic"/>
@@ -180,18 +185,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-    </xsl:template>
-    
-    <xsl:template match="mods:accessCondition[@type='use and reproduction'][1]">
-        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-    </xsl:template>
-    
-    <xsl:template match="mods:accessCondition[@type='use and reproduction'][2]">
-        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
     </xsl:template>
     
   <xsl:template match="mods:languageTerm">
