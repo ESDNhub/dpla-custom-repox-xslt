@@ -35,10 +35,11 @@
       <!-- cphpl stores format and extent info in dc:source. -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
+      
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="cphpl">
-            <xsl:with-param name="delimiter" select="';'"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
           </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
@@ -92,14 +93,6 @@
         </name> 
       </xsl:if>
     </xsl:for-each>      
-  </xsl:template>
-  
-  <xsl:template match="dc:source" mode="cphpl">
-    <xsl:variable name="quote_delim" select="tokenize(., ';')"/> 
-    <xsl:if test="normalize-space($quote_delim[3]) != ''">
-      <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
-    </xsl:if>
-    <form><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></form>
   </xsl:template>
   
 </xsl:stylesheet>

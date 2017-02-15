@@ -25,12 +25,13 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <!-- VRT stores format and extent info in dc:source. -->
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="app4thlaw"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
       
@@ -81,13 +82,6 @@
         </name> 
       </xsl:if>
     </xsl:for-each>      
-  </xsl:template>
-  
-  <xsl:template match="dc:source" mode="app4thlaw">
-    <xsl:variable name="quote_delim" select="tokenize(., '&quot;')"/> 
-    <extent><xsl:value-of select="$quote_delim[1]"/>&quot;<xsl:value-of select="$quote_delim[2]"/>&quot;</extent>
-    <xsl:variable name="capitalized" select="concat(upper-case(substring($quote_delim[3], 2, 1)), substring($quote_delim[3], 3))"/>
-    <form><xsl:value-of select="normalize-space($capitalized)"/></form>
   </xsl:template>
   
 </xsl:stylesheet>

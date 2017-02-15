@@ -28,6 +28,13 @@
         </originInfo>
       </xsl:if>
       
+      <!--
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="esdn"/>
+        </physicalDescription>
+      </xsl:if> -->
+      
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:language"/>
       

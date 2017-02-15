@@ -23,6 +23,14 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
+      
+      <xsl:if test="normalize-space(dc:source) != ''">
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
+        </physicalDescription>
+      </xsl:if>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>

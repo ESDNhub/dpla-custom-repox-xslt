@@ -28,11 +28,11 @@
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       <xsl:if test="normalize-space(dc:source) != ''">
-        <xsl:element name="physicalDescription">
-           <xsl:element name="form">
-             <xsl:value-of select="dc:source"/>
-           </xsl:element>
-        </xsl:element>
+        <physicalDescription>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
+        </physicalDescription>
       </xsl:if>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
