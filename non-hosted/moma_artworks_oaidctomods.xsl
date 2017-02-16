@@ -12,7 +12,7 @@
       version="3.4">
 
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:creator" mode="moma"/>
+      <xsl:apply-templates select="dc:creator"/>
 
       <xsl:if test="normalize-space(dc:date) != ''">
         <originInfo>
@@ -63,23 +63,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- Collection specific templates -->
-
-  <xsl:template match="dc:creator" mode="moma">
-    <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
-    <xsl:for-each select="tokenize($creatorvalue, ',')">
-      <xsl:if test="normalize-space(.) != ''">
-        <name>
-          <namePart>
-            <xsl:value-of select="normalize-space(.)"/>
-            <!--creator-->
-          </namePart>
-          <role>
-            <roleTerm>Creator</roleTerm>
-          </role>
-        </name>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
 
   <xsl:template match="dc:format[1]" mode="moma">
     <xsl:if test="normalize-space(.) != ''">
