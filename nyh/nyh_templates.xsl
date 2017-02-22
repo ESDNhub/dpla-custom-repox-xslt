@@ -210,11 +210,11 @@
                         <xsl:text>In Copyright - Non-Commercial Use Permitted</xsl:text>
                     </xsl:element>
                 </xsl:when>
-                <xsl:when test="contains(., 'Rights-Holder(s) Unlocatabale or Unidentifiable') or contains(., 'http://rightsstatements.org/vocab/InC-RUU/1.0/')">
+                <xsl:when test="contains(., 'Rights-Holder(s) Unlocatable or Unidentifiable') or contains(., 'http://rightsstatements.org/vocab/InC-RUU/1.0/')">
                     <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
                         <xsl:attribute name="type">use and reproduction</xsl:attribute>
                         <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC-RUU/1.0/</xsl:attribute>
-                        <xsl:text>In Copyright - Rights-Holder(s) Unlocatabale or Unidentifiable</xsl:text>
+                        <xsl:text>In Copyright - Rights-Holder(s) Unlocatable or Unidentifiable</xsl:text>
                     </xsl:element>
                 </xsl:when>
                 <xsl:when test="contains(., 'Other Known Legal Restrictions') or contains(., 'http://rightsstatements.org/vocab/NoC-OKLR/1.0/')">
