@@ -328,7 +328,7 @@
                             <xsl:text>moving image</xsl:text>
                         </xsl:element>
                     </xsl:when>
-                    <xsl:when test="contains($dc-type, 'still image') or contains($dc-type, 'StillImage')">
+                    <xsl:when test="contains($dc-type, 'still image') or contains($dc-type, 'StillImage') or contains($dc-type, 'photograph')">
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
                             <xsl:text>still image</xsl:text>
@@ -350,6 +350,12 @@
                         <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
                             exclude-result-prefixes="#all">
                             <xsl:text>software, multimedia</xsl:text>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:when test="contains($dc-type, 'map') or contains($dc-type, 'cartographic')">
+                        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+                            exclude-result-prefixes="#all">
+                            <xsl:text>cartographic</xsl:text>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="contains($dc-type, 'sound')">
