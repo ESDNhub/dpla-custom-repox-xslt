@@ -463,7 +463,7 @@
       <xsl:param name="rights_text"/>
         <xsl:if test="normalize-space($rights_text)!=''">
             <xsl:choose>
-                <xsl:when test="contains($rights_text, 'In Copyright') and contains($rights_text, 'http://rightsstatements$rights_textorg/vocab/InC/1$rights_text0/')">
+                <xsl:when test="contains($rights_text, 'In Copyright') and contains($rights_text, 'http://rightsstatements.org/vocab/InC/1.0/')">
                     <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
                         <xsl:attribute name="type">use and reproduction</xsl:attribute>
                         <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC/1.0/</xsl:attribute>
