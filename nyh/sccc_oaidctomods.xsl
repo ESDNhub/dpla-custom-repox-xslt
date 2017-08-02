@@ -27,7 +27,9 @@
 
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="adirondack"/>
+          <xsl:apply-templates select="dc:source" mode="esdn">
+            <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
 
@@ -72,9 +74,4 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
-  
-  <xsl:template match="dc:source" mode="adirondack">
-    <extent><xsl:value-of select="normalize-space(.)"/></extent>
-  </xsl:template>
-  
 </xsl:stylesheet>
