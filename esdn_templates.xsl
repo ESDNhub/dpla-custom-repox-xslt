@@ -454,8 +454,11 @@
       </xsl:call-template>
     </xsl:template>
     
+    <!-- Rights parsing template. Factored out to be usable with any metadata scheme. -->
     <!-- Given the text of a rights element, check to see if it contains rightstatements.org
 	 information and process it into text and url attribute, else just pass it through. -->
+    <!-- TODO: Inside out this. Output the accessCondition element once and move the choose statements
+	 to out out just the element text and href attribute. -->
     <xsl:template name="parse_rights">
       <xsl:param name="rights_text"/>
         <xsl:if test="normalize-space($rights_text)!=''">
