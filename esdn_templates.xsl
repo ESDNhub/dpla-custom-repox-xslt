@@ -3,6 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
     xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.loc.gov/mods/v3"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
     xmlns:oai_qdc="http://worldcat.org/xmlschemas/qdc-1.0/" version="2.0">
 
@@ -446,6 +447,100 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- wrapper for dc:rights element. -->
+    <xsl:template match="dc:rights" mode="esdn">
+      <xsl:call-template name="parse_rights">
+	<xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+      </xsl:call-template>
+    </xsl:template>
+    
+    <!-- Given the text of a rights element, check to see if it contains rightstatements.org
+	 information and process it into text and url attribute, else just pass it through. -->
+    <xsl:template name="parse_rights">
+      <xsl:param name="rights_text"/>
+        <xsl:if test="normalize-space($rights_text)!=''">
+            <xsl:choose>
+                <xsl:when test="contains($rights_text, 'In Copyright') and contains($rights_text, 'http://rightsstatements$rights_textorg/vocab/InC/1$rights_text0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC/1.0/</xsl:attribute>
+                        <xsl:text>In Copyright</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'Educational Use Permitted') or contains($rights_text, 'http://rightsstatements.org/vocab/InC-EDU/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC-EDU/1.0/</xsl:attribute>
+                        <xsl:text>In Copyright - Educational Use Permitted</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'Non-Commercial Use Permitted') or contains($rights_text, 'http://rightsstatements.org/vocab/InC-NC/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:attribute>
+                        <xsl:text>In Copyright - Non-Commercial Use Permitted</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'Rights-Holder(s) Unlocatable or Unidentifiable') or contains($rights_text, 'http://rightsstatements.org/vocab/InC-RUU/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC-RUU/1.0/</xsl:attribute>
+                        <xsl:text>In Copyright - Rights-Holder(s) Unlocatable or Unidentifiable</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'Other Known Legal Restrictions') or contains($rights_text, 'http://rightsstatements.org/vocab/NoC-OKLR/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NoC-OKLR/1.0/</xsl:attribute>
+                        <xsl:text>No Copyright - Other Known Legal Restrictions</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'No Copyright - United States') or contains($rights_text, 'http://rightsstatements.org/vocab/NoC-US/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NoC-US/1.0/</xsl:attribute>
+                        <xsl:text>No Copyright - United States</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text,'No Copyright - Non-Commercial Use Only') or contains($rights_text, 'http://rightsstatements.org/vocab/NoC-NC/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NoC-NC/1.0/</xsl:attribute>
+                        <xsl:text>No Copyright - Non-Commercial Use Only</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text,'Copyright Not Evaluated') or contains($rights_text, 'http://rightsstatements.org/vocab/CNE/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/CNE/1.0/</xsl:attribute>
+                        <xsl:text>Copyright Not Evaluated</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text,'Copyright Undetermined') or contains($rights_text, 'http://rightsstatements.org/vocab/UND/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/UND/1.0/</xsl:attribute>
+                        <xsl:text>Copyright Undetermined</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="contains($rights_text, 'No Known Copyright') or contains($rights_text, 'http://rightsstatements.org/vocab/NKC/1.0/')">
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NKC/1.0/</xsl:attribute>
+                        <xsl:text>No Known Copyright</xsl:text>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="type">local rights statements</xsl:attribute>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>  
+    </xsl:template>
+
+
     <xsl:template name="owner-note">
         <xsl:param name="owner"/>
         <xsl:element name="note">
