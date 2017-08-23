@@ -86,7 +86,15 @@
         <xsl:choose>
           <xsl:when test="ends-with($idvalue, '.jpg')">
             <location>
-              <url access="preview"><xsl:value-of select="$idvalue"/></url>
+              <url access="preview">
+                <xsl:choose>
+                  <xsl:when test="contains($idvalue, 'http://digitalcollections.archives.nysed.gov/admin/media/collectiveaccess')">
+                    <xsl:value-of select="concat(substring-before($idvalue, 'http://digitalcollections.archives.nysed.gov/admin/media/collectiveaccess'),
+                      substring-after($idvalue, 'http://digitalcollections.archives.nysed.gov/admin/media/collectiveaccess'))"/>
+                  </xsl:when>
+                  <xsl:otherwise><xsl:value-of select="$idvalue"/></xsl:otherwise>
+                </xsl:choose>
+              </url>
             </location>
           </xsl:when>
           <xsl:otherwise>
