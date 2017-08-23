@@ -92,6 +92,10 @@
                     <xsl:value-of select="concat(substring-before($idvalue, 'http://digitalcollections.archives.nysed.gov/admin/media/collectiveaccess'),
                       substring-after($idvalue, 'http://digitalcollections.archives.nysed.gov/admin/media/collectiveaccess'))"/>
                   </xsl:when>
+                  <xsl:when test="contains($idvalue, 'http://ca.archives.nysed.gov/admin/media/collectiveaccess')">
+                    <xsl:value-of select="concat(substring-before($idvalue, 'http://ca.archives.nysed.gov/admin/media/collectiveaccess'),
+                      substring-after($idvalue, 'http://ca.archives.nysed.gov/admin/media/collectiveaccess'))"/>
+                  </xsl:when>
                   <xsl:otherwise><xsl:value-of select="$idvalue"/></xsl:otherwise>
                 </xsl:choose>
               </url>
