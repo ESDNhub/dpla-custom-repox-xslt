@@ -12,7 +12,7 @@
   http://worldcat.org/xmlschemas/qdc/1.0/qdc-1.0.xsd
   http://purl.org/net/oclcterms
   http://worldcat.org/xmlschemas/oclcterms/1.4/oclcterms-1.4.xsd"
-  exclude-result-prefixes="xs"
+  exclude-result-prefixes="xs dcterms oai_qdc mods"
   version="2.0"
   xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
@@ -24,12 +24,9 @@
       <xsl:apply-templates select="dc:contributor"/>
       
       <xsl:if test="dc:date != ''">
-        <originInfo>
-          <xsl:apply-templates select="dc:date[text()!='unknown']" mode="esdn"/>
-        </originInfo>
+           <xsl:apply-templates select="dc:date[text()!='unknown']" mode="wnyc"/>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="wnyc"/>
       <xsl:if test="normalize-space(dc:language/text())!=''">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
@@ -44,29 +41,22 @@
           </xsl:element>
         </xsl:element>
       </xsl:if>
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
+      <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:if test="exists(./dc:description)">
+        <xsl:call-template name="build_desc"/>        
+      </xsl:if>
       
       <!-- hard code ownership note -->
       
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner">New York Public Radio</xsl:with-param>
         </xsl:call-template>
-
-      <!-- collection info -->
+        
       
-      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-        <xsl:attribute name="type">host</xsl:attribute>
-        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(dc:relation)"/>
-          </xsl:element>
-        </xsl:element>
-      </xsl:element>
-    </mods>
+     </mods>
     
   </xsl:template>
   
@@ -107,5 +97,32 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  
+  <xsl:template match="dc:date" mode="wnyc">
+    <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="keyDate">yes</xsl:attribute>
+        <xsl:value-of select="normalize-space(substring-before(normalize-space(.), '0:00:00'))"/>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
 
+  <xsl:template name="build_desc">
+    <xsl:variable name="desc_aggregate">
+      <xsl:value-of select=".//dc:description/text()"/>
+    </xsl:variable>
+    <xsl:variable name="desc_trim">700</xsl:variable>
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="string-length($desc_aggregate) &gt; $desc_trim">
+          <xsl:value-of select="concat(substring($desc_aggregate, 1, $desc_trim), '...')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$desc_aggregate"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+  
 </xsl:stylesheet>
