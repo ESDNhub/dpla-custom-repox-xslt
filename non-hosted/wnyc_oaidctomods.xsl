@@ -43,7 +43,7 @@
       </xsl:if>
       <xsl:apply-templates select="dc:relation"/>
       <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject"/>
+      <xsl:apply-templates select="dc:subject" mode="wnyc"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:if test="exists(./dc:description)">
         <xsl:call-template name="build_desc"/>        
@@ -114,6 +114,26 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="dc:subject" mode="wnyc">
+    <xsl:variable name="subjectvalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($subjectvalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <subject>
+          <topic>
+            <xsl:choose>
+              <xsl:when test="ends-with(., '...')">
+                <xsl:value-of select="substring-before(normalize-space(.), '...')"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </topic>
+        </subject> <!--subject-->
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
   <xsl:template name="build_desc">
     <xsl:variable name="desc_aggregate">
       <xsl:value-of select=".//dc:description/text()"/>
