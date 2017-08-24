@@ -92,7 +92,14 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="starts-with($idvalue, 'www.wnyc.org')">
+            <location>
+              <url usage="primary display" access="object in context">
+                <xsl:value-of select="concat('http://', $idvalue)"/>
+              </url>
+            </location>
+          </xsl:when>
+          <xsl:otherwise>
         <identifier><xsl:value-of select="normalize-space(.)"/></identifier>
       </xsl:otherwise>
     </xsl:choose>
