@@ -122,7 +122,10 @@
           <topic>
             <xsl:choose>
               <xsl:when test="ends-with(., '...')">
-                <xsl:value-of select="substring-before(normalize-space(.), '...')"/>
+                <xsl:value-of select="normalize-space(substring-before(., '...'))"/>
+              </xsl:when>
+              <xsl:when test="ends-with(., ' ,')">
+                <xsl:value-of select="normalize-space(substring-before(., ' ,'))"/>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:value-of select="normalize-space(.)"/>
