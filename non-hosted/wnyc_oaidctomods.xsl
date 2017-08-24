@@ -45,11 +45,7 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:subject" mode="wnyc"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:if test="dc:format[matches(normalize-space(.), '[0-9]+')]">
-        <xsl:element name="phtysicalDescription" namespace="http://www.loc.gov/mods/v3">
-          <xsl:apply-templates select="dc:format" mode="wnyc"/>
-        </xsl:element>
-      </xsl:if>
+      <xsl:apply-templates select="dc:format" mode="wnyc"/>
       <xsl:if test="exists(./dc:description)">
         <xsl:call-template name="build_desc"/>        
       </xsl:if>
@@ -161,10 +157,21 @@
   </xsl:template>
   
   <xsl:template match="dc:format" mode="wnyc">
-    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-      <xsl:attribute name="unit">seconds</xsl:attribute>
-      <xsl:value-of select="normalize-space(.)"/>
-    </xsl:element>
+    <xsl:choose>
+      <xsl:when test="matches(normalize-space(.), '^[0-9]+$')">
+        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="unit">seconds</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
 </xsl:stylesheet>
