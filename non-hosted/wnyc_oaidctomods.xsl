@@ -41,8 +41,8 @@
           </xsl:element>
         </xsl:element>
       </xsl:if>
-      <xsl:apply-templates select="dc:relation"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:relation" mode="wnyc"/>
+      <xsl:apply-templates select="dc:rights" mode="esdn"/>
       <xsl:apply-templates select="dc:subject" mode="wnyc"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:format" mode="wnyc"/>
@@ -161,8 +161,7 @@
       <xsl:when test="matches(normalize-space(.), '^[0-9]+$')">
         <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
           <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="unit">seconds</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:value-of select="concat(normalize-space(.), ' seconds')"/>
           </xsl:element>
         </xsl:element>
       </xsl:when>
@@ -172,6 +171,15 @@
         </xsl:element>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="dc:relation" mode="wnyc">
+    <xsl:variable name="relationvalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($relationvalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <relatedItem type="host" displayLabel="collection"><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--relation-->
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
   
 </xsl:stylesheet>
