@@ -119,7 +119,7 @@
         <xsl:variable name="list_length" select="count($date_list)"/>
         <xsl:choose>
             <xsl:when test="$list_length > 1">
-                <dateCreated xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                <dateCreated xsl:exclude-result-prefixes="#all"
                     keyDate="yes" point="start">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval" select="$date_list[1]"/>
@@ -131,7 +131,7 @@
                     </xsl:call-template>
                 </dateCreated>
 
-                <dateCreated xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                <dateCreated xsl:exclude-result-prefixes="#all"
                     point="end">
                     <xsl:call-template name="datequal">
                         <xsl:with-param name="dateval"
@@ -149,7 +149,7 @@
                 <xsl:variable name="parts_length" select="count($date_parts)"/>
                 <xsl:choose>
                     <xsl:when test="$parts_length = 3">
-                        <dateCreated xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                        <dateCreated xsl:exclude-result-prefixes="#all"
                             keyDate="yes">
                             <xsl:call-template name="datequal">
                                 <xsl:with-param name="dateval" select="normalize-space(.)"/>
@@ -165,7 +165,7 @@
                         <xsl:choose>
                             <xsl:when test="string-length($date_parts[2]) >= 4">
                                 <dateCreated
-                                    xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                                    xsl:exclude-result-prefixes="#all"
                                     keyDate="yes" point="start">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval"
@@ -178,7 +178,7 @@
                                     </xsl:call-template>
                                 </dateCreated>
                                 <dateCreated
-                                    xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                                    xsl:exclude-result-prefixes="#all"
                                     point="end">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval"
@@ -193,7 +193,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <dateCreated
-                                    xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                                    xsl:exclude-result-prefixes="#all"
                                     keyDate="yes">
                                     <xsl:call-template name="datequal">
                                         <xsl:with-param name="dateval"
@@ -211,7 +211,7 @@
                     <xsl:otherwise>
                         <xsl:if test="normalize-space(.) != '9999'">
                             <dateCreated
-                                xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm"
+                                xsl:exclude-result-prefixes="xsi oai_dc dc dcterms oai_qdc edm xlink"
                                 keyDate="yes">
                                 <xsl:call-template name="datequal">
                                     <xsl:with-param name="dateval" select="normalize-space(.)"/>
