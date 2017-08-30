@@ -49,7 +49,7 @@
         </xsl:element>
       </xsl:element>
       
-      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Capital District Library Council</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template>
       <xsl:call-template name="owner-note"><xsl:with-param name="owner">Crouse Hospital Library</xsl:with-param></xsl:call-template>
       <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
