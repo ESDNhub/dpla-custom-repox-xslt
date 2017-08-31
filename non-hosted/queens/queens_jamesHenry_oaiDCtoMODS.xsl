@@ -51,7 +51,7 @@
         <xsl:element name="url">
           <xsl:attribute name="access">preview</xsl:attribute>
           <xsl:value-of
-            select="concat('http://digitalarchives.queenslibrary.org/vital/access/services/Download/', normalize-space(dc:identifier[1]), '/JPGSOURCE1-PhotographFront?view=true')"
+            select="concat('http://digitalarchives.queenslibrary.org:8001/vital/access/services/Thumbnail/', normalize-space(dc:identifier[1])"
           />
         </xsl:element>
       </xsl:element>
