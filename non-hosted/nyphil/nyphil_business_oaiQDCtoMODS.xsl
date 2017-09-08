@@ -20,8 +20,11 @@
   
   <!-- Filter out records not available on site based on value of edm:Preview -->
   
+  <xsl:template match="/">
+    <xsl:apply-templates select="//oai_dc:dc[./edm:Preview[not(contains(./text(), 'NotAvailable'))]]"/>
+  </xsl:template>
+  
   <xsl:template match="oai_dc:dc">
-    <xsl:if test="./edm:Preview[not(contains(., 'NotAvailable'))]">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
         <xsl:apply-templates select="edm:dataProvider"/> <!-- to Creator, not Data Provider -->
         <xsl:apply-templates select="dcterms:title"/>     
@@ -66,7 +69,6 @@
           <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
         </xsl:call-template>
        </mods>
-    </xsl:if>
   </xsl:template>
   
   <!-- ESDN utility templates -->
