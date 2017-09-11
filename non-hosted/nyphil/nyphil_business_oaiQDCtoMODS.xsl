@@ -21,10 +21,10 @@
   <!-- Filter out records not available on site based on value of edm:Preview -->
   
   <xsl:template match="/">
-    <xsl:apply-templates select="//oai_dc:dc[./edm:Preview[not(contains(./text(), 'NotAvailable'))]]"/>
+    <xsl:apply-templates select="//oai_dc:dc[./edm:Preview[not(contains(., 'NotAvailable'))]]"/>
   </xsl:template>
-  
-  <xsl:template match="oai_dc:dc">
+
+  <xsl:template match="//oai_dc:dc">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
         <xsl:apply-templates select="edm:dataProvider"/> <!-- to Creator, not Data Provider -->
         <xsl:apply-templates select="dcterms:title"/>     
@@ -48,7 +48,7 @@
         <xsl:apply-templates select="dcterms:spatial"/>
         <xsl:apply-templates select="dcterms:type"/>
         <xsl:apply-templates select="edm:isShownAt"/>
-        <xsl:apply-templates select="edm:Preview"/>
+        <xsl:apply-templates select="edm:Preview" mode="nyphil"/>
         
         <!-- hard code collection note -->
         
@@ -140,7 +140,7 @@
     <xsl:if test="normalize-space(.)!=''">
       <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space(.)"/>
+<!--          <xsl:value-of select="normalize-space(.)"/>-->
         </xsl:element>
       </xsl:element>
     </xsl:if>
@@ -195,7 +195,7 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="edm:Preview">
+  <xsl:template match="edm:Preview" mode="nyphil">
     <xsl:if test="normalize-space(.)!=''">
       <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">

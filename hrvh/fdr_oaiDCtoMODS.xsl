@@ -3,8 +3,11 @@
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   <xsl:template match="text()|@*"/>
+  <xsl:template match="/">
+    <xsl:apply-templates select="//oai_dc:dc[not(contains(dc:relation/node(), 'dprmdpla'))]"/>
+  </xsl:template>
+  
   <xsl:template match="//oai_dc:dc">
-    <xsl:if test="not(contains(dc:relation/node(), 'dprmdpla'))">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
@@ -53,7 +56,6 @@
       
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Franklin D. Roosevelt Presidential Library and Museum</xsl:with-param></xsl:call-template>
      <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
-    </xsl:if>
   </xsl:template>
   
   <!-- ESDN utility templates -->
