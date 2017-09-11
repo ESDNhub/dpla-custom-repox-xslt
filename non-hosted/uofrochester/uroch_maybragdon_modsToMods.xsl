@@ -13,8 +13,11 @@
         </xsl:copy>     
     </xsl:template>
 
+    <xsl:template match="/">
+        <xsl:apply-templates select="//mods:mods[normalize-space(./mods:titleInfo/mods:title) != 'May Bragdon']"/>
+    </xsl:template>
+    
     <xsl:template match="mods:mods">
-        <xsl:if test="normalize-space(mods:titleInfo/mods:title) != 'May Bragdon'">
         <xsl:copy>
             <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
                 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
@@ -33,7 +36,6 @@
             <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">mixed material</xsl:element>
             
         </xsl:copy>   
-        </xsl:if>
     </xsl:template>
 
     <xsl:template match="mods:recordInfo"/>
