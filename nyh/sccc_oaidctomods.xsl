@@ -17,7 +17,13 @@
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" />
+          <xsl:choose>
+            <xsl:when test="dc:date[./text() = '9999']"/>
+            <xsl:when test="dc:date[lower-case(./text()) = 'unknown']"/>
+            <xsl:otherwise>
+              <xsl:apply-templates select="dc:date" />
+            </xsl:otherwise>
+          </xsl:choose>
           <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
         </originInfo>
       </xsl:if>
@@ -25,7 +31,7 @@
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
 
-      <xsl:if test="normalize-space(dc:source) != ''">
+      <xsl:if test="exists(dc:source)">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="esdn">
             <xsl:with-param name="delimiter">;</xsl:with-param>
