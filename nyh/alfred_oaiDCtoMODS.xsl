@@ -34,7 +34,7 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 

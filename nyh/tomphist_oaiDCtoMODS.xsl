@@ -37,7 +37,7 @@
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
       <!-- Check for 'unknown' in dc:coverage. Ignore it if present.-->

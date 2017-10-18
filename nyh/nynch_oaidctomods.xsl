@@ -77,7 +77,7 @@
           </xsl:element>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
