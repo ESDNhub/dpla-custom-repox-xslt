@@ -28,8 +28,6 @@
         </xsl:if>
 
         <xsl:apply-templates select="dc:description"/>
-        <xsl:apply-templates select="dc:format" mode="nyh"/>
-
         <xsl:if test="normalize-space(dc:source) != ''">
           <physicalDescription>
             <xsl:apply-templates select="dc:source" mode="esdn">
