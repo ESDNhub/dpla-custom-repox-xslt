@@ -42,7 +42,8 @@
         </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="dc:relation" mode="wnyc"/>
-      <xsl:apply-templates select="dc:rights" mode="esdn"/>
+      <xsl:call-template name="build_local_rights"/>
+      <xsl:apply-templates select="dc:rights[starts-with(./text(), 'http://')]" mode="esdn"/>
       <xsl:apply-templates select="dc:subject" mode="wnyc"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:format" mode="wnyc"/>
@@ -55,7 +56,10 @@
         <xsl:call-template name="owner-note">
           <xsl:with-param name="owner">New York Public Radio</xsl:with-param>
         </xsl:call-template>
-        
+
+      <xsl:call-template name="intermediate-provider">
+        <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
+      </xsl:call-template>
       
      </mods>
     
@@ -145,6 +149,16 @@
           <xsl:value-of select="$desc_aggregate"/>
         </xsl:otherwise>
       </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template name="build_local_rights">
+    <xsl:variable name="desc_aggregate">
+      <xsl:value-of select="string-join(.//dc:rights[not(starts-with(./text(), 'http://'))], '; ')"/>
+    </xsl:variable>
+    <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">local rights statements</xsl:attribute>
+       <xsl:value-of select="$desc_aggregate"/>
     </xsl:element>
   </xsl:template>
   
