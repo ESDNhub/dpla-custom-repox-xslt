@@ -46,7 +46,7 @@
       <xsl:apply-templates select="dc:subject" mode="wnyc"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:format" mode="wnyc"/>
-      <xsl:if test="exists(./dc:description)">
+      <xsl:if test="exists(./dc:description[./text() != 'xx'])">
         <xsl:call-template name="build_desc"/>        
       </xsl:if>
       
@@ -75,13 +75,7 @@
     <xsl:choose>
       <xsl:when test="starts-with($idvalue, 'http')">
         <xsl:choose>
-          <xsl:when test="ends-with($idvalue, '.png')">
-            <location>
-              <url access="preview">
-                  <xsl:value-of select="$idvalue"/>
-              </url>
-            </location>
-          </xsl:when>
+          <xsl:when test="ends-with($idvalue, '.png')"/>
           <xsl:when test="contains($idvalue, '/items/show/')"></xsl:when>
           <xsl:otherwise>
             <location>
