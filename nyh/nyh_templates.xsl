@@ -189,7 +189,7 @@
     <xsl:template match="dc:rights" mode="nyh">
         <xsl:if test="normalize-space(.)!=''">
             <xsl:choose>
-                <xsl:when test="contains(normalize-space(lower-case(.)), 'in copyright') or contains(., 'http://rightsstatements.org/vocab/InC/1.0/')">
+                <xsl:when test="normalize-space(lower-case(.)) = 'in copyright') or contains(., 'http://rightsstatements.org/vocab/InC/1.0/')">
                     <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
                         <xsl:attribute name="type">use and reproduction</xsl:attribute>
                         <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC/1.0/</xsl:attribute>
