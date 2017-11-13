@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.loc.gov/mods/v3">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   <xsl:template match="text()|@*"/>
@@ -36,7 +36,7 @@
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:apply-templates select="dc:rights" mode="hobart"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
       <xsl:apply-templates select="dc:coverage" mode="hobart"/>
@@ -94,6 +94,14 @@
         <xsl:apply-templates select="."/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="dc:rights" mode="hobart">
+    <xsl:element name="accessCondition">
+      <xsl:attribute name="type">use and reproduction</xsl:attribute>
+      <xsl:attribute name="href" namespace="http://www.w3.org/1999/xlink"><xsl:value-of select="."/></xsl:attribute>
+      Attribution-NonCommercial-NoDerivs 3.0 United States (CC BY-NC-ND 3.0 US)
+    </xsl:element>
   </xsl:template>
 
 </xsl:stylesheet>
