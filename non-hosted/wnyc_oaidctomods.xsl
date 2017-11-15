@@ -20,7 +20,14 @@
   <xsl:template match="//oai_dc:dc">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       
-      <xsl:apply-templates select="dc:title"/>
+      <xsl:choose>
+        <xsl:when test="count(./dc:title) > 1">
+          <xsl:call-template name="build_title"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="dc:title"/>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="dc:contributor"/>
       
       <xsl:if test="dc:date != ''">
@@ -186,6 +193,15 @@
         <relatedItem type="host" displayLabel="collection"><titleInfo><title><xsl:value-of select="normalize-space(.)"/></title></titleInfo></relatedItem> <!--relation-->
       </xsl:if>
     </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template name="build_title">
+    <xsl:variable name="title_aggregate" select="string-join(.//dc:title/text(), '; ')"/>
+    <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+        <xsl:value-of select="$title_aggregate"/>
+      </xsl:element>
+    </xsl:element>
   </xsl:template>
   
 </xsl:stylesheet>
