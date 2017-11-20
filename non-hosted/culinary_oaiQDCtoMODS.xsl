@@ -39,7 +39,7 @@
       <xsl:apply-templates select="dc:description"/>   
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="culinary"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="esdn"/>
       <xsl:for-each select="dc:subject">
         <xsl:if test="normalize-space(lower-case(.))!='unknown'">
           <xsl:apply-templates select="."/>
