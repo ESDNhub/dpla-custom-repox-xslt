@@ -15,7 +15,34 @@
     <xsl:template match="mods:mods">
         <xsl:copy>
             <xsl:call-template name="build_title"/>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="mods:recordInfo"/>
+            <xsl:apply-templates select="mods:physicalDescription/mods:form[@authority = 'gmd']"/>
+            <xsl:apply-templates select="mods:language/mods:languageTerm[@type = 'text']"/>
+            <xsl:apply-templates select="mods:digitalOrigin"/>
+            <xsl:apply-templates select="mods:location"/>
+            <xsl:apply-templates select="mods:originInfo/mods:place/mods:placeTerm"/>
+            <xsl:apply-templates select="mods:originInfo/mods:publisher"/>
+            <xsl:apply-templates select="mods:accessCondition[@type = 'restriction on access']"/>
+            <xsl:apply-templates select="mods:subject[not(@authority = 'lcsh')]/mods:topic"/>
+            <xsl:apply-templates select="mods:subject[@authority = 'lcsh']/mods:topic"/>
+            <xsl:apply-templates select="mods:subject[@authority = 'tgn']"/>
+            <xsl:apply-templates select="mods:titleInfo/mods:nonSort"/>
+            <xsl:apply-templates select="mods:titleInfo/mods:titleSort"/>
+            <xsl:apply-templates select="mods:identifier[@type != 'local']"/>
+            <xsl:apply-templates select="mods:titleInfo[./@type = 'uniform']/mods:title"/>
+            <xsl:apply-templates select="mods:relatedInfo[@type = 'host']/mods:titleInfo/mods:title"/>
+            <xsl:apply-templates select="mods:note"/>
+            <xsl:apply-templates select="mods:genre"/>
+            <xsl:apply-templates select="mods:dateIssued"/>
+            <xsl:apply-templates select="mods:physicalDescription/internetMediaType"/>
+            <xsl:apply-templates select="mods:namePart"/>
+            <xsl:apply-templates select="mods:identifier[@type = 'local']"/>
+            <xsl:apply-templates select="mods:identifier[not(@type = 'local')]"/>
+            <xsl:apply-templates select="mods:extent"/>
+            <xsl:apply-templates select="mods:typeOfResource"/>
+            <xsl:apply-templates select="mods:physicalDescription/mods:form[@authority = 'marccategory']"/>
+            <xsl:apply-templates select="mods:accessCondition[@type = 'use and reproduction']"/>
+            <xsl:apply-templates select="mods:subject/mods:geographic"/>
             <!-- hard code collection description and ownership note -->
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">Hamilton College</xsl:with-param>
@@ -70,18 +97,15 @@
     <xsl:template match="mods:titleInfo/mods:nonSort"/>
     <xsl:template match="mods:titleInfo/mods:titleSort"/>
     <xsl:template match="mods:identifier[@type != 'local']"/>
-    <xsl:template match="mods:titleInfo/mods:title"/>
-    <xsl:template match="mods:note">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-    </xsl:template>
+    <xsl:template match="mods:titleInfo[./@type = 'uniform']/mods:title"/>
+    <xsl:template match="mods:relatedInfo[@type = 'host']/mods:titleInfo/mods:title"/>
+    <xsl:template match="mods:note"/>
+    <xsl:template match="mods:genre"/>
     
     <xsl:template name="build_title">
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-                <xsl:value-of select="string-join(./mods:titleInfo/mods:title/text(), '; ')"/>
+                <xsl:value-of select="string-join(./mods:titleInfo[not(exists(./@type))]/mods:title/text(), ' ')"/>
             </xsl:element>
         </xsl:element>
     </xsl:template> 
@@ -106,8 +130,7 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
         <xsl:element name="role" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3"
-                >Contributor</xsl:element>
+            <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">Contributor</xsl:element>
         </xsl:element>
     </xsl:template>
 
@@ -147,8 +170,6 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:genre"/>
-
     <xsl:template match="mods:physicalDescription/mods:form[@authority = 'marccategory']"/>
 
     <xsl:template match="mods:languageTerm[@type='code']">
@@ -156,11 +177,6 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition[@type = 'use and reproduction']">
-        <xsl:variable name="local" select="normalize-space(substring-before(., ' http:'))"/>
-        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">local rights statements</xsl:attribute>
-            <xsl:value-of select="$local"/>
-        </xsl:element>
         <xsl:call-template name="parse_rights">
             <xsl:with-param name="rights_text"><xsl:value-of select="concat('http://', substring-after(., 'http://'))"/></xsl:with-param>
         </xsl:call-template>
