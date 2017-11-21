@@ -39,7 +39,7 @@
             <xsl:apply-templates select="mods:identifier[@type = 'local']"/>
             <xsl:apply-templates select="mods:identifier[not(@type = 'local')]"/>
             <xsl:apply-templates select="mods:extent"/>
-            <xsl:apply-templates select="mods:typeOfResource"/>
+            <xsl:apply-templates select="mods:typeOfResource[./text() != 'still image']"/>
             <xsl:apply-templates select="mods:physicalDescription/mods:form[@authority = 'marccategory']"/>
             <xsl:apply-templates select="mods:accessCondition[@type = 'use and reproduction']"/>
             <xsl:apply-templates select="mods:subject/mods:geographic"/>
