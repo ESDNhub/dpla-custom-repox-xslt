@@ -161,11 +161,9 @@
             <xsl:attribute name="type">local rights statements</xsl:attribute>
             <xsl:value-of select="$local"/>
         </xsl:element>
-        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">use and reproduction</xsl:attribute>
-            <xsl:attribute name="xlink:href"><xsl:value-of select="concat('http://', substring-after(., 'http://'))"/></xsl:attribute>
-            No Known Copyright
-        </xsl:element>
+        <xsl:call-template name="parse_rights">
+            <xsl:with-param name="rights_text"><xsl:value-of select="concat('http://', substring-after(., 'http://'))"/></xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
     
     <xsl:template match="mods:subject/mods:geographic">
