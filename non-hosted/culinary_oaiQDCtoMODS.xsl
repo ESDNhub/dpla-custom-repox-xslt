@@ -98,6 +98,7 @@
             <xsl:when test="normalize-space(lower-case(.)) = 'italian'">
               <xsl:element name="languageTerm">ita</xsl:element>
             </xsl:when>
+            <xsl:when test="string-length(.) = 0"/>
             <xsl:otherwise>
               <xsl:element name="languageTerm">
                 <xsl:value-of select="."/>
