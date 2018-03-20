@@ -48,14 +48,6 @@
           />
         </xsl:element>
       </xsl:element>
-      <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-        <xsl:element name="url">
-          <xsl:attribute name="access">preview</xsl:attribute>
-          <xsl:value-of
-            select="concat('http://digitalarchives.queenslibrary.org:8001/vital/access/services/Thumbnail/', normalize-space(dc:identifier[1]))"
-          />
-        </xsl:element>
-      </xsl:element>
         
       <!-- hard code rights -->
         
@@ -67,8 +59,10 @@
       
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:coverage[not(contains(./text(), 'unknown'))]" mode="queens"/>
+      <xsl:if test="exists(//dc:type)">
+        <xsl:apply-templates select="dc:type" mode="myBaryo"/>
+      </xsl:if>
       
-        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">still image</xsl:element> <!-- add type, all photographs -->
       
       <!-- hard code collection and ownership note -->
         
@@ -123,6 +117,15 @@
     <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
       <xsl:attribute name="type">content</xsl:attribute>
       <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:type" mode="myBaryo">
+    <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+    <xsl:choose>
+      <xsl:when test="normalize-space(lower-case(.))='oral history'">sound recording</xsl:when>
+      <xsl:otherwise>still image</xsl:otherwise>
+    </xsl:choose>
     </xsl:element>
   </xsl:template>
   
