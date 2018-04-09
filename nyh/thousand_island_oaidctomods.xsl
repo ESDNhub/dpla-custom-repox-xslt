@@ -31,7 +31,7 @@
       <xsl:apply-templates select="dc:language" mode="esdn"/>
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
-      <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:type" mode="tim"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -66,5 +66,12 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  <xsl:template match="dc:type" mode="tim">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="lower-case(normalize-space(.))='image'">
+        <xsl:element name="typeOfResource">still image</xsl:element>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
   
 </xsl:stylesheet>
