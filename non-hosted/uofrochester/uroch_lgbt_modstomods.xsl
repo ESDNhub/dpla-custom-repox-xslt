@@ -31,10 +31,7 @@
             </xsl:call-template>
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Rochester Regional Library Council</xsl:with-param>
-            </xsl:call-template>
-            
-            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">mixed material</xsl:element>
-            
+            </xsl:call-template>            
         </xsl:copy>   
     </xsl:template>
 
@@ -115,12 +112,17 @@
                     <xsl:value-of select="normalize-space(.)"/>
                 </xsl:element>
             </xsl:element>
-        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="access">preview</xsl:attribute>
-                <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
-            </xsl:element>
-        </xsl:element>
+            <xsl:choose>
+                <xsl:when test="starts-with(lower-case(../mods:typeOfResource[1]), 'sound recording')"/>
+                <xsl:otherwise>
+                    <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
+                            <xsl:attribute name="access">preview</xsl:attribute>
+                            <xsl:value-of select="concat(normalize-space(.), '/datastream/TN/view')"/>
+                        </xsl:element>
+                    </xsl:element>                    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
     </xsl:template>
 
@@ -142,18 +144,24 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:accessCondition[@type='useAndReproduction']">
-        <xsl:variable name="local_rights" select="substring-before(., 'http://')"/>
-        <xsl:variable name="rs_rights" select="substring-after(., $local_rights)"/>
-        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">local rights statement</xsl:attribute>
-            <xsl:value-of select="normalize-space($local_rights)"/>
-        </xsl:element>
+    <xsl:template match="mods:accessCondition">
+        <xsl:variable name="rs_rights" select="substring-after(., substring-before(., 'http://'))"/>
         <xsl:call-template name="parse_rights">
             <xsl:with-param name="rights_text"><xsl:value-of select="$rs_rights"/></xsl:with-param>
         </xsl:call-template>
     </xsl:template>
-
+    
+    <xsl:template match="mods:typeOfResource">
+        <xsl:choose>
+            <xsl:when test="starts-with(lower-case(.), 'sound recording')">
+                <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">sound recording</xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
     <xsl:include href="iso639x.xsl"/>
