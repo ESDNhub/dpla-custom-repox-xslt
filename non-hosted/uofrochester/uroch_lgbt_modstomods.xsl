@@ -14,7 +14,7 @@
     </xsl:template>
 
     <xsl:template match="/">
-        <xsl:apply-templates select="//mods:mods[normalize-space(./mods:titleInfo/mods:title) != 'May Bragdon']"/>
+        <xsl:apply-templates select="//mods:mods"/>
     </xsl:template>
     
     <xsl:template match="mods:mods">
@@ -70,9 +70,7 @@
     </xsl:template>
 
     <xsl:template match="mods:roleTerm">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:copy>Creator</xsl:copy>
     </xsl:template>
 
     <xsl:template match="mods:originInfo/mods:dateCreated[@point='start']">
