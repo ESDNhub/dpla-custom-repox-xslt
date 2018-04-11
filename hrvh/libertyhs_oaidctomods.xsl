@@ -49,6 +49,20 @@
     </mods>
   </xsl:template>
   
+   
+  <!-- ESDN utility templates -->
+  <xsl:include href="esdn_templates.xsl"/>
+  
+  <!-- HRVH utility templates -->
+  <xsl:include href="hrvh_templates.xsl"/>
+  
+  <!-- dublin core field templates -->
+  <xsl:include href="oaidctomods_cdmbase.xsl"/>
+  
+  <!-- reference URL, thumbnail URL --> 
+  <xsl:include href="oaidctomods_cdm6.5.xsl"/>
+  
+  <!-- collection-specific templates start here -->
   <xsl:template match="dc:subject" mode="libertyhs">
     <xsl:choose>
       <xsl:when test="position()=1">
@@ -78,7 +92,7 @@
   <xsl:template match="dc:format" mode="libertyhs">
     <xsl:choose>
       <xsl:when test="position()=1">
-        <xsl:element name="form">
+        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="authority">aat</xsl:attribute>
           <xsl:choose>
             <xsl:when test="lower-case(.)='school yearbooks'">yearbooks</xsl:when>
@@ -90,13 +104,13 @@
       </xsl:when>
       <xsl:when test="position()=2">
         <xsl:variable name="elms" select="tokenize(., ';')"/>
-        <xsl:element name="form">
+        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
           <xsl:value-of select="normalize-space($elms[1])"/>
         </xsl:element>
-        <xsl:element name="extent">
+        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
           <xsl:value-of select="normalize-space($elms[2])"/>
         </xsl:element>
-        <xsl:element name="extent">
+        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
           <xsl:value-of select="normalize-space($elms[3])"/>
         </xsl:element>
       </xsl:when>
@@ -105,17 +119,4 @@
     
   </xsl:template>
   
-  <!-- ESDN utility templates -->
-  <xsl:include href="esdn_templates.xsl"/>
-  
-  <!-- HRVH utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
-  
-  <!-- dublin core field templates -->
-  <xsl:include href="oaidctomods_cdmbase.xsl"/>
-  
-  <!-- reference URL, thumbnail URL --> 
-  <xsl:include href="oaidctomods_cdm6.5.xsl"/>
-  
-  <!-- collection-specific templates start here -->
 </xsl:stylesheet>
