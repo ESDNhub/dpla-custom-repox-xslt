@@ -29,23 +29,21 @@
       <xsl:apply-templates select="dc:format" mode="libertyhs"/>  
       </physicalDescription>
       
+      <xsl:call-template name="add_genre">
+        <xsl:with-param name="format_elm">
+          <xsl:value-of select="./dc:format[position()=1]"/>
+        </xsl:with-param>
+      </xsl:call-template>
+      
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
      
       <!-- hard code collection and ownership note -->
-      
-      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-        <xsl:attribute name="type">host</xsl:attribute>
-        <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Liberty High School</xsl:element>
-        </xsl:element>
-      </xsl:element>
-      
-      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
+            <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Southeastern New York Library Resources Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Liberty High School</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
+      
     </mods>
   </xsl:template>
   
@@ -61,6 +59,7 @@
   
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
+  <xsl:include href="iso639x.xsl"/>
   
   <!-- collection-specific templates start here -->
   <xsl:template match="dc:subject" mode="libertyhs">
@@ -91,31 +90,33 @@
   
   <xsl:template match="dc:format" mode="libertyhs">
     <xsl:choose>
-      <xsl:when test="position()=1">
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="authority">aat</xsl:attribute>
-          <xsl:choose>
-            <xsl:when test="lower-case(.)='school yearbooks'">yearbooks</xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="normalize-space(.)"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:element>
-      </xsl:when>
+      <xsl:when test="position()=1"/>
       <xsl:when test="position()=2">
         <xsl:variable name="elms" select="tokenize(., ';')"/>
         <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
           <xsl:value-of select="normalize-space($elms[1])"/>
         </xsl:element>
         <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space($elms[2])"/>
-        </xsl:element>
-        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space($elms[3])"/>
+          <xsl:value-of select="concat(normalize-space($elms[2]), '; ', $elms[3])"/>
         </xsl:element>
       </xsl:when>
       <xsl:otherwise/>
     </xsl:choose>
+    
+  </xsl:template>
+  
+  <xsl:template name="add_genre">
+    <xsl:param name="format_elm"/>
+    <xsl:variable name="format_text" select="$format_elm/text()"/>
+    <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="authority">aat</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="lower-case($format_text)='school yearbooks'">yearbooks</xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space($format_text)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
     
   </xsl:template>
   
