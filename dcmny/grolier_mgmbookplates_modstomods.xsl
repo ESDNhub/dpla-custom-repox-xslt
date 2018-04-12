@@ -22,13 +22,6 @@
             <xsl:call-template name="intermediate-provider">
                 <xsl:with-param name="council">Metropolitan New York Library Council</xsl:with-param>
             </xsl:call-template>
-            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="type">host</xsl:attribute>
-                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-                <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Grolier Club-Maria Gerard Messenger Women's Bookplate Collection</xsl:element>
-                </xsl:element>
-            </xsl:element>
             <xsl:for-each select="./mods:originInfo/mods:place/mods:placeTerm">
                 <xsl:call-template name="transform_place">
                     <xsl:with-param name="place_term">
@@ -51,15 +44,6 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:roleTerm">
-        <xsl:element name="roleTerm" namespace="http://www.loc.gov/mods/v3">
-            <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='contributor'">Contributor</xsl:when>
-                <xsl:otherwise>Creator</xsl:otherwise>
-            </xsl:choose>
-        </xsl:element>
-    </xsl:template>
-
     <xsl:template match="mods:dateCreated">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
@@ -79,7 +63,12 @@
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
     </xsl:template>
-
+    
+    <xsl:template match="mods:note[./@type='ownership']">
+        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">ownership</xsl:attribute>The Grolier Club</xsl:element>
+    </xsl:template>
+    
     <xsl:template match="mods:identifier">
         <xsl:if test=".[@type='uri']">
             <!-- we do this to workaround Islandora's assigning the default namesapce to
@@ -131,7 +120,18 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
-      
+    
+    <xsl:template match="mods:physicalDescription">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+            <xsl:for-each select="../mods:genre">
+                <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:value-of select="lower-case(normalize-space(.))"/>
+                </xsl:element>                
+            </xsl:for-each>
+        </xsl:copy>
+    </xsl:template>
+    
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
@@ -150,18 +150,7 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="mods:genre">
-        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
-            <xsl:value-of select="lower-case(normalize-space(.))"/>
-        </xsl:element>
-    </xsl:template>
-    
-    <xsl:template match="mods:note[@type='ownership']">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
+    <xsl:template match="mods:genre"/>
     
     <xsl:template match="mods:relatedItem">
         <xsl:copy>
