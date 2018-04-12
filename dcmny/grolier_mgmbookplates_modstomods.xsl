@@ -65,8 +65,9 @@
     </xsl:template>
     
     <xsl:template match="mods:note[./@type='ownership']">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">ownership</xsl:attribute>The Grolier Club</xsl:element>
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:identifier">
@@ -130,7 +131,9 @@
                 </xsl:element>                
             </xsl:for-each>
         </xsl:copy>
-    </xsl:template>
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>Labels</xsl:element>
+   </xsl:template>
     
     <xsl:template match="mods:physicalDescription/internetMediaType">
         <xsl:copy>
