@@ -90,7 +90,12 @@
   
   <xsl:template match="dc:format" mode="libertyhs">
     <xsl:choose>
-      <xsl:when test="position()=1"/>
+      <xsl:when test="position()=1">
+        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:when>
       <xsl:when test="position()=2">
         <xsl:variable name="elms" select="tokenize(., ';')"/>
         <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
