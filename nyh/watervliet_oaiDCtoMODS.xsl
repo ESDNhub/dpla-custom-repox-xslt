@@ -12,10 +12,10 @@
         <xsl:apply-templates select="dc:creator" mode="watervliet"/>
       </xsl:if>
       
-      <xsl:if test="dc:publisher != '' or dc:date != ''">
+      <xsl:if test="dc:publisher != '' or dc:date != '9999'">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date[./text()!='9999']" mode="esdn"/>
           </xsl:if>
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
@@ -53,7 +53,7 @@
       </xsl:element>
       
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Capital District Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Watervliet Public Library</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
+     <xsl:apply-templates select="dc:relation" mode="watervliet"/></mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
@@ -87,6 +87,18 @@
     <xsl:variable name="quote_delim" select="tokenize($commaed, ',')"/> 
     <extent><xsl:value-of select="normalize-space($quote_delim[3])"/></extent>
     <form><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></form>
+  </xsl:template>
+  
+  <xsl:template match="dc:relation" mode="watervliet">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:element>
+      </xsl:element>
+    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>
