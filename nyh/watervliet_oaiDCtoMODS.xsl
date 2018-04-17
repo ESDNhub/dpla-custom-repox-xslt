@@ -41,6 +41,8 @@
 
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:format" mode="watervliet"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -99,6 +101,21 @@
         </xsl:element>
       </xsl:element>
     </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template match="dc:format" mode="watervliet">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:choose>
+        <xsl:when test=".!=''">
+          <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="authority">aat</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise/>
+      </xsl:choose>
+    </xsl:for-each>
+    
   </xsl:template>
 
 </xsl:stylesheet>
