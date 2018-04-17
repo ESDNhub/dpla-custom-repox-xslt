@@ -108,7 +108,6 @@
       <xsl:choose>
         <xsl:when test=".!=''">
           <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="authority">aat</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
           </xsl:element>
         </xsl:when>
