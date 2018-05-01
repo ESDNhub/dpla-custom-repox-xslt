@@ -41,14 +41,12 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="mods:roleTerm">
-         <xsl:copy>
-             <xsl:choose>
-                <xsl:when test="normalize-space(lower-case(.))='creator'">Creator</xsl:when>
-                <xsl:otherwise>Contributor</xsl:otherwise>
-            </xsl:choose>
-        </xsl:copy>
-    </xsl:template>
+    <xsl:template match="mods:role[./mods:roleTerm='Printer']"/>
+    <xsl:template match="mods:role[./mods:roleTerm='Former owner']"/>
+    <xsl:template match="mods:roleTerm/@authority"/>
+    <xsl:template match="mods:roleTerm/@authorityURI"/>
+    <xsl:template match="mods:roleTerm/@type"/>
+    <xsl:template match="mods:roleTerm/@valueURI"/>
     
     <xsl:template match="mods:dateCreated">
         <xsl:copy>
@@ -167,6 +165,8 @@
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
     </xsl:template>
+    
+    <xsl:template match="mods:accessCondition/@displayLabel"/>
 
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
