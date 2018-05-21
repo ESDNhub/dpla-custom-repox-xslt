@@ -12,7 +12,7 @@
       version="3.4">
 
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:creator" mode="aaac"/>
+      <xsl:apply-templates select="dc:creator"/>
 
       <xsl:if test="dc:date != ''">
         <originInfo>
@@ -62,23 +62,6 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- Collection specific templates -->
-    <xsl:template match="dc:creator" mode="aaac">
-    <xsl:variable name="creatorvalue" select="normalize-space(.)"/>
-    <xsl:for-each select="tokenize($creatorvalue,';')">
-      <xsl:if test="normalize-space(.)!=''">
-        <name>
-          <namePart>
-            <xsl:value-of select="normalize-space(.)"/>
-            <!--creator-->
-          </namePart>
-          <role>
-            <roleTerm>Creator</roleTerm>
-          </role>
-        </name>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
-
   <xsl:template match="dc:format" mode="aaac">
     <xsl:variable name="formatvalue" select="normalize-space(.)"/>
      <xsl:if test="normalize-space(.)!=''">
