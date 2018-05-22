@@ -168,6 +168,7 @@
     
     <xsl:template match="mods:accessCondition/@displayLabel"/>
 
+    <xsl:template match="mods:accessCondition[./@type='local rights statement']"/>
     <!-- ESDN utility templates -->
     <xsl:include href="esdn_templates.xsl"/>
     <xsl:include href="iso639x.xsl"/>
