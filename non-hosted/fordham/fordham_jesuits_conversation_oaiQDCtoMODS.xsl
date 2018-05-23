@@ -6,6 +6,8 @@
   xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/" xmlns:mods="http://www.loc.gov/mods/v3"
   xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
   xmlns:oai_qdc="http://worldcat.org/xmlschemas/qdc-1.0/"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  
   xsi:schemaLocation="http://worldcat.org/xmlschemas/qdc-1.0/
   http://purl.org/net/oclcterms
   http://worldcat.org/xmlschemas/oclcterms/1.4/oclcterms-1.4.xsd"
@@ -46,7 +48,7 @@
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
       <xsl:apply-templates select="dc:type" mode="fordham"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="fordham"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
 
       <!-- hard code collection and ownership note -->
@@ -72,7 +74,7 @@
   <!-- ESDN utility templates -->
   <xsl:include href="esdn_templates.xsl"/>
   <xsl:include href="iso639x.xsl"/>
-
+  
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
@@ -200,4 +202,31 @@
     </xsl:if>  
   </xsl:template>
 
+  <xsl:template match="dc:rights" mode="fordham">
+    <xsl:choose>
+      <xsl:when test="contains(., 'rightsstatements')">
+        <xsl:variable name="elms" select="tokenize(., 'http://')"/>
+        <xsl:if test="$elms[1]!=''">
+          <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+            <xsl:attribute name="type">local rights statements</xsl:attribute>
+            <xsl:value-of select="normalize-space($elms[1])"/>
+          </xsl:element>         
+        </xsl:if>
+        <xsl:call-template name="parse_rights">
+          <xsl:with-param name="rights_text">
+            <xsl:variable name="corrected" select="replace($elms[2], 'page', 'vocab')"/>
+            <xsl:value-of select="normalize-space(concat('http://', $corrected))"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="parse_rights">
+          <xsl:with-param name="rights_text">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>

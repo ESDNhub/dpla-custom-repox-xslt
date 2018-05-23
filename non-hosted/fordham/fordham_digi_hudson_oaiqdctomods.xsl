@@ -6,6 +6,7 @@
   xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/" xmlns:mods="http://www.loc.gov/mods/v3"
   xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
   xmlns:oai_qdc="http://worldcat.org/xmlschemas/qdc-1.0/"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
   xsi:schemaLocation="http://worldcat.org/xmlschemas/qdc-1.0/
   http://purl.org/net/oclcterms
   http://worldcat.org/xmlschemas/oclcterms/1.4/oclcterms-1.4.xsd"
@@ -60,7 +61,7 @@
       <xsl:apply-templates select="dcterms:spatial" mode="fordham"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="fordham"/>
 
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
@@ -251,5 +252,23 @@
       </xsl:choose>
     </xsl:if>  
   </xsl:template>
-
+  
+  <xsl:template match="dc:rights" mode="fordham">
+    <xsl:choose>
+      <xsl:when test="contains(., 'publicdomain/mark')">
+        <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="type">use and reproduction</xsl:attribute>
+          <xsl:attribute name="xlink:href">https://creativecommons.org/publicdomain/mark/1.0/</xsl:attribute>
+          <xsl:text>Creative Commons — Public Domain Mark 1.0</xsl:text>
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="parse_rights">
+          <xsl:with-param name="rights_text">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>
