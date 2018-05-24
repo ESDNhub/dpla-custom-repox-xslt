@@ -247,8 +247,8 @@
       <xsl:when test="contains(., 'publicdomain/mark')">
         <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
           <xsl:attribute name="type">use and reproduction</xsl:attribute>
-          <xsl:attribute name="xlink:href">https://creativecommons.org/publicdomain/mark/1.0/</xsl:attribute>
-          <xsl:text>Creative Commons — Public Domain Mark 1.0</xsl:text>
+          <xsl:attribute name="xlink:href">http://creativecommons.org/publicdomain/mark/1.0/</xsl:attribute>
+          <xsl:text>Public Domain Mark</xsl:text>
         </xsl:element>
       </xsl:when>
       <xsl:otherwise>
