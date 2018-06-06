@@ -79,7 +79,7 @@
           <xsl:element name="subject">
             <xsl:element name="name">
               <xsl:attribute name="type">corporate</xsl:attribute>
-              <xsl:value-of select="normalize-space(.)"/>
+              <xsl:element name="namePart"><xsl:value-of select="normalize-space(.)"/></xsl:element>
             </xsl:element>
           </xsl:element>
         </xsl:for-each>
