@@ -68,7 +68,6 @@
         <xsl:for-each select="tokenize(., ';')">
           <xsl:element name="subject">
             <xsl:element name="topic">
-              <xsl:attribute name="authority">lctgm</xsl:attribute>
               <xsl:value-of select="normalize-space(.)"/>
             </xsl:element>
           </xsl:element>
@@ -92,7 +91,6 @@
     <xsl:choose>
       <xsl:when test="position()=1">
         <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-          <xsl:attribute name="authority">aat</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
       </xsl:when>
@@ -114,7 +112,6 @@
     <xsl:param name="format_elm"/>
     <xsl:variable name="format_text" select="$format_elm/text()"/>
     <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-      <xsl:attribute name="authority">aat</xsl:attribute>
       <xsl:choose>
         <xsl:when test="lower-case($format_text)='school yearbooks'">yearbooks</xsl:when>
         <xsl:otherwise>
