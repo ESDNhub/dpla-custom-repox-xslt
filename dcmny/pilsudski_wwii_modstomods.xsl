@@ -41,12 +41,12 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:location"/>
-    <xsl:template match="mods:note[@type='ownership']"/>
+    <xsl:template match="mods:note"/>
     <xsl:template match="mods:recordInfo"/> 
   
   <!-- hard code collection info -->
   
-    <xsl:template match="mods:dateCreated">
+  <xsl:template match="mods:dateCreated">
         <xsl:call-template name="date-to-mods">
             <xsl:with-param name="dateval">
                 <xsl:value-of select="normalize-space(.)"/>
