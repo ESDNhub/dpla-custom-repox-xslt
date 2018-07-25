@@ -62,3 +62,5 @@ non-hosted/fordham/utilities.xsl
 non-hosted/nyphil/utilities.xsl
 nyh/utilities.xsl
 non-hosted/utilities.xsl
+/dcmny/iso639x.xsl
+/dcmny/esdn_templates.xsl
