@@ -64,3 +64,5 @@ nyh/utilities.xsl
 non-hosted/utilities.xsl
 /dcmny/iso639x.xsl
 /dcmny/esdn_templates.xsl
+/non-hosted/queens/oaiDCtoMODS_base.xsl
+/non-hosted/queens/esdn_templates.xsl
