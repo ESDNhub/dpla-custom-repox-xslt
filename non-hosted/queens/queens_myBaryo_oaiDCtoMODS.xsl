@@ -48,6 +48,17 @@
           />
         </xsl:element>
       </xsl:element>
+      
+      <xsl:if test="lower-case(./dc:type/text())='digital image'">
+        <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+          <xsl:element name="url">
+            <xsl:attribute name="access">preview</xsl:attribute>
+            <xsl:value-of
+              select="concat('http://digitalarchives.queenslibrary.org:8001/vital/access/services/Thumbnail/', normalize-space(dc:identifier[1]))"
+            />
+          </xsl:element>
+        </xsl:element>        
+      </xsl:if>
         
       <!-- hard code rights -->
         
