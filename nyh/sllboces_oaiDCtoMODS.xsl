@@ -2,13 +2,20 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
+<!-- Use the identity template, then we need to remove records
+     without a dc:coverage element. We do this to remove errant
+     page-level records in the collection. We only want to pass
+     object-level records, which have fuller metadata than the
+     page-level records. We also want to keep deleted records, so we
+     also look for records that have no status element in the header.
+-->
   <xsl:template match="text()|@*"/>
   <xsl:template match="//record[./header[not(exists(./@status))]][not(exists(.//dc:coverage))]"/>
+  <!-- Now process the remaining oai_dc:dc elements, which have dc:coverage, i.e. object-level records. -->
   <xsl:template match="//record//oai_dc:dc[exists(dc:coverage)]">
     <xsl:apply-templates select="./oai_dc:dc"/>
   </xsl:template>
   
-  <!-- Trying to filter out page-level records from feed based on presence of field -->
   <xsl:template match="//oai_dc:dc">
   <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" version="3.4">      
       <xsl:apply-templates select="dc:title"/>
