@@ -2,15 +2,18 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
-  xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3">
+  xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns="http://www.loc.gov/mods/v3"
+  xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/" >
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
 
   <xsl:template match="text() | @*"/>
   <xsl:template match="/">
-    <xsl:apply-templates select="//oai_dc:dc[not(contains(dc:relation/node(), 'NYSHA Manuscript Finding Aids'))]"/>
+    <xsl:for-each select="//oai_dc:dc[not(contains(./dc:relation/node(), 'NYSHA Manuscript Finding Aids'))]">
+      <xsl:apply-templates select="."/>
+    </xsl:for-each>
   </xsl:template>
   
-  <xsl:template match="//oai_dc:dc">
+  <xsl:template match="oai_dc:dc">
       <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
         version="3.4">
