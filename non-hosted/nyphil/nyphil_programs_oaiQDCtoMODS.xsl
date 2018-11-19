@@ -41,7 +41,7 @@
           <xsl:apply-templates select="dc:format"/>  
         </xsl:element>
         
-        <xsl:apply-templates select="dc:rights"/>
+        <xsl:apply-templates select="dc:rights" mode="esdn"/>
         
         <xsl:for-each select="dcterms:subject">
           <xsl:apply-templates select="."/>
