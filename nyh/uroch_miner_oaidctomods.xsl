@@ -8,51 +8,41 @@
       
       <xsl:apply-templates select="dc:title"/>
       
-        <xsl:apply-templates select="dc:contributor"/>
+      <xsl:apply-templates select="dc:contributor"/>
       
-        <xsl:apply-templates select="dc:creator"/>
+      <xsl:apply-templates select="dc:creator"/>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
-        <originInfo>
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
-            <xsl:apply-templates select="dc:publisher"/>
-        </originInfo>
-      </xsl:if>
-      
-      <xsl:apply-templates select="dc:description"/>
-      
+      <originInfo>
+          <xsl:apply-templates select="dc:date" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher"/>
+      </originInfo>
+            
       <!-- Any time we're wrapping at this level, check for a value, so that we don't
         output empty elements -->
       
-      <xsl:if test="normalize-space(dc:source) != ''">
-        <physicalDescription>
-          <xsl:apply-templates select="dc:source" mode="esdn">
-            <xsl:with-param name="delimiter">,</xsl:with-param>
-          </xsl:apply-templates>
-        </physicalDescription>
-      </xsl:if>
-      
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
       <xsl:apply-templates select="dc:format" mode="nyh"/> 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-      <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
       
-      <!-- hard code collection and ownership note -->
+      <!-- hard code typeOfResource -->
+      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+        <xsl:text>text</xsl:text>
+      </xsl:element>
       
+      <!-- hard code collection and ownership note -->
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New Woodstock Free Library</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">University of Rochester Medical Center  - Edward G. Miner Library</xsl:element>
         </xsl:element>
       </xsl:element>
       
-      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template>
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">New Woodstock Free Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
+      <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Rochester Regional Library Council</xsl:with-param></xsl:call-template>
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">University of Rochester Medical Center  - Edward G. Miner Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   

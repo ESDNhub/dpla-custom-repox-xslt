@@ -12,12 +12,10 @@
       
         <xsl:apply-templates select="dc:creator"/>
       
-      <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <originInfo>
             <xsl:apply-templates select="dc:date" mode="esdn"/>
             <xsl:apply-templates select="dc:publisher"/>
         </originInfo>
-      </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       
@@ -27,7 +25,7 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="esdn">
-            <xsl:with-param name="delimiter">,</xsl:with-param>
+            <xsl:with-param name="delimiter">;</xsl:with-param>
           </xsl:apply-templates>
         </physicalDescription>
       </xsl:if>
@@ -39,7 +37,7 @@
       <xsl:apply-templates select="dc:format" mode="nyh"/> 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:apply-templates select="dc:coverage" mode="esdn"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -47,12 +45,12 @@
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
         <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">New Woodstock Free Library</xsl:element>
+          <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">Utica College - Center for Historical Research</xsl:element>
         </xsl:element>
       </xsl:element>
       
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">Central New York Library Resources Council</xsl:with-param></xsl:call-template>
-      <xsl:call-template name="owner-note"><xsl:with-param name="owner">New Woodstock Free Library</xsl:with-param></xsl:call-template> <!-- owning institution -->
+      <xsl:call-template name="owner-note"><xsl:with-param name="owner">Utica College - Center for Historical Research</xsl:with-param></xsl:call-template> <!-- owning institution -->
     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
   </xsl:template>
   
