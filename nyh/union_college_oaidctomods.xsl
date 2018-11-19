@@ -7,7 +7,7 @@
 
   <xsl:template match="text() | @*"/>
   <xsl:template match="/">
-    <xsl:apply-templates select="//oai_dc:dc[not(contains(dc:relation/node(), 'The Encyclopedia of Union College History'))]"/>
+    <xsl:apply-templates select="//oai_dc:dc"/>
   </xsl:template>
   
   <xsl:template match="//oai_dc:dc">
