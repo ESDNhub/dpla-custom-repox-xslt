@@ -56,7 +56,7 @@
   </xsl:template>
   
   <xsl:template match="mods:identifier[@type='local']">
-    <xsl:element name="mods:identifier" namespace="http://www.loc.gov/mods/v3">
+    <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
       <xsl:value-of select="normalize-space(.)"/>
     </xsl:element>
   </xsl:template>
@@ -68,10 +68,19 @@
   </xsl:template>
   
   <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
-  
-  <!-- Some dates have spaces at the beginning, strip them -->
-  <xsl:template match="mods:dateCreated/text()">
-      <xsl:value-of select="normalize-space(.)"/>
+    
+  <xsl:template match="mods:dateCreated">
+    <xsl:variable name="date_range" select="tokenize(normalize-space(.), '-')"/>
+    <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="keyDate">yes</xsl:attribute>
+      <xsl:attribute name="point">start</xsl:attribute>
+      <xsl:attribute name="qualifier">approximate</xsl:attribute>
+      <xsl:value-of select="$date_range[1]"/>
+    </xsl:element>
+    <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="point">end</xsl:attribute>
+      <xsl:value-of select="$date_range[2]"/>
+    </xsl:element>
   </xsl:template>
   
   <xsl:template match="mods:geographic">
