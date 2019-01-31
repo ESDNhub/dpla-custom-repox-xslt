@@ -20,7 +20,7 @@
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
           <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:date" mode="strose"/>
           </xsl:if>
           <xsl:if test="lower-case(normalize-space(dc:publisher[1])) != 'unknown'">
             <xsl:apply-templates select="dc:publisher[1]"/>
@@ -97,5 +97,13 @@
     <xsl:element name="form"><xsl:value-of select="$quote_delim[1]"/>,<xsl:value-of select="$quote_delim[2]"/></xsl:element>
   </xsl:template>
   
+    <xsl:template match="dc:date" mode="strose">
+        <xsl:call-template name="date-to-mods">
+            <xsl:with-param name="dateval">
+              <xsl:value-of select="replace(normalize-space(.), ',',';')"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
 </xsl:stylesheet>
 
