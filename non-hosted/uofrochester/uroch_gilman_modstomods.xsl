@@ -44,6 +44,11 @@
     <xsl:template match="mods:note"/>
     <xsl:template match="mods:location"/>
     <xsl:template match="mods:dateIssued"/>
+    <xsl:template match="mods:subject"/>
+    <xsl:template match="mods:hierarchicalGeographic"/>
+    <xsl:template match="mods:cartographics"/>
+    <xsl:template match="mods:classification"/>
+    <xsl:template match="mods:tableOfContents"/>
     
     <xsl:template match="mods:accessCondition[not(exists(./@type))]">
         <xsl:call-template name="parse_rights">
