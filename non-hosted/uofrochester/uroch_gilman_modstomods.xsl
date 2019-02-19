@@ -43,6 +43,7 @@
     <xsl:template match="mods:accessCondition[exists(./@type)]"/>
     <xsl:template match="mods:note"/>
     <xsl:template match="mods:location"/>
+    <xsl:template match="mods:dateIssued"/>
     
     <xsl:template match="mods:accessCondition[not(exists(./@type))]">
         <xsl:call-template name="parse_rights">
