@@ -38,7 +38,7 @@
     </xsl:template>
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:physicalDescription/mods:form/@authority"/>
-    <xsl:template match="mods:language/mods:languageTerm[@type='text']"/>
+    <xsl:template match="mods:languageTerm[@type='text']"/>
     <xsl:template match="mods:genre/@authority"/>
     <xsl:template match="mods:accessCondition[exists(./@type)]"/>
     <xsl:template match="mods:note"/>
