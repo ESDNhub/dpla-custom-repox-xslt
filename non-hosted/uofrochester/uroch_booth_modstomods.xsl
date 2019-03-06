@@ -62,13 +62,6 @@
     
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
     
-    <xsl:template match="mods:abstract">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>       
-        </xsl:element>
-    </xsl:template>
-    
     <xsl:template match="mods:roleTerm">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
