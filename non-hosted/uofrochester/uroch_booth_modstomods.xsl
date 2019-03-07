@@ -53,6 +53,7 @@
     <xsl:template match="mods:issuance"/>
     <xsl:template match="mods:edition"/>
     <xsl:template match="mods:publisher"/>
+    <xsl:template match="mods:abstract"/>
     
     <xsl:template match="mods:accessCondition[not(exists(./@type))]">
         <xsl:call-template name="parse_rights">
