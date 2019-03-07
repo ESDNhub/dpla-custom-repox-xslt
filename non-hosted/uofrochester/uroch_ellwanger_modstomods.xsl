@@ -14,6 +14,17 @@
         </xsl:copy>     
     </xsl:template>
     
+    <xsl:template match=
+        "*[not(node())]
+        |
+        *[not(node()[2])
+        and
+        node()/self::text()
+        and
+        not(normalize-space())
+        ]
+        "/>
+
     <xsl:template match="mods:mods">
         <xsl:copy>
             <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
@@ -25,26 +36,36 @@
                 <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/NoC-US/1.0/</xsl:with-param>
             </xsl:call-template>
             
-            <!-- hard code ownership note -->
-            
-            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="type">host</xsl:attribute>
-                <xsl:attribute name="displayLabel">Collection</xsl:attribute>
-                <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">University of Rochester-Ellwanger and Barry Horticultural Prints</xsl:element>
-                </xsl:element>
-            </xsl:element>
-            
-            <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-                        <xsl:value-of select="./mods:relatedItem[@type='series']/mods:titleInfo/mods:title"/>
+            <xsl:if test="exists(./mods:relatedItem[@type='isReferencedBy'])">
+                <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+                            <xsl:value-of select="./mods:relatedItem[@type='isReferencedBy']/mods:titleInfo/mods:title/text()"/>
+                        </xsl:element>
                     </xsl:element>
                 </xsl:element>
-            </xsl:element>
+            </xsl:if>
             
-            <xsl:copy-of select=".//mods:originInfo"/>
+            <xsl:if test="exists(./mods:relatedItem/mods:originInfo/mods:publisher) or exists(./mods:relatedItem/mods:originInfo/mods:dateCreated)">
+                <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:if test="./mods:relatedItem/mods:originInfo/mods:publisher/text()!=''">
+                        <xsl:element name="publisher" namespace="http://www.loc.gov/mods/v3">
+                            <xsl:value-of select="./mods:relatedItem/mods:originInfo/mods:publisher"/>
+                        </xsl:element>
+                    </xsl:if>
+                    <xsl:if test="./mods:relatedItem/mods:originInfo/mods:dateCreated/text()!=''">
+                        <xsl:call-template name="date-to-mods">
+                            <xsl:with-param name="dateval">
+                                <xsl:value-of select="./mods:relatedItem/mods:originInfo/mods:dateCreated"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:element>
+            </xsl:if>
             
+            
+                
+            <!-- hard code ownership note -->            
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>
@@ -68,18 +89,29 @@
     <xsl:template match="mods:geographic"/>
     <xsl:template match="mods:temporal"/>
     <xsl:template match="mods:cartographics"/>
-    <xsl:template match="mods:relatedItem[not(exists(@type))]"/>
+    <xsl:template match="mods:relatedItem"/>
+    <xsl:template match="mods:name"/>
+    <xsl:template match="mods:originInfo"/>
+    
+    <xsl:template match="mods:nonSort"/>
+    <xsl:template match="mods:publisher[./text()='']"/>
+    <xsl:template match="mods:dateCreated[./text()='']"/>
     
     <xsl:template match="mods:accessCondition"/>
     
-    <xsl:template match="mods:relatedItem[@type='isReferencedBy']">
-        <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
-                <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
-                    <xsl:value-of select="./mods:titleInfo/mods:title/text()"/>
+    <xsl:template match="mods:titleInfo">
+        <xsl:choose>
+            <xsl:when test="exists(./mods:nonSort)">
+                <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:value-of select="concat(./mods:nonSort/text(), ./mods:title/text())"/>
+                    </xsl:element>
                 </xsl:element>
-            </xsl:element>
-        </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="mods:identifier[@type='local']"/>
