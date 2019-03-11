@@ -69,11 +69,11 @@
     <xsl:template match="mods:copyrightDate"/>
     <xsl:template match="mods:issuance"/>
     <xsl:template match="mods:edition"/>
-    <xsl:template match="mods:publisher"/>
     <xsl:template match="mods:language"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
-        
+    <xsl:template match="mods:relatedItem"/>
+    
     <xsl:template match="mods:accessCondition[not(exists(./@type))]">
         <xsl:choose>
             <xsl:when test="not(contains(., 'gayalliance.org'))">
