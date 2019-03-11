@@ -513,7 +513,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                         <xsl:attribute name="type">local rights statements</xsl:attribute>
-                        <xsl:value-of select="normalize-space(.)"/>
+                        <xsl:value-of select="normalize-space($rights_text)"/>
                 </xsl:otherwise>
             </xsl:choose>
             </xsl:element>
