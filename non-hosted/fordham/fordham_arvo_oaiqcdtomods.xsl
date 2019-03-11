@@ -218,9 +218,11 @@
 <xsl:template match="dc:type" mode="fordham">
   <xsl:choose>
     <xsl:when test="position()=1">
-      <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:element>
+      <xsl:for-each select="tokenize(., ';')">
+        <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:for-each>
     </xsl:when>
     <xsl:otherwise>
       <xsl:for-each select="tokenize(., ';')">
