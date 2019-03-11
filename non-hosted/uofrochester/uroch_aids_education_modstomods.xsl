@@ -16,10 +16,25 @@
     
     <xsl:template match="mods:mods">
         <xsl:copy>
-            <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
-                http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
+            
+            <xsl:choose>
+                <xsl:when test="count(./mods:accessCondition)=2">
+                    <xsl:call-template name="parse_rights">
+                        <xsl:with-param name="rights_text">
+                            <xsl:value-of select="replace(./mods:accessCondition[./@type='use and reproduction'], '/page', '/vocab')"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="parse_rights">
+                        <xsl:with-param name="rights_text">
+                            <xsl:value-of select="./mods:accessCondition/text()"/>
+                        </xsl:with-param>
+                    </xsl:call-template>                    
+                </xsl:otherwise>
+            </xsl:choose>
             
             <!-- hard code ownership note -->
             
@@ -75,33 +90,16 @@
     <xsl:template match="mods:subject/@authority"/>
     <xsl:template match="mods:subject/@authorityURI"/>
     <xsl:template match="mods:relatedItem"/>
+    <xsl:template match="mods:dateCreated[not(matches(., '^\d+$'))]"/>
+    <xsl:template match="mods:accessCondition"/>
     
-    <xsl:template match="mods:dateCreated">
+    <xsl:template match="mods:dateCreated[matches(., '^\d+$')]">
         <xsl:call-template name="date-to-mods">
             <xsl:with-param name="dateval">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
-    
-    <xsl:template match="mods:accessCondition">
-        <xsl:variable name="rights_param">
-            <xsl:choose>
-                <xsl:when test=".[exists(@type)]">
-                    <xsl:value-of select="./@xlink:href"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="normalize-space(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:call-template name="parse_rights">
-            <xsl:with-param name="rights_text">
-                <xsl:value-of select="$rights_param"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-    
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
     
     <xsl:template match="mods:abstract">
