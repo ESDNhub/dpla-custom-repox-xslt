@@ -15,8 +15,6 @@
     
     <xsl:template match="mods:mods">
         <xsl:copy>
-            <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
-                http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
             
@@ -72,23 +70,18 @@
     <xsl:template match="mods:copyrightDate"/>
     <xsl:template match="mods:issuance"/>
     <xsl:template match="mods:edition"/>
-   <xsl:template match="mods:digitalOrigin"/>
+    <xsl:template match="mods:digitalOrigin"/>
+    <xsl:template match="mods:abstract"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:accessCondition"/>
     <xsl:template match="mods:subject"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
     <xsl:template match="mods:subTitle"/>
+    <xsl:template match="mods:relatedItem"/>
     <xsl:template match="mods:dateCreated[2]"/>
     <xsl:template match="mods:dateCreated/@qualifier"/>
     
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
-    
-    <xsl:template match="mods:abstract">
-        <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
-            <xsl:attribute name="type">content</xsl:attribute>
-            <xsl:value-of select="normalize-space(.)"/>       
-        </xsl:element>
-    </xsl:template>
     
     <xsl:template match="mods:identifier[@type='local']">
         <xsl:element name="identifier" namespace="http://www.loc.gov/mods/v3">
