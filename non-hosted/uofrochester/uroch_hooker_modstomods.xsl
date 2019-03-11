@@ -41,6 +41,7 @@
         <xsl:copy copy-namespaces="yes">creator</xsl:copy>
     </xsl:template>
     <xsl:template match="mods:recordInfo"/>
+    <xsl:template match="mods:name/@authority"/>
     <xsl:template match="mods:physicalDescription/mods:form/@authority"/>
     <xsl:template match="mods:genre/@authority"/>
     <xsl:template match="mods:accessCondition[exists(./@type)]"/>
@@ -60,7 +61,7 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:accessCondition"/>
-    <xsl:template match="mods:relatedItem[@displayLabel='Finding aid to collection']"/>
+    <xsl:template match="mods:subject"/>
     
     <xsl:template match="mods:physicalDescription[exists(./mods:internetMediaType)]"/>
     
