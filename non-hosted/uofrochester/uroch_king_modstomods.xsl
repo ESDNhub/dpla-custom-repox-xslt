@@ -29,7 +29,9 @@
             </xsl:element>
 
             <xsl:call-template name="parse_rights">
-                <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
+                <xsl:with-param name="rights_text">
+                    <xsl:value-of select="./mods:accessCondition/text()"/>
+                </xsl:with-param>
             </xsl:call-template>                
                        
             <xsl:call-template name="owner-note">
@@ -49,7 +51,6 @@
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:physicalDescription/mods:form/@authority"/>
     <xsl:template match="mods:genre/@authority"/>
-    <xsl:template match="mods:accessCondition[exists(./@type)]"/>
     <xsl:template match="mods:note"/>
     <xsl:template match="mods:location"/>
     <xsl:template match="mods:dateIssued"/>
@@ -62,7 +63,7 @@
     <xsl:template match="mods:issuance"/>
     <xsl:template match="mods:edition"/>
     <xsl:template match="mods:publisher"/>
-   <xsl:template match="mods:digitalOrigin"/>
+    <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:accessCondition"/>
     <xsl:template match="mods:subject"/>
