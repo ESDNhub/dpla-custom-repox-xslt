@@ -28,7 +28,18 @@
                 </xsl:element>
             </xsl:element>
             
-            
+            <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
+                <xsl:for-each select="./mods:language/mods:languageTerm[@type='text']">
+                    <xsl:element name="languageTerm" namespace="http://www.loc.gov/mods/v3">
+                        <xsl:attribute name="authority">iso639-3</xsl:attribute>
+                        <xsl:attribute name="type">code</xsl:attribute>
+                        <xsl:call-template name="iso6393-codes">
+                            <xsl:with-param name="lval"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:element>
+                        
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>
@@ -59,7 +70,7 @@
     <xsl:template match="mods:issuance"/>
     <xsl:template match="mods:edition"/>
     <xsl:template match="mods:publisher"/>
-    <xsl:template match="mods:languageTerm[@type='text']"/>
+    <xsl:template match="mods:language"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
         
@@ -127,18 +138,6 @@
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
-    </xsl:template>
-    
-    <xsl:template match="mods:language">
-        <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
-            <xsl:element name="languageTerm" namespace="http://www.loc.gov/mods/v3">
-                <xsl:attribute name="authority">iso639-3</xsl:attribute>
-                <xsl:attribute name="type">code</xsl:attribute>
-                <xsl:call-template name="iso6393-codes">
-                    <xsl:with-param name="lval"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
-                </xsl:call-template>
-            </xsl:element>
-        </xsl:element>
     </xsl:template>
     
     <!-- ESDN utility templates -->
