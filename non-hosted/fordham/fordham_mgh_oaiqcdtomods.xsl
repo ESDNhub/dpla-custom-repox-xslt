@@ -137,9 +137,11 @@
   </xsl:template>
   
   <xsl:template match="dcterms:spatial" mode="fordham">
+    <xsl:for-each select="tokenize(., ';')">
      <xsl:element name="subject">
         <xsl:element name="geographic"><xsl:value-of select="normalize-space(.)"/></xsl:element>
       </xsl:element>
+    </xsl:for-each>
   </xsl:template>
   
   <xsl:template match="dc:identifier" mode="fordham">
