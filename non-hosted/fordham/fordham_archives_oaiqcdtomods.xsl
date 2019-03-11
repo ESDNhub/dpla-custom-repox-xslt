@@ -36,8 +36,9 @@
         </xsl:element>
       </xsl:if>
       
-      <xsl:apply-templates select="dc:description"/>
-
+      <xsl:apply-templates select="dc:description" mode="fordham"/>
+      <xsl:apply-templates select="dcterms:abstract" mode="fordham"/>
+      
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:apply-templates select="dcterms:extent"/>
       </xsl:element>
@@ -50,6 +51,7 @@
       <xsl:apply-templates select="dc:language[2]" mode="fordham"/>
       <xsl:apply-templates select="dc:rights" mode="fordham"/>
       <xsl:apply-templates select="dcterms:temporal" mode="fordham"/>
+      <xsl:apply-templates select="dc:relation" mode="fordham"/>
       
       <!-- hard code ownership note -->
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
@@ -82,7 +84,41 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
-
+  
+  <xsl:template match="dc:relation" mode="fordham">
+    <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="titleInfo" namespace="http://www.loc.gov/mods/v3">
+        <xsl:element name="title" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template name="make_note">
+    <xsl:param name="note_text"/>
+    <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+      <xsl:attribute name="type">content</xsl:attribute>
+      <xsl:value-of select="normalize-space($note_text)"/>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:description" mode="fordham">
+    <xsl:call-template name="make_note">
+      <xsl:with-param name="note_text">
+        <xsl:value-of select="."/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="dcterms:abstract" mode="fordham">
+    <xsl:call-template name="make_note">
+      <xsl:with-param name="note_text">
+        <xsl:value-of select="."/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
   <xsl:template match="dc:contributor" mode="fordham">
     <xsl:variable name="contributorvalue" select="normalize-space(.)"/>
     <xsl:for-each select="tokenize($contributorvalue, ';')">
@@ -249,14 +285,18 @@
 <xsl:template match="dc:type" mode="fordham">
   <xsl:choose>
     <xsl:when test="position()=1">
+      <xsl:for-each select="tokenize(., ';')">
       <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
         <xsl:value-of select="normalize-space(.)"/>
       </xsl:element>
+      </xsl:for-each>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
+      <xsl:for-each select="tokenize(., ';')">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
         <xsl:value-of select="normalize-space(.)"/>
-      </xsl:element>      
+      </xsl:element>  
+      </xsl:for-each>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
