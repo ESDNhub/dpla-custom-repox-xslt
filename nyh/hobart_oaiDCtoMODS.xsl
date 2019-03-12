@@ -99,8 +99,8 @@
   <xsl:template match="dc:rights" mode="hobart">
     <xsl:element name="accessCondition">
       <xsl:attribute name="type">use and reproduction</xsl:attribute>
-      <xsl:attribute name="href" namespace="http://www.w3.org/1999/xlink"><xsl:value-of select="."/></xsl:attribute>
-      Attribution-NonCommercial-NoDerivs 3.0 United States (CC BY-NC-ND 3.0 US)
+      <xsl:attribute name="href" namespace="http://www.w3.org/1999/xlink">https://creativecommons.org/licenses/by-nc/3.0/</xsl:attribute>
+      Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)
     </xsl:element>
   </xsl:template>
 
