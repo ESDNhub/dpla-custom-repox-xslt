@@ -28,12 +28,6 @@
                 </xsl:element>
             </xsl:element>
 
-            <xsl:call-template name="parse_rights">
-                <xsl:with-param name="rights_text">
-                    <xsl:value-of select="./mods:accessCondition/text()"/>
-                </xsl:with-param>
-            </xsl:call-template>                
-                       
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>
@@ -65,7 +59,6 @@
     <xsl:template match="mods:publisher"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
-    <xsl:template match="mods:accessCondition"/>
     <xsl:template match="mods:subject"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
     <xsl:template match="mods:subTitle"/>
