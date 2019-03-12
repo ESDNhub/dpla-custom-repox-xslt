@@ -22,10 +22,6 @@
             
             <!-- hard code ownership note -->
             
-            <xsl:call-template name="parse_rights">
-                <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
-            </xsl:call-template>                
-                       
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
             </xsl:call-template>
@@ -60,8 +56,8 @@
     <xsl:template match="mods:languageTerm[@type='text']"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
-    <xsl:template match="mods:accessCondition"/>
     <xsl:template match="mods:subject"/>
+    <xsl:template match="mods:relatedItem"/>
     
     <xsl:template match="mods:physicalDescription[exists(./mods:internetMediaType)]"/>
     
