@@ -15,8 +15,6 @@
     
     <xsl:template match="mods:mods">
         <xsl:copy>
-            <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3
-                http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
             
