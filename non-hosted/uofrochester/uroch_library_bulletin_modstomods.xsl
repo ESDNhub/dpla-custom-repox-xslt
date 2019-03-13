@@ -80,6 +80,7 @@
     <xsl:template match="mods:relatedItem"/>
     <xsl:template match="mods:dateCreated[2]"/>
     <xsl:template match="mods:dateCreated/@qualifier"/>
+    <xsl:template match="mods:frequency"/>
     
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
     
