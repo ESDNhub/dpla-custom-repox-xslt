@@ -92,6 +92,7 @@
     <xsl:template match="mods:relatedItem"/>
     <xsl:template match="mods:dateCreated[not(matches(., '^\d+$'))]"/>
     <xsl:template match="mods:accessCondition"/>
+    <xsl:template match="mods:name[not(exists(./mods:namePart))]"/>
     
     <xsl:template match="mods:dateCreated[matches(., '^\d+$')]">
         <xsl:call-template name="date-to-mods">
