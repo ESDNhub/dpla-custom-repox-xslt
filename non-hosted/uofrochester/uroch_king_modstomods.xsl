@@ -20,6 +20,16 @@
             <xsl:attribute name="version">3.4</xsl:attribute>
             <xsl:apply-templates select="@*|node()"/>
             
+            <!-- their dateCreated elements are invalid MODs, so rebuild from scratch -->
+            <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+                <xsl:call-template name="date-to-mods">
+                    <!-- build and pass a tokenized range to the template -->
+                    <xsl:with-param name="dateval">
+                        <xsl:value-of select="concat(//mods:dateCreated[1], ';', //mods:dateCreated[2])"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:element>
+            
             <!-- hard code ownership note -->
             
             <xsl:element name="subject" namespace="http://www.loc.gov/mods/v3">
@@ -62,8 +72,8 @@
     <xsl:template match="mods:subject"/>
     <xsl:template match="mods:dateCreated/@encoding"/>
     <xsl:template match="mods:subTitle"/>
-    <xsl:template match="mods:dateCreated[2]"/>
-    <xsl:template match="mods:dateCreated/@qualifier"/>
+    <xsl:template match="mods:originInfo"/>
+    <xsl:template match="mods:dateCreated"/>
     
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
     
