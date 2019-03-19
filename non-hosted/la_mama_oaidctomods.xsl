@@ -19,10 +19,20 @@
         <xsl:apply-templates select="dc:publisher[1]"/>
         <xsl:apply-templates select="dc:date" mode="la_mama"/>
       </xsl:element>
-      <xsl:apply-templates select="dc:description"/>
+
+      <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
+        <xsl:attribute name="type">content</xsl:attribute>
+        <xsl:for-each select="./dc:description">
+          <xsl:value-of select="normalize-space(.)"/>
+          <xsl:if test="position()!=last()">
+            <xsl:text> </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:element>
+      
       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="concat(substring-before(dc:source[1], ' in.'), 'x', substring-before(dc:source[2], ' in.'), ' in.')"/>
+          <xsl:value-of select="concat(substring-before(dc:source[1], ' in'), 'x', substring-before(dc:source[2], ' in'), ' in.')"/>
         </xsl:element>
         <xsl:apply-templates select="dc:format"/>
       </xsl:element>
@@ -32,6 +42,9 @@
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:rights" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
+      
+      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">programs</xsl:element>
+      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">flyers</xsl:element>
       
       <!-- hard code collection and ownership note -->
       <!-- collection -->
