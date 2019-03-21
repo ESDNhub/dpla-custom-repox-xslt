@@ -8,7 +8,7 @@
       <xsl:apply-templates select="dc:title"/>
       
       <!-- hartwell uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
+      <xsl:if test="not(contains(lower-case(normalize-space(dc:creator)),'unknown'))">
         <xsl:apply-templates select="dc:creator"/>
       </xsl:if>
       <xsl:apply-templates select="dc:contributor"/>
@@ -25,6 +25,7 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
+      <xsl:apply-templates select="dc:format" mode="hartwick"/>
       
       <xsl:if test="exists(dc:language)">
         <xsl:element name="language" namespace="http://www.loc.gov/mods/v3">
@@ -40,7 +41,6 @@
       
         <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
           <xsl:apply-templates select="dc:source" mode="hartwick"/>
-          <xsl:apply-templates select="dc:format" mode="hartwick"/>
         </xsl:element>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
@@ -51,7 +51,7 @@
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code collection and ownership note -->
-      
+       
       <xsl:element name="relatedItem" namespace="http://www.loc.gov/mods/v3">
         <xsl:attribute name="type">host</xsl:attribute>
         <xsl:attribute name="displayLabel">Collection</xsl:attribute>
