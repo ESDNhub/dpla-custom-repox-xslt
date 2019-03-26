@@ -8,24 +8,43 @@
     
     <xsl:template match="dc:subject" mode="nyh">
         <!-- NYH has a number of cross-collection local topics they want ignored -->
+        <!-- 03-26-2019 This now incorporates HRVH ignored topics as part of HRVH-NYH migration -->
         <xsl:variable name="ignored_topics">
+            <topic>african americans</topic>
             <topic>agriculture</topic>
             <topic>architecture</topic>
             <topic>arts &amp; entertainment</topic>
             <topic>business &amp; industry</topic>
+            <topic>civil liberties</topic>
+            <topic>climate &amp; weather</topic>
             <topic>community &amp; events</topic>
             <topic>daily life</topic>
             <topic>education</topic>
+            <topic>environment &amp; conservation</topic>
             <topic>environment &amp; nature</topic>
             <topic>ethnic groups</topic>
             <topic>geography &amp; maps</topic>
+            <topic>geography &amp; natural resources</topic>
             <topic>government, law &amp; politics</topic>
+            <topic>government</topic>
+            <topic>health &amp; medicine </topic>
+            <topic>immigration &amp; ethnic heritage</topic>
+            <topic>landscape &amp; nature</topic>
+            <topic>literary tradition</topic>
             <topic>medicine, science &amp; technology</topic>
             <topic>military &amp; war</topic>
+            <topic>military</topic>
+            <topic>native americans</topic>
             <topic>people</topic>
             <topic>philosophy &amp; religion</topic>
+            <topic>presidents &amp; politicians</topic>
             <topic>recreation &amp; sports</topic>
+            <topic>recreation</topic>
+            <topic>religion</topic>
+            <topic>science &amp; technology</topic>
+            <topic>sports</topic>
             <topic>transportation</topic>
+            <topic>women</topic>
             <topic>work &amp; labor</topic>
         </xsl:variable>
         <xsl:for-each select="tokenize(., ';')">
