@@ -9,16 +9,19 @@
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:creator[lower-case(normalize-space(text()))!='unknown']"/>
       
-        <xsl:element name="originInfo">
+        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
           <xsl:apply-templates select="dc:date" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher"/>
         </xsl:element>
       
       <xsl:apply-templates select="dc:description"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
-      </physicalDescription>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:source" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+        </xsl:apply-templates>
+      </xsl:element>
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
@@ -44,12 +47,14 @@
         <xsl:when test="count(dc:coverage) = 0"/>
         <xsl:otherwise>
           <xsl:apply-templates select="dc:coverage[1]" mode="esdn"/>
+          <xsl:apply-templates select="dc:coverage[2]" mode="esdn"/>
+          <xsl:variable name="coord_list" select="tokenize(normalize-space(dc:coverage[3]), ';')"/>
           <xsl:element name="subject">
             <xsl:element name="cartographics">
               <xsl:element name="coordinates">
                 <xsl:call-template name="coords_element">
-                  <xsl:with-param name="lat"><xsl:value-of select="dc:coverage[2]"/></xsl:with-param>
-                  <xsl:with-param name="long"><xsl:value-of select="dc:coverage[3]"/></xsl:with-param>
+                  <xsl:with-param name="lat"><xsl:value-of select="$coord_list[1]"/></xsl:with-param>
+                  <xsl:with-param name="long"><xsl:value-of select="$coord_list[2]"/></xsl:with-param>
                 </xsl:call-template>          
               </xsl:element>
             </xsl:element>
@@ -57,8 +62,8 @@
         </xsl:otherwise>
       </xsl:choose>
       
-      <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:rights" mode="esdn"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
@@ -85,7 +90,7 @@
   </xsl:template>
   
   <!-- ESDN utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
