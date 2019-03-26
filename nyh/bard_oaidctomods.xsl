@@ -30,7 +30,7 @@
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:apply-templates select="dc:rights" mode="bard"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
 
@@ -66,5 +66,11 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->  
+  
+  <xsl:template match="dc:rights" mode="bard">
+    <xsl:call-template name="parse_rights">
+      <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/NoC-US/1.0/</xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
   
 </xsl:stylesheet>
