@@ -14,21 +14,24 @@
       </xsl:if>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
-        <originInfo>
+        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
           <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
           <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
-        </originInfo>
+        </xsl:element>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:rights" mode="esdn"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
-      </physicalDescription>      
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:source" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+        </xsl:apply-templates>
+      </xsl:element>      
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -54,7 +57,7 @@
   </xsl:template>
   
   <!-- ESDN utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
