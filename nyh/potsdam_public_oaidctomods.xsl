@@ -12,13 +12,13 @@
       version="3.4">
       <xsl:apply-templates select="dc:title"/>
 
-      <xsl:apply-templates select="dc:contributor[lower-case(./text()) != 'unknown']"/>
-      <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
+      <xsl:apply-templates select="dc:contributor[not(contains(lower-case(./text()),'unknown'))]"/>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(./text()),'unknown'))]"/>
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[lower-case(./text()) != 'unknown']" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher[lower-case(./text()) != 'unknown']"/>
+          <xsl:apply-templates select="dc:date[not(contains(lower-case(./text()),'unknown'))]" mode="potsdam"/>
+          <xsl:apply-templates select="dc:publisher[not(contains(lower-case(./text()),'unknown'))]"/>
         </originInfo>
       </xsl:if>
 
@@ -73,6 +73,22 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
 
   <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dc:date" mode="potsdam">
+    <xsl:variable name="passed_date">
+      <xsl:choose>
+        <xsl:when test="contains(./node(), 'August 22, 1889')">
+          <xsl:value-of select="normalize-space(replace(./node(), 'August 22, 1889', '1889-08-22'))"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="date-to-mods">
+      <xsl:with-param name="dateval"><xsl:value-of select="$passed_date"/></xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
 
   <xsl:template match="dc:source" mode="potsdam">
     <extent>
