@@ -156,7 +156,7 @@
                             </xsl:call-template>
                             <xsl:call-template name="clean-date">
                                 <xsl:with-param name="dateval">
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="$dateval"/>
                                 </xsl:with-param>
                             </xsl:call-template>
                         </dateCreated>
