@@ -34,7 +34,7 @@
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
-      <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:type" mode="goshen"/>
 
       <!-- hard code collection and ownership note -->
       
@@ -67,6 +67,86 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:type" mode="goshen">
+    <!-- always tokenize, since we sometimes get single values with a delimiter -->
+    <xsl:for-each select="tokenize(., ';')">
+      <!-- check for empty element -->
+      <xsl:if test="normalize-space(.) != ''">
+        <xsl:variable name="dc-type" select="lower-case(normalize-space(.))"/>
+        <xsl:choose>
+          <xsl:when test="contains($dc-type, 'collection')"/>
+          <xsl:when test="contains($dc-type, 'dataset')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>software, multimedia</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="starts-with($dc-type, 'image')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>still image</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'moving image') or contains($dc-type, 'MovingImage')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>moving image</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'still image') or contains($dc-type, 'StillImage') or contains($dc-type, 'photograph')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>still image</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'interactive resource') or contains($dc-type, 'InteractiveResource')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>software, multimedia</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'physical object') or contains($dc-type, 'PhysicalObject')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>three dimensional object</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'service')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>software, multimedia</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'map') or contains($dc-type, 'cartographic')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>cartographic</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'sound')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>sound recording</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="contains($dc-type, 'text') or contains($dc-type, 'document')">
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3"
+              exclude-result-prefixes="#all">
+              <xsl:text>text</xsl:text>
+            </xsl:element>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="typeOfResource" namespace="http://www.loc.gov/mods/v3">
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>      
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
+  
 
 </xsl:stylesheet>
 
