@@ -16,11 +16,8 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:apply-templates select="dc:source" mode="esdn">
-          <xsl:with-param name="delimiter">;</xsl:with-param>
-        </xsl:apply-templates>
-      </xsl:element>
+      <xsl:apply-templates select="dc:source" mode="hrvi"/>
+
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
@@ -100,6 +97,19 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:source" mode="hrvi">
+    <xsl:variable name="source_list" select="tokenize(., ';')"/>
+    <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space($source_list[1])"/></xsl:element>
+      <xsl:choose>
+        <xsl:when test="count($source_list) > 1">
+          <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space($source_list[2])"/></xsl:element>
+        </xsl:when>
+        <xsl:otherwise/>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
 
 </xsl:stylesheet>
 
