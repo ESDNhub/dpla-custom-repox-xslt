@@ -16,7 +16,7 @@
         <originInfo>
           <!-- Check for 'unknown' in dc:date. Ignore it if present.-->
           <xsl:if test="lower-case(normalize-space(dc:date[1])) != 'unknown'">
-            <xsl:apply-templates select="dc:date[1]" mode="esdn"/>
+            <xsl:apply-templates select="dc:date[1]" mode="supl"/>
           </xsl:if>
         </originInfo>
       </xsl:if>
@@ -69,6 +69,22 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  
+  <xsl:template match="dc:date" mode="supl">
+    <xsl:variable name="date_range">
+    <xsl:choose>
+      <xsl:when test="contains(normalize-space(.), '1779, 1808,1872-1891, 1894, 1900')">
+        <xsl:value-of select="replace(normalize-space(.), ',', ';')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="date-to-mods">
+      <xsl:with-param name="dateval"><xsl:value-of select="$date_range"/></xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
   
 </xsl:stylesheet>
 
