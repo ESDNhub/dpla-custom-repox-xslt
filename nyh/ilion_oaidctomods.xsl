@@ -13,7 +13,7 @@
       <xsl:apply-templates select="dc:title"/>
 
       <xsl:apply-templates select="dc:contributor"/>
-      <xsl:apply-templates select="dc:creator[not(contains(lower-case(.), 'unknown'))]"/>
+      <xsl:apply-templates select="dc:creator[not(matches(lower-case(.), 'u.*known'))]"/>
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
