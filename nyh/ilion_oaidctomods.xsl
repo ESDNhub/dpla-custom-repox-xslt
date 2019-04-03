@@ -13,12 +13,12 @@
       <xsl:apply-templates select="dc:title"/>
 
       <xsl:apply-templates select="dc:contributor"/>
-      <xsl:apply-templates select="dc:creator[lower-case(./text()) != 'unknown']"/>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(.), 'unknown'))]"/>
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn" />
-          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:date[1][not(contains(lower-case(.), 'unknown'))]" mode="esdn" />
+          <xsl:apply-templates select="dc:publisher[not(contains(lower-case(.), 'unknown'))]"/>
         </originInfo>
       </xsl:if>
 
