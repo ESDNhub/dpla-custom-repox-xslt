@@ -23,11 +23,11 @@
         output empty elements -->
       
       <xsl:if test="normalize-space(dc:source) != ''">
-        <physicalDescription>
+        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
           <xsl:apply-templates select="dc:source" mode="hi">
             <xsl:with-param name="delimiter">;</xsl:with-param>
           </xsl:apply-templates>
-        </physicalDescription>
+        </xsl:element>
       </xsl:if>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
