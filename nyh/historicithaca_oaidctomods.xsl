@@ -34,9 +34,6 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
-      <xsl:apply-templates select="dc:source" mode="hi">
-        <xsl:with-param name="delimiter">;</xsl:with-param>
-      </xsl:apply-templates> 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
