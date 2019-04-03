@@ -34,7 +34,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
-      <xsl:apply-templates select="dc:format" mode="nyh"/> 
+      <xsl:apply-templates select="dc:format" mode="utica"/> 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       <xsl:apply-templates select="dc:coverage" mode="nyh"/>
@@ -65,5 +65,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates -->
-  
+  <!-- suppress dc:format -->
+  <xsl:template match="dc:format" mode="utica"/>
+
 </xsl:stylesheet>
