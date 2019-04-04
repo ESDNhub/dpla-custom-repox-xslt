@@ -25,8 +25,7 @@
         <xsl:apply-templates select="dc:source" mode="nychiroc"/>
       </xsl:if>
       <xsl:apply-templates select="dc:format[1]" mode="nyh"/>
-      
-      <xsl:apply-templates select="dc:identifier[contains(., 'http')]" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nychiroc"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
@@ -58,5 +57,43 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates -->
+  <xsl:template match="dc:identifier" mode="nychiroc">
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:variable name="idvalue" select="normalize-space(.)"/>
+        <xsl:choose>
+          <xsl:when test="starts-with($idvalue, 'http')">
+            <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+              <xsl:element name="url">
+                <xsl:attribute name="usage">primary display</xsl:attribute>
+                <xsl:attribute name="access">object in context</xsl:attribute>
+                <xsl:value-of select="$idvalue"/>
+              </xsl:element>
+            </xsl:element>
+            <!-- ref url-->
+            <!-- process identifier into CONTENTdm 6.5 thumbnail urls -->
+            <xsl:variable name="contentdmroot" select="substring-before($idvalue, '/cdm/ref/')"/>
+            <xsl:variable name="recordinfo"
+              select="substring-after($idvalue, '/cdm/ref/collection/')"/>
+            <xsl:variable name="alias" select="substring-before($recordinfo, '/id/')"/>
+            <xsl:variable name="pointer" select="substring-after($recordinfo, '/id/')"/>
+            <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+              <xsl:element name="url">
+                <xsl:attribute name="access">preview</xsl:attribute>
+                <xsl:value-of
+                  select="concat($contentdmroot, '/utils/getthumbnail/collection/', $alias, '/id/', $pointer)"
+                />
+              </xsl:element>
+            </xsl:element>
+            <!-- end CONTENTdm thumbnail url processing -->
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="identifier"><xsl:value-of select="$idvalue"/></xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
   
 </xsl:stylesheet>
