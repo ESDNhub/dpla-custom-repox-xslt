@@ -24,7 +24,8 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <xsl:apply-templates select="dc:source" mode="nychiroc"/>
       </xsl:if>
-      <xsl:apply-templates select="dc:format[1]" mode="nyh"/>
+      <xsl:apply-templates select="dc:format[1][not(contains(., 'Law and legal'))]" mode="nyh"/>
+      <xsl:apply-templates select="dc:format[1][contains(., 'Law and legal')]" mode="nychiroc"/>
       <xsl:apply-templates select="dc:identifier" mode="nychiroc"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
@@ -37,15 +38,6 @@
     </mods>
   </xsl:template>
   
-<!-- institution-specific templates -->
-  <xsl:template match="dc:source" mode="nychiroc">
-    <xsl:variable name="source_list" select="tokenize(., ';')"/>
-    <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-      <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(concat($source_list[1], '; ', $source_list[2]))"/></xsl:element>
-      <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space($source_list[3])"/></xsl:element>
-    </xsl:element>
-  </xsl:template>
-  
   <!-- ESDN utility templates --> 
   <xsl:include href="nyh_templates.xsl"/>
 <xsl:include href="esdn_templates.xsl"/>
@@ -56,7 +48,25 @@
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
-  <!-- collection-specific templates -->
+  <!-- institution-specific templates -->
+  <xsl:template match="dc:source" mode="nychiroc">
+    <xsl:variable name="source_list" select="tokenize(., ';')"/>
+    <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+      <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(concat($source_list[1], '; ', $source_list[2]))"/></xsl:element>
+      <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space($source_list[3])"/></xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="dc:format" mode="nychiroc">
+    <xsl:variable name="formatvalue" select="normalize-space(.)"/>
+    <xsl:for-each select="tokenize($formatvalue,';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element> <!--format-->
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
+  
   <xsl:template match="dc:identifier" mode="nychiroc">
     <xsl:for-each select="tokenize(., ';')">
       <xsl:if test="normalize-space(.)!=''">
