@@ -24,8 +24,7 @@
       <xsl:if test="normalize-space(dc:source) != ''">
         <xsl:apply-templates select="dc:source" mode="nychiroc"/>
       </xsl:if>
-      <xsl:apply-templates select="dc:format[1][not(contains(., 'Law and legal'))]" mode="nyh"/>
-      <xsl:apply-templates select="dc:format[1][contains(., 'Law and legal')]" mode="nychiroc"/>
+      <xsl:apply-templates select="dc:format[1]" mode="nychiroc"/>
       <xsl:apply-templates select="dc:identifier" mode="nychiroc"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>    
