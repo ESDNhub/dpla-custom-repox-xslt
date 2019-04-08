@@ -41,7 +41,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
-      <xsl:apply-templates select="dc:format" mode="nyh"/>
+      <xsl:apply-templates select="dc:format" mode="rockville"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
@@ -86,6 +86,7 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here --> 
+  <xsl:template match="dc:format" mode="rockville"/>
   
 </xsl:stylesheet>
 
