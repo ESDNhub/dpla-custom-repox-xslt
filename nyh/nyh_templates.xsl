@@ -288,6 +288,42 @@
         </xsl:if>  
     </xsl:template>
     
+    <xsl:template match="dc:identifier" mode="nyh_nolocal">
+        <xsl:variable name="idvalue" select="normalize-space(.)"/>
+        <xsl:choose>
+            <xsl:when test="starts-with($idvalue, 'http')">
+                <!-- CONTENTdm puts the URI in an <identifier> field in the OAI record -->
+                <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="url">
+                        <xsl:attribute name="usage">primary display</xsl:attribute>
+                        <xsl:attribute name="access">object in context</xsl:attribute>
+                        <xsl:value-of select="$idvalue"/>
+                    </xsl:element>
+                </xsl:element>
+                <!-- ref url-->
+                <!-- process identifier into CONTENTdm 6.5 thumbnail urls -->
+                <xsl:variable name="contentdmroot" select="substring-before($idvalue, '/cdm/ref/')"/>
+                <xsl:variable name="recordinfo"
+                    select="substring-after($idvalue, '/cdm/ref/collection/')"/>
+                <xsl:variable name="alias" select="substring-before($recordinfo, '/id/')"/>
+                <xsl:variable name="pointer" select="substring-after($recordinfo, '/id/')"/>
+                <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
+                    <xsl:element name="url">
+                        <xsl:attribute name="access">preview</xsl:attribute>
+                        <xsl:value-of
+                            select="concat($contentdmroot, '/utils/getthumbnail/collection/', $alias, '/id/', $pointer)"
+                        />
+                    </xsl:element>
+                </xsl:element>
+                <!-- end CONTENTdm thumbnail url processing -->
+            </xsl:when>
+            <xsl:otherwise/> <!-- discard local identifier -->
+        </xsl:choose>
+        
+    </xsl:template>
+    
+    <xsl:template match="dc:format" mode="nyh_nogenre"/>
+    
     <xsl:template name="coords_element-nyh">
     <xsl:param name="lat"/>
     <xsl:param name="long"/>
