@@ -37,7 +37,7 @@
       <xsl:apply-templates select="dc:identifier" mode="esdn"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
-      <xsl:apply-templates select="dc:format" mode="nyh"/>
+      <xsl:apply-templates select="dc:format" mode="nyh_nogenre"/>
       <xsl:if test="normalize-space(dc:source) != ''">
         <physicalDescription>
           <xsl:apply-templates select="dc:source" mode="esdn">
