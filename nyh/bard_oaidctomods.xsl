@@ -24,7 +24,7 @@
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="bard"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
