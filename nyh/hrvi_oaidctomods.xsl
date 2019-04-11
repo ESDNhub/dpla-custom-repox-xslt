@@ -20,7 +20,7 @@
 
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language"/>
       
       <!-- coordinates for HRVI in dc:coverage -->
