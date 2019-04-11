@@ -24,7 +24,7 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="esdn"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
