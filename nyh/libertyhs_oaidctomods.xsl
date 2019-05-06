@@ -9,31 +9,24 @@
       <xsl:apply-templates select="dc:title"/>
       
       <!-- HRVH uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator"/>
-      </xsl:if>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(text()), 'unknown'))]"/>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:date[not(contains(lower-case(text()), 'unknown'))]" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[not(contains(lower-case(text()), 'unknown'))]"/>
         </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights" mode="hrvh"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="libertyhs"/>
       
-      <physicalDescription>
-      <xsl:apply-templates select="dc:format" mode="libertyhs"/>  
-      </physicalDescription>
-      
-      <xsl:call-template name="add_genre">
-        <xsl:with-param name="format_elm">
-          <xsl:value-of select="./dc:format[position()=1]"/>
-        </xsl:with-param>
-      </xsl:call-template>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:source" mode="libertyhs"/>
+      </xsl:element>
+      <xsl:apply-templates select="dc:format" mode="nyh"/> 
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -52,7 +45,7 @@
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- HRVH utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
@@ -87,39 +80,10 @@
     </xsl:choose>
   </xsl:template>
   
-  <xsl:template match="dc:format" mode="libertyhs">
-    <xsl:choose>
-      <xsl:when test="position()=1">
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-            <xsl:value-of select="normalize-space(.)"/>
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="position()=2">
-        <xsl:variable name="elms" select="tokenize(., ';')"/>
-        <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="normalize-space($elms[1])"/>
-        </xsl:element>
-        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-          <xsl:value-of select="concat(normalize-space($elms[2]), '; ', $elms[3])"/>
-        </xsl:element>
-      </xsl:when>
-      <xsl:otherwise/>
-    </xsl:choose>
-    
-  </xsl:template>
-  
-  <xsl:template name="add_genre">
-    <xsl:param name="format_elm"/>
-    <xsl:variable name="format_text" select="$format_elm/text()"/>
-    <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-      <xsl:choose>
-        <xsl:when test="lower-case($format_text)='school yearbooks'">yearbooks</xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="normalize-space($format_text)"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:element>
-    
+  <xsl:template match="dc:source" mode="libertyhs">
+    <xsl:variable name="elm_list" select="tokenize(normalize-space(.), ';')"/>
+    <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space($elm_list[1])"/></xsl:element>
+    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(concat($elm_list[2], ';', $elm_list[3]))"/></xsl:element>
   </xsl:template>
   
 </xsl:stylesheet>
