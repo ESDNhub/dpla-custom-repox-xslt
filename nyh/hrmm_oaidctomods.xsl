@@ -14,25 +14,32 @@
       <xsl:apply-templates select="dc:contributor"/>
       
       <!-- HRVH uses 'unknown' for dc:creator when well, unknown.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator"/>
-      </xsl:if>
+        <xsl:apply-templates select="dc:creator[not(contains(lower-case(text()), 'unknown'))]"/>
       
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[1][lower-case(./text())!='unknown']" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:date[1][not(contains(lower-case(text()), 'unknown'))]" mode="esdn"/>
+          <xsl:apply-templates select="dc:publisher[not(contains(lower-case(text()), 'unknown'))]"/>
         </originInfo>
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights" mode="hrvh"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:if test="count(dc:format)=2">
+          <xsl:apply-templates select="dc:format[2]" mode="hrmm"/>
+        </xsl:if>
+        <xsl:apply-templates select="dc:source" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+          </xsl:apply-templates>
+        </xsl:element>
+      <xsl:apply-templates select="dc:format[1]" mode="nyh"/>
       
       <!-- hard code collection and ownership note -->
       
@@ -58,7 +65,7 @@
   
   <!-- ESDN utility templates -->
   
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
@@ -70,5 +77,11 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
+  
+  <xsl:template match="dc:format" mode="hrmm">
+    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
   
 </xsl:stylesheet>
