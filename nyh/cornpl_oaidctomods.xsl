@@ -8,23 +8,27 @@
 
       <xsl:apply-templates select="dc:title"/>
       <xsl:apply-templates select="dc:contributor"/>
-      <xsl:apply-templates select="dc:creator[lower-case(normalize-space(./text()))!='unknown']"/>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(text()), 'unknown'))]"/>
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language" mode="esdn"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
-      </physicalDescription>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:source" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+        </xsl:apply-templates>
+      </xsl:element>
+      <xsl:apply-templates select="dc:format" mode="nyh"/> 
       
       <xsl:apply-templates select="dc:coverage"/>
-      <xsl:if test="exists(dc:publisher)">
-        <xsl:element name="originInfo">
+      <xsl:if test="exists(dc:publisher) or exists(dc:date)">
+        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
           <xsl:apply-templates select="dc:publisher"/>
+          <xsl:apply-templates select="dc:date"/>
         </xsl:element>
       </xsl:if>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="hrvh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
@@ -48,7 +52,7 @@
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- HRVH utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
