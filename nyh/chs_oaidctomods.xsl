@@ -18,15 +18,13 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
-       </physicalDescription>
+      <xsl:apply-templates select="dc:format" mode="nyh"/> 
       
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:coverage" mode="hrvh"/>
-      <xsl:apply-templates select="dc:rights"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:coverage" mode="nyh"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
 
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
@@ -53,7 +51,7 @@
   </xsl:template>
   
   <!-- ESDN utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
 <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
