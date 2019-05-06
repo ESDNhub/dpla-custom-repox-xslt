@@ -25,13 +25,16 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:rights" mode="hrvh"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
       <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
+        <xsl:apply-templates select="dc:format" mode="nyh"/>
+        <xsl:apply-templates select="dc:source" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+        </xsl:apply-templates>
       </physicalDescription>
       
       <xsl:apply-templates select="dc:coverage"/>
@@ -58,7 +61,7 @@
   </xsl:template>
   
   <!-- ESDN utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
   <xsl:include href="esdn_templates.xsl"/>
   
   <!-- dublin core field templates -->
