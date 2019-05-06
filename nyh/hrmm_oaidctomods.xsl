@@ -79,9 +79,13 @@
   <!-- collection-specific templates start here -->
   
   <xsl:template match="dc:format" mode="hrmm">
-    <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
-      <xsl:value-of select="normalize-space(.)"/>
-    </xsl:element>
+    <xsl:for-each select="tokenize(., ';')">
+      <xsl:if test="normalize-space(.)!=''">
+        <xsl:element name="extent" namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
   
 </xsl:stylesheet>
