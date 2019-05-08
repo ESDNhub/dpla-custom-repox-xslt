@@ -11,37 +11,23 @@
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
       version="3.4">
       <xsl:apply-templates select="dc:title"/>
-      <xsl:apply-templates select="dc:contributor"/>
+      <xsl:apply-templates select="dc:contributor[not(contains(lower-case(text()), 'unknown'))]"/>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(text()), 'unknown'))]"/>
 
-      <!-- HRVH uses 'unknown' for dc:creator when well, unknown. Ignore it if present.-->
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator"/>
-      </xsl:if>
-
-      <xsl:if test="dc:date != 'unknown' or dc:publisher != 'unknown'">
-        <originInfo>
-          <xsl:if test="lower-case(normalize-space(dc:date)) != 'unknown'">
-            <xsl:apply-templates select="dc:date"/>
-          </xsl:if>
-          <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
-            <xsl:apply-templates select="dc:publisher"/>
-          </xsl:if>
-        </originInfo>
-      </xsl:if>
+      <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:date" mode="esdn"/>
+        <xsl:apply-templates select="dc:publisher"/>
+      </xsl:element>
 
       <xsl:apply-templates select="dc:description"/>
 
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
-      <xsl:apply-templates select="dc:identifier" mode="esdn"/>
+      <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
 
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
 
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
-      
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="hrvh"/>
-      </physicalDescription>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="nyack"/>
@@ -62,7 +48,6 @@
       <xsl:call-template name="owner-note">
         <xsl:with-param name="owner">Nyack Library</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates select="dc:relation" mode="esdn"/>
     </mods>
   </xsl:template>
 
@@ -70,7 +55,7 @@
   <xsl:include href="esdn_templates.xsl"/>
 
   <!-- HRVH utility templates -->
-  <xsl:include href="hrvh_templates.xsl"/>
+  <xsl:include href="nyh_templates.xsl"/>
 
   <!-- dublin core field templates -->
   <xsl:include href="oaidctomods_cdmbase.xsl"/>
