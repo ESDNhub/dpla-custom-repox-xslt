@@ -30,6 +30,7 @@
       <xsl:apply-templates select="dc:format[not(contains(text(), '/'))]" mode="nyh"/>
       
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:coverage"/>
       
       <!-- hard code collection and ownership note -->
         
@@ -42,7 +43,7 @@
       </xsl:element>
       
       <xsl:call-template name="intermediate-provider"><xsl:with-param name="council">South Central Regional Library Council</xsl:with-param></xsl:call-template><xsl:call-template name="owner-note"><xsl:with-param name="owner">Steele Memorial Library</xsl:with-param></xsl:call-template>
-     <xsl:apply-templates select="dc:relation" mode="esdn"/></mods>
+  </mods>
   </xsl:template>
   
   <!-- ESDN utility templates -->
