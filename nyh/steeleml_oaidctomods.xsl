@@ -22,11 +22,7 @@
       <xsl:apply-templates select="dc:rights"  mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:apply-templates select="dc:source" mode="esdn">
-          <xsl:with-param name="delimiter">;</xsl:with-param>
-        </xsl:apply-templates>
-      </xsl:element>
+      <xsl:apply-templates select="dc:source" mode="steeleml"/>
       <xsl:apply-templates select="dc:format[not(contains(text(), '/'))]" mode="nyh"/>
       
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -58,5 +54,7 @@
   <!-- reference URL, thumbnail URL --> 
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
-  <!-- collection-specific templates start here -->  
+  <!-- collection-specific templates start here -->
+  <xsl:template match="dc:source" mode="steeleml"/>
+    
 </xsl:stylesheet>
