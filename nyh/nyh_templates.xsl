@@ -90,104 +90,10 @@
   <!-- Map NYH Physical Format terms to MODS Genre or IMT based on format value -->
   
   <xsl:template match="dc:format" mode="nyh">
-      <xsl:variable name="genres">
-          <term>advertisements</term>
-          <term>aerial photographs</term>
-          <term>albumen prints</term>
-          <term>ammunition and weapons</term>
-          <term>announcements and press releases</term>
-          <term>architectural drawings (visual works)</term>
-          <term>art and decorative works</term>
-          <term>articles</term>
-          <term>atlases</term>
-          <term>black-and-white photographs</term>
-          <term>books</term>
-          <term>born digital</term>
-          <term>broadcasts</term>
-          <term>broadsides</term>
-          <term>cabinet cards</term>
-          <term>calendars</term>
-          <term>cartes-de-visite (card photographs)</term>
-          <term>catalogs</term>
-          <term>charts and graphs</term>
-          <term>collodion photographs</term>
-          <term>color photographs</term>
-          <term>contact prints</term>
-          <term>correspondence</term>
-          <term>containers</term>
-          <term>costumes</term>
-          <term>cyanotypes</term>
-          <term>daguerreotypes</term>
-          <term>diaries</term>
-          <term>directories</term>
-          <term>drawings</term>
-          <term>ephemera (images)</term>
-          <term>ephemera (text)</term>
-          <term>equipment and tools</term>
-          <term>financial documents</term>
-          <term>finding aids</term>
-          <term>flags</term>
-          <term>furniture</term>
-          <term>games and toys</term>
-          <term>gelatin silver prints</term>
-          <term>genealogical tables</term>
-          <term>greeting cards</term>
-          <term>home movies</term>
-          <term>illuminated manuscripts</term>
-          <term>independent films</term>
-          <term>instructional materials</term>
-          <term>journals and magazines (periodicals)</term>
-          <term>lantern slides</term>
-          <term>law and legal documents</term>
-          <term>manuscripts</term>
-          <term>maps</term>
-          <term>meeting minutes</term>
-          <term>memorandums</term>
-          <term>menus</term>
-          <term>music (audio)</term>
-          <term>music (text)</term>
-          <term>negatives (photographic)</term>
-          <term>newsletters</term>
-          <term>newspapers</term>
-          <term>newsreels</term>
-          <term>oral histories</term>
-          <term>paintings</term>
-          <term>pamphlets</term>
-          <term>panoramas</term>
-          <term>photograph albums</term>
-          <term>photographs</term>
-          <term>postcards</term>
-          <term>posters</term>
-          <term>prints</term>
-          <term>reports</term>
-          <term>schedules (time plans)</term>
-          <term>scrapbooks</term>
-          <term>sepia photographs</term>
-          <term>signs</term>
-          <term>sketchbooks</term>
-          <term>slides (photographs)</term>
-          <term>speeches (audio)</term>
-          <term>speeches (text)</term>
-          <term>stereographs</term>
-          <term>studio portraits (photographs)</term>
-          <term>telegrams</term>
-          <term>television programs</term>
-          <term>tintypes</term>
-          <term>transcripts</term>
-          <term>transportation vehicles</term>
-          <term>woodcuts (visual works)</term>
-          <term>yearbooks</term>
-      </xsl:variable>
       <xsl:variable name="genrelist" select="tokenize(normalize-space(.), ';')"/>
       <xsl:for-each select="$genrelist">
           <xsl:if test="normalize-space(.)!=''">
               <xsl:choose>
-                  <xsl:when test="contains($genres, normalize-space(lower-case(.)))">
-                      <xsl:element name="genre" namespace="http://www.loc.gov/mods/v3">
-                          <xsl:attribute name="authority">aat</xsl:attribute>
-                          <xsl:value-of select="normalize-space(lower-case(.))"/>
-                      </xsl:element>
-                  </xsl:when>
                   <xsl:when test="contains(., 'image/') or contains(., 'video/') or contains(.,'audio/') or contains(., 'application/')">
                       <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
                           <xsl:element name="internetMediaType" namespace="http://www.loc.gov/mods/v3">
