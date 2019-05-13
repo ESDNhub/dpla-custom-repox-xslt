@@ -21,8 +21,12 @@
       <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
       <xsl:apply-templates select="dc:rights"  mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
-      
-      <xsl:apply-templates select="dc:source" mode="steeleml"/>
+      <xsl:apply-templates select="dc:language" mode="esdn"/>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+        <xsl:apply-templates select="dc:source[1]" mode="esdn">
+          <xsl:with-param name="delimiter">;</xsl:with-param>
+        </xsl:apply-templates>        
+      </xsl:element>
       <xsl:apply-templates select="dc:format[not(contains(text(), '/'))]" mode="nyh"/>
       
       <xsl:apply-templates select="dc:type" mode="esdn"/>
@@ -55,6 +59,10 @@
   <xsl:include href="oaidctomods_cdm6.5.xsl"/>
   
   <!-- collection-specific templates start here -->
-  <xsl:template match="dc:source" mode="steeleml"/>
+  <xsl:template match="dc:source" mode="steeleml">
+    <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
+  </xsl:template>
     
 </xsl:stylesheet>
