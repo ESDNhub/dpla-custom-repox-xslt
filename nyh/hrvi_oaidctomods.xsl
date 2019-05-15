@@ -9,10 +9,12 @@
       <xsl:apply-templates select="dc:contributor"/>
       <xsl:apply-templates select="dc:creator[lower-case(normalize-space(text()))!='unknown']"/>
       
-        <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:apply-templates select="dc:date" mode="esdn"/>
-          <xsl:apply-templates select="dc:publisher"/>
-        </xsl:element>
+        <xsl:if test="exists(dc:date) or exists(dc:publisher)">
+          <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
+            <xsl:apply-templates select="dc:date" mode="esdn"/>
+            <xsl:apply-templates select="dc:publisher"/>
+          </xsl:element>
+        </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
       
