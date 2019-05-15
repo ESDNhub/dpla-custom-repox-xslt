@@ -30,12 +30,12 @@
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       
-      <physicalDescription>
-        <xsl:apply-templates select="dc:format" mode="nyh"/>
+      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:apply-templates select="dc:source" mode="esdn">
           <xsl:with-param name="delimiter">;</xsl:with-param>
         </xsl:apply-templates>
-      </physicalDescription>
+      </xsl:element>
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
