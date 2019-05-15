@@ -28,6 +28,8 @@
       <xsl:apply-templates select="dc:format[not(contains(text(), '/'))]" mode="nyh"/>
       
       <xsl:apply-templates select="dc:type" mode="esdn"/>
+      <xsl:apply-templates select="dc:language"/>
+      <xsl:apply-templates select="dc:coverage"/>
       
       <!-- hard code collection and ownership note -->
         
