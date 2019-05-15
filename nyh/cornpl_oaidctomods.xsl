@@ -29,7 +29,7 @@
       </xsl:if>
       <xsl:apply-templates select="dc:relation" mode="esdn"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
-      <xsl:apply-templates select="dc:subject" mode="hrvh"/>
+      <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
       
       <!-- hard code collection and ownership note -->
