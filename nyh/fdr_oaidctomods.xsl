@@ -21,10 +21,11 @@
       </xsl:if>
       
       <xsl:apply-templates select="dc:description"/>
-      
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:apply-templates select="dc:source[1]" mode="fdr"/>
-      </xsl:element>
+      <xsl:if test="exists(./dc:source)">
+        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+          <xsl:apply-templates select="dc:source" mode="fdr"/>
+        </xsl:element>
+      </xsl:if>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
@@ -65,7 +66,7 @@
   <!-- collection-specific templates start here -->  
   
   <xsl:template match="dc:source" mode="fdr">
-    <form><xsl:value-of select="normalize-space(.)"/></form>
+    <xsl:element name="form" namespace="http://www.loc.gov/mods/v3"><xsl:value-of select="normalize-space(.)"/></xsl:element>
   </xsl:template>
     
 </xsl:stylesheet>
