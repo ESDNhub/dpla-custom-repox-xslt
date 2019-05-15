@@ -31,14 +31,14 @@
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="esdn"/>
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
-        <xsl:if test="count(dc:format)=2">
-          <xsl:apply-templates select="dc:format[2]" mode="hrmm"/>
-        </xsl:if>
-        <xsl:apply-templates select="dc:source" mode="esdn">
-          <xsl:with-param name="delimiter">;</xsl:with-param>
-          </xsl:apply-templates>
-        </xsl:element>
+      <xsl:if test="exists(dc:source) or exists(dc:format)">
+        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+          <xsl:if test="count(dc:format)=2">
+            <xsl:apply-templates select="dc:format[2]" mode="hrmm"/>
+          </xsl:if>
+          <xsl:apply-templates select="dc:source" mode="hrmm"/>
+        </xsl:element>        
+      </xsl:if>
       <xsl:apply-templates select="dc:format[1]" mode="nyh"/>
       
       <!-- hard code collection and ownership note -->
@@ -86,6 +86,12 @@
         </xsl:element>
       </xsl:if>
     </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template match="dc:source" mode="hrmm">
+    <xsl:element name="form" namespace="http://www.loc.gov/mods/v3">
+      <xsl:value-of select="normalize-space(.)"/>
+    </xsl:element>
   </xsl:template>
   
 </xsl:stylesheet>
