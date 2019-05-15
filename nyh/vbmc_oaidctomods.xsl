@@ -19,11 +19,13 @@
       
       <xsl:apply-templates select="dc:description"/>
       
-      <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
+      <xsl:if test="exists(dc:source)">
+        <xsl:element name="physicalDescription" namespace="http://www.loc.gov/mods/v3">
         <xsl:apply-templates select="dc:source" mode="esdn">
           <xsl:with-param name="delimiter">;</xsl:with-param>
         </xsl:apply-templates>
       </xsl:element>
+      </xsl:if>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <!-- templates we override get a mode attribute with the setSpec of the collection -->
