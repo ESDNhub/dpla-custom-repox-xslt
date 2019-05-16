@@ -506,12 +506,17 @@
                     <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/UND/1.0/</xsl:attribute>
                         <xsl:text>Copyright Undetermined</xsl:text>
                 </xsl:when>
-                <xsl:when test="contains($rights_text, 'No Known Copyright') or contains($rights_text, 'http://rightsstatements.org/vocab/NKC/1.0/')">
-                    <xsl:attribute name="type">use and reproduction</xsl:attribute>
-                    <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NKC/1.0/</xsl:attribute>
+                    <xsl:when test="contains($rights_text, 'No Known Copyright') or contains($rights_text, 'http://rightsstatements.org/vocab/NKC/1.0/')">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/NKC/1.0/</xsl:attribute>
                         <xsl:text>No Known Copyright</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
+                    </xsl:when>
+                    <xsl:when test="contains($rights_text, 'Public Domain Mark') or contains($rights_text, 'https://creativecommons.org/publicdomain/mark/1.0')">
+                        <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                        <xsl:attribute name="xlink:href">http://creativecommons.org/publicdomain/mark/1.0/</xsl:attribute>
+                        <xsl:text>Public Domain Mark</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
                         <xsl:attribute name="type">local rights statements</xsl:attribute>
                         <xsl:value-of select="normalize-space($rights_text)"/>
                 </xsl:otherwise>
