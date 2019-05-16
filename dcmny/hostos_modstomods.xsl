@@ -69,7 +69,7 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="mods:note">
+    <xsl:template match="mods:note[not(exists(./@type))]">
         <xsl:element name="note" namespace="http://www.loc.gov/mods/v3">
             <xsl:attribute name="type">content</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
@@ -160,9 +160,12 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:call-template name="parse_rights">
+            <xsl:with-param name="rights_text">In Copyright - Educational Use Permitted.</xsl:with-param>
+        </xsl:call-template>
+        <xsl:call-template name="parse_rights">
+            <xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(substring-after(., 'In Copyright - Educational Use Permitted.'))"/></xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 
     <!-- ESDN utility templates -->
