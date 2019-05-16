@@ -163,9 +163,9 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:call-template name="parse_rights">
+            <xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
     
     <!-- ESDN utility templates -->
