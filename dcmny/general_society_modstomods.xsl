@@ -34,7 +34,8 @@
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:note"/>
-    
+    <xsl:template match="mods:dateCreated[contains(lower-case(./text()), 'undated')]"/>
+        
     <xsl:template match="mods:namePart">
         <xsl:element name="namePart" namespace="http://www.loc.gov/mods/v3">
             <xsl:value-of select="normalize-space(.)"/>
@@ -157,9 +158,9 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:call-template name="parse_rights">
+            <xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 
     <!-- ESDN utility templates -->
