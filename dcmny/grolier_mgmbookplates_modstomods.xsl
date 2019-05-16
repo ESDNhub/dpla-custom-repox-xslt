@@ -32,6 +32,7 @@
         </xsl:copy>
     </xsl:template>
 
+    <xsl:template match="mods:role"/>
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:place"/>
@@ -42,6 +43,18 @@
         <xsl:element name="namePart" namespace="http://www.loc.gov/mods/v3">
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="mods:role[./mods:roleTerm='Creator']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <xsl:template match="mods:role[./mods:roleTerm='Contributor']">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
     </xsl:template>
     
     <xsl:template match="mods:dateCreated">
