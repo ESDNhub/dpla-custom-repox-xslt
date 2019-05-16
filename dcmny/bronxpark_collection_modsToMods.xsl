@@ -58,9 +58,19 @@
             <xsl:apply-templates select="@*|node()"/>
             <xsl:for-each select="../mods:note[@type='dateuncontrolled']">
                 <xsl:if test="normalize-space(lower-case(.))!='undated'">
+                    <xsl:variable name="date_value">
+                        <xsl:choose>
+                            <xsl:when test="ends-with(., '-?')">
+                                <xsl:value-of select="replace(., '\-\?', '0?')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="."/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
                     <xsl:call-template name="date-to-mods">
                         <xsl:with-param name="dateval">
-                            <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:value-of select="normalize-space($date_value)"/>
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
