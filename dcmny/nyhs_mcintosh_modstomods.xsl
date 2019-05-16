@@ -71,6 +71,8 @@
     
   <xsl:template match="mods:dateCreated">
     <xsl:variable name="date_range" select="tokenize(normalize-space(.), '-')"/>
+    <xsl:choose>
+      <xsl:when test="count($date_range)=2">
     <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
       <xsl:attribute name="keyDate">yes</xsl:attribute>
       <xsl:attribute name="point">start</xsl:attribute>
@@ -81,6 +83,15 @@
       <xsl:attribute name="point">end</xsl:attribute>
       <xsl:value-of select="$date_range[2]"/>
     </xsl:element>
+      </xsl:when>
+      <xsl:when test="count($date_range)=3">
+        <xsl:element name="dateCreated" namespace="http://www.loc.gov/mods/v3">
+          <xsl:attribute name="keyDate">yes</xsl:attribute>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>        
+      </xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template match="mods:geographic">
