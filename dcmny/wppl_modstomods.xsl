@@ -3,6 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
     xmlns:oai-pmh="http://www.openarchives.org/OAI/2.0/" xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="xs" version="2.0">
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
@@ -162,9 +163,21 @@
     </xsl:template>
     
     <xsl:template match="mods:accessCondition">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+        <xsl:choose><xsl:when test="contains(., 'Creative Commons')">
+            <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                <xsl:attribute name="xlink:href">http://creativecommons.org/licenses/by-nc-sa/3.0/us</xsl:attribute>
+                Attribution-NonCommercial-ShareAlike 3.0 United States (CC)
+            </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
+                <xsl:attribute name="type">use and reproduction</xsl:attribute>
+                <xsl:attribute name="xlink:href">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:attribute>
+                <xsl:text>In Copyright - Non-Commercial Use Permitted</xsl:text>
+            </xsl:element>       
+        </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- ESDN utility templates -->
