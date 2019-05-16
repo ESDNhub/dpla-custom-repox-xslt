@@ -161,7 +161,7 @@
     
     <xsl:template match="mods:accessCondition">
         <xsl:call-template name="parse_rights">
-            <xsl:with-param name="rights_text">In Copyright - Educational Use Permitted.</xsl:with-param>
+            <xsl:with-param name="rights_text">Educational Use Permitted.</xsl:with-param>
         </xsl:call-template>
         <xsl:call-template name="parse_rights">
             <xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(substring-after(., 'In Copyright - Educational Use Permitted.'))"/></xsl:with-param>
