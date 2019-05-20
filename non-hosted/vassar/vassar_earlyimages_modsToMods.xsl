@@ -14,7 +14,8 @@
   <xsl:template match="*[not(child::node())]"/>
   <xsl:template match="@*|node()">
     <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
+      <xsl:apply-templates select="*[not(child::node())]"/>
+      <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </xsl:template>
     
@@ -123,6 +124,20 @@
   <xsl:template match="mods:subject/mods:geographic"/>
   <xsl:template match="mods:subject/mods:hierarchicalGeographic/mods:continent"/>
   <xsl:template match="mods:form/@authority"/>
+  <xsl:template match="mods:partNumber"/>
+  <xsl:template match="mods:partName"/>
+  <xsl:template match="mods:copyrightDate"/>
+  <xsl:template match="mods:dateCaptured"/>
+  <xsl:template match="mods:dateValid"/>
+  <xsl:template match="mods:dateModified"/>
+  <xsl:template match="mods:frequency"/>
+  <xsl:template match="mods:issuance"/>
+  <xsl:template match="mods:affiliation"/>
+  <xsl:template match="mods:tableOfContents"/>
+  <xsl:template match="mods:targetAudience"/>
+  <xsl:template match="mods:name[./mods:role/mods:roleTerm[not(string(.))]]"/>
+  <xsl:template match="mods:language[./mods:languageTerm[not(string(.))]]"/>
+  <xsl:template match="mods:originInfo[./mods:dateCreated[not(string(.))]]"/>
   
   <xsl:template match="mods:accessCondition[@type='use and reproduction']">
     <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
