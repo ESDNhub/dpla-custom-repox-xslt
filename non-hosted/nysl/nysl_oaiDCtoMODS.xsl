@@ -96,15 +96,17 @@
     <xsl:variable name="contriblist" select="tokenize(normalize-space(.), ';')"/>
     <xsl:if test="count($contriblist) > 0">
       <xsl:for-each select="$contriblist">
-        <name>
-          <namePart>
-            <xsl:value-of select="normalize-space(.)"/>
-            <!--contributor-->
-          </namePart>
-          <role>
-            <roleTerm>Contributor</roleTerm>
-          </role>
-        </name>
+       <xsl:if test="normalize-space(.)!=''">
+         <name>
+           <namePart>
+             <xsl:value-of select="normalize-space(.)"/>
+             <!--contributor-->
+           </namePart>
+           <role>
+             <roleTerm>Contributor</roleTerm>
+           </role>
+         </name>         
+       </xsl:if>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>
