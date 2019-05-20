@@ -17,7 +17,7 @@
 
       <xsl:if test="normalize-space(dc:date) != '' or normalize-space(dc:publisher) != ''">
         <xsl:element name="originInfo" namespace="http://www.loc.gov/mods/v3">
-          <xsl:apply-templates select="dc:date[not(contains(lower-case(text()), 'unknown'))]"/>
+          <xsl:apply-templates select="dc:date[not(contains(lower-case(text()), 'unknown'))]" mode="esdn"/>
           <!-- Test for exact match here because one valid record starts with Unknown -->
           <xsl:if test="lower-case(normalize-space(dc:publisher)) != 'unknown'">
             <xsl:apply-templates select="dc:publisher"/>
