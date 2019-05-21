@@ -14,19 +14,15 @@
       <xsl:apply-templates select="dc:title" mode="nysl"/>
       <!-- Check for 'unknown' in dc:creator when well, unknown. Ignore it if present.-->
       
-      <xsl:if test="lower-case(normalize-space(dc:creator)) != 'unknown'">
-        <xsl:apply-templates select="dc:creator" mode="nysl"/>
-      </xsl:if>
+      <xsl:apply-templates select="dc:creator[not(contains(lower-case(.), 'unknown'))]" mode="nysl"/>
 
       <!-- Check for 'unknown' in dc:contributor when well, unknown. Ignore it if present.-->
-      <xsl:if test="not(contains(lower-case(normalize-space(dc:contributor)), 'unknown'))">
-        <xsl:apply-templates select="dc:contributor" mode="nysl"/>
-      </xsl:if>
+      <xsl:apply-templates select="dc:contributor[not(contains(lower-case(.), 'unknown'))]" mode="nysl"/>
 
       <xsl:if test="dc:publisher != '' or dc:date != ''">
         <originInfo>
-          <xsl:apply-templates select="dc:date[lower-case(./text())!='unknown']"/>
-          <xsl:apply-templates select="dc:publisher[lower-case(./text())!='unknown']"/>
+          <xsl:apply-templates select="dc:date[not(contains(lower-case(.), 'unknown'))]"/>
+          <xsl:apply-templates select="dc:publisher[not(contains(lower-case(.), 'unknown'))]"/>
         </originInfo>
       </xsl:if>
       
