@@ -28,6 +28,7 @@
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
+      <xsl:apply-templates select="dc:format" mode="nyh"/>
       
       <xsl:apply-templates select="dc:coverage"/>
       <xsl:apply-templates select="dc:type" mode="nyack"/>
