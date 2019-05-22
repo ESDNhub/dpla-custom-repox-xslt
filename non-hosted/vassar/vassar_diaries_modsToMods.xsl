@@ -25,6 +25,12 @@
       <xsl:attribute name="version">3.4</xsl:attribute>
       <xsl:apply-templates select="@* | node()"/>
       
+      <xsl:for-each select="mods:subject/mods:genre">
+        <xsl:element name="genre"  namespace="http://www.loc.gov/mods/v3">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:element>
+      </xsl:for-each>
+      
       <!-- hard code collection and ownership notes -->
       
       <xsl:call-template name="owner-note">
@@ -132,6 +138,7 @@
   <xsl:template match="mods:relatedItem[@type='constituent']"/>
   <xsl:template match="mods:genre[@authority]"/>
   <xsl:template match="mods:subject[@altRepGroup]"/>
+  <xsl:template match="mods:subject/mods:genre"/>
   <xsl:template match="mods:subject/mods:name[@type='personal']/mods:affiliation"/>
   
   <xsl:template match="mods:accessCondition[@type='use and reproduction']">
