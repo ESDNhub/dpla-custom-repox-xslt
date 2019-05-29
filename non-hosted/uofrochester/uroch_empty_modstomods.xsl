@@ -37,6 +37,10 @@
                     </xsl:element>
                 </xsl:for-each>
             </xsl:element>
+            
+            <xsl:call-template name="parse_rights">
+                <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
+            </xsl:call-template>
                         
             <xsl:call-template name="owner-note">
                 <xsl:with-param name="owner">University of Rochester, River Campus Libraries</xsl:with-param>
@@ -55,7 +59,6 @@
     <xsl:template match="mods:recordInfo"/>
     <xsl:template match="mods:physicalDescription/mods:form/@authority"/>
     <xsl:template match="mods:genre/@authority"/>
-    <xsl:template match="mods:accessCondition[exists(./@type)]"/>
     <xsl:template match="mods:note"/>
     <xsl:template match="mods:location"/>
     <xsl:template match="mods:dateIssued"/>
@@ -71,21 +74,7 @@
     <xsl:template match="mods:digitalOrigin"/>
     <xsl:template match="mods:place"/>
     <xsl:template match="mods:relatedItem"/>
-    
-    <xsl:template match="mods:accessCondition[not(exists(./@type))]">
-        <xsl:choose>
-            <xsl:when test="not(contains(., 'gayalliance.org'))">
-                <xsl:call-template name="parse_rights">
-                    <xsl:with-param name="rights_text"><xsl:value-of select="normalize-space(.)"/></xsl:with-param>
-                </xsl:call-template>                
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="parse_rights">
-                    <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
-                </xsl:call-template>                
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
+    <xsl:template match="mods:accessCondition"/>
     
     <xsl:template match="mods:physicalDescription/mods:internetMediaType"/>
     
