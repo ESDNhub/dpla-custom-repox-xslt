@@ -138,6 +138,15 @@
   <xsl:template match="mods:name[./mods:role/mods:roleTerm[not(string(.))]]"/>
   <xsl:template match="mods:language[./mods:languageTerm[not(string(.))]]"/>
   <xsl:template match="mods:originInfo[./mods:dateCreated[not(string(.))]]"/>
+  <xsl:template match="mods:titleInfo/@altRepGroup"/>
+  <xsl:template match="mods:titleInfo/@authority"/>
+  <xsl:template match="mods:titleInfo/@displayLabel"/>
+  <xsl:template match="mods:titleInfo/@lang"/>
+  <xsl:template match="mods:titleInfo/@nameTitleGroup"/>
+  <xsl:template match="mods:titleInfo/@type"/>
+  <xsl:template match="mods:name/@altRepGroup"/>
+  <xsl:template match="mods:name/@authority"/>
+  <xsl:template match="mods:name/@nameTitleGroup"/>
   
   <xsl:template match="mods:accessCondition[@type='use and reproduction']">
     <xsl:element name="accessCondition" namespace="http://www.loc.gov/mods/v3">
