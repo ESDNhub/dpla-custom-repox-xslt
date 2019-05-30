@@ -35,7 +35,7 @@
 
       <xsl:apply-templates select="dc:description"/>
       <xsl:apply-templates select="dc:identifier" mode="bhs"/>
-      <xsl:apply-templates select="dc:rights"/>
+      <xsl:apply-templates select="dc:rights" mode="esdn"/>
       <xsl:apply-templates select="dc:subject"/>
       <xsl:apply-templates select="dc:coverage" mode="bhs"/>
       <xsl:apply-templates select="dc:relation" mode="bhs"/>
@@ -97,7 +97,7 @@
             </xsl:element>
           </xsl:element>
         </xsl:when>
-        <xsl:when test="(contains(., 'jpg'))">
+        <xsl:when test="(contains(lower-case(.), 'jpg'))">
           <xsl:element name="location" namespace="http://www.loc.gov/mods/v3">
             <xsl:element name="url" namespace="http://www.loc.gov/mods/v3">
               <xsl:attribute name="access">preview</xsl:attribute>
