@@ -25,7 +25,9 @@
       <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
 
       <xsl:apply-templates select="dc:language"/>
-      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:call-template name="parse_rights">
+        <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
+      </xsl:call-template>
 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
