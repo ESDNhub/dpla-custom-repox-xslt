@@ -6,7 +6,7 @@
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
 
   <xsl:template match="text() | @*"/>
-  <xsl:template match="//oai_dc:dc">
+  <xsl:template match="//oai_dc:dc[exists(./dc:rights)]">
     <mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"
       version="3.4">
@@ -26,12 +26,6 @@
 
       <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dc:rights" mode="nyh"/>
-      <xsl:if test="not(exists(./dc:rights))">
-        <xsl:call-template name="parse_rights">
-          <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
-        </xsl:call-template>
-   
-      </xsl:if>
 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
