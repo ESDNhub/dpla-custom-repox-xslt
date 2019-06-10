@@ -25,9 +25,13 @@
       <xsl:apply-templates select="dc:identifier" mode="nyh_nolocal"/>
 
       <xsl:apply-templates select="dc:language"/>
-      <xsl:call-template name="parse_rights">
-        <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
-      </xsl:call-template>
+      <xsl:apply-templates select="dc:rights" mode="nyh"/>
+      <xsl:if test="not(exists(./dc:rights))">
+        <xsl:call-template name="parse_rights">
+          <xsl:with-param name="rights_text">http://rightsstatements.org/vocab/InC-NC/1.0/</xsl:with-param>
+        </xsl:call-template>
+   
+      </xsl:if>
 
       <xsl:apply-templates select="dc:subject" mode="nyh"/>
       <xsl:apply-templates select="dc:format" mode="nyh"/>
@@ -38,7 +42,7 @@
       </xsl:element>
       
       <xsl:apply-templates select="dc:coverage" mode="esdn"/>
-      <xsl:apply-templates select="dc:type" mode="niagaraccc"/>
+      <xsl:apply-templates select="dc:type" mode="esdn"/>
 
       <!-- hard code collection and ownership note -->
 
